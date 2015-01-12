@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script type="text/javascript">
+    window.onload=function(){
+        var ctx=document.getElementById("canvas").getContext("2d");
+        ctx.fillRect(10,10,150,150);
+
+        ctx.save();
+        ctx.fillStyle="white";
+        ctx.fillRect(30,30,110,110);
+
+        ctx.save();
+        ctx.fillStyle="blue";
+        ctx.fillRect(50,50,70,70);
+        ctx.restore();//回到上一个状态,即 ctx.fillStyle="white";
+
+        ctx.save();
+        ctx.fillRect(70,70,30,30);//所以此处没有设定fillStyle的时候颜色为white，注意哦！如果在白色矩形后面也restore一下刚此处的fillStyle就为黑色了
+        ctx.restore();
+        ctx.restore();
+        ctx.fillRect(90,70,10,10);//所以此处没有设定fillStyle的时候颜色为white，注意哦！如果在白色矩形后面也restore一下刚此处的fillStyle就为黑色了
+
+    }
+</script>
+</body>
+</html>
