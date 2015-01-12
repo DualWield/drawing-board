@@ -1,0 +1,11 @@
+.header-button{
+    float: left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.forward.header-button{
+    background: url(../img/stash_muro_undoredo_sprite.png) -39px -24px;
+}
+.back.header-button{
+    background: url(../img/stash_muro_undoredo_sprite.png) -7px -24px;
+}
