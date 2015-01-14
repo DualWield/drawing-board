@@ -444,7 +444,7 @@ function redraw()
 	context.beginPath();
 	context.rect(locX, locY, 2, 12);
 	context.closePath();
-	context.fillStyle = '#333333';
+	context.fillStyle = 'rgba(127, 127, 127, 0.42)';
 	context.fill();	
 	
 	// Keep the drawing in the drawing area
@@ -485,7 +485,9 @@ function redraw()
 		}else{
 			//context.globalCompositeOperation = "source-over";	// To erase instead of draw over with white
 			context.strokeStyle = clickColor[i];
+
 		}
+		context.strokeStyle = 'rgba(127, 127, 127, 0.42)';
 		context.lineJoin = "round";
 		context.lineWidth = radius;
 		context.stroke();

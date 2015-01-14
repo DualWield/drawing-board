@@ -3,64 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <title>毕业设计-绘画板</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="../bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
+    <!-- smoothness  humanity redmond -->
 </head>
 <body>
-    <div id="header">
+<div id="header">
 
-    </div>
-    <div id="body">
-        <div id="top-area">
-            <div class="logo">
-                毕业设计-画板
-            </div>
-            <div class="top-tool-bar">
-                <div class="header-button back" data-action="back">后退</div>
-                <div class="header-button forward" data-action="forward">前进</div>
-                <div>清空</div>
-                <div>保存</div>
-            </div>
+</div>
+<div id="body">
+    <div id="top-area">
+        <div class="logo">
+            毕业设计-画板
         </div>
-        <div id="middle-area">
-            <div id="canvas-container">
-                <div class="mouse-capture">
-                    <canvas class="cursor-preview">
-
-                    </canvas>
-                </div>
-                <div class="draw-pic-canvas">
-                    <canvas class="buffer-canvas"></canvas>
-                    <canvas class="paint-canvas"></canvas>
-                </div>
-            </div>
-            <div id="slide-bar">
-
-            </div>
+        <div class="top-tool-bar">
+            <div class="header-button back" data-action="back">后退</div>
+            <div class="header-button forward" data-action="forward">前进</div>
+            <div>清空</div>
+            <div>保存</div>
         </div>
     </div>
-    <div id="footer">
+    <div id="middle-area">
+        <div id="canvas-container">
+            <div class="mouse-capture">
+                <canvas class="cursor-preview">
 
+                </canvas>
+            </div>
+            <div class="draw-pic-canvas">
+                <canvas class="buffer-canvas"></canvas>
+            </div>
+        </div>
+        <div id="slide-bar">
+            <h5>预览图</h5>
+
+            <div class="slide-bar-well"></div>
+            <div class="tool-side-bar-tab"></div>
+        </div>
     </div>
+    <div id="bottom-area">
+        <div class="bottom-tool-bar-container">
+            <div class="buttons-controls">
+                <a class="tool-button draw" data-action="draw">
+                    <i></i>
+                </a>
+                <a class="tool-button eraser" data-action="draw">
+                    <i></i>
+                </a>
+                <a class="tool-button" data-action="draw">
+                    <i></i>
+                </a>
+                <a class="tool-button" data-action="draw">
+                    <i></i>
+                </a>
+            </div>
+            <div class="color-picker">
+                <div id="colorPicker"></div>
+                <input type="text" id="color" name="color" value="#123456" />
+            </div>
+            <div class="brush-slider">
+                <div class="opacity-slider">
+                    <div class="label">Opacity</div>
+                    <div class="track"></div>
+                    <div class="value">50%</div>
+                </div>
+                <div class="size-slider">
+                    <div class="label">Size</div>
+                    <div class="track"></div>
+                    <div class="value">50%</div>
+                </div>
+                <div class="effect-slider">
+                    <div class="label">Softness</div>
+                    <div class="track"></div>
+                    <div class="value">50%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+
+</div>
 
 
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/jquery-ui.js"></script>
+<script src="js/lib/underscore.js"></script>
 <!-- scripts here -->
-    <script src="js/lib/require.js"></script>
-    <script data-main="js/init" src="js/init.js"></script>
-    <script>
-        require.config({
-            baseUrl: 'js/lib',
-            paths: {
-                // the left side is the module ID,
-                // the right side is the path to
-                // the jQuery file, relative to baseUrl.
-                // Also, the path should NOT include
-                // the '.js' file extension. This example
-                // is using jQuery 1.9.0 located at
-                // js/lib/jquery-1.9.0.js, relative to
-                // the HTML page.
-                jquery: 'jquery'
-            }
-        });
-    </script>
+<script src="js/lib/require.js"></script>
+<script data-main="js/init" src="js/init.js"></script>
+<script>
+    require.config({
+        baseUrl: 'js',
+        paths: {
+            // the left side is the module ID,
+            // the right side is the path to
+            // the jQuery file, relative to baseUrl.
+            // Also, the path should NOT include
+            // the '.js' file extension. This example
+            // is using jQuery 1.9.0 located at
+            // js/lib/jquery-1.9.0.js, relative to
+            // the HTML page.
+            jquery: 'lib/jquery',
+            jqueryUi :  'lib/jquery-ui'
+        }
+    });
+</script>
 </body>
 </html>

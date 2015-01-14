@@ -1,3 +1,52 @@
+/* layout.css */
+@font-face {
+    font-family: 'tool-button';
+    src: url('font/stash-icons.eot?6#iefix') format('embedded-opentype'),url('font/stash-icons.ttf?6') format('truetype');
+}
+body{
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+
+    background: #f5f5f5;
+}
+#middle-area{
+    height: 467px;
+    padding-right: 320px;
+    position: relative;
+}
+#canvas-container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    background-color: transparent;
+    top: -4px;
+}
+#slide-bar{
+    width: 300px;
+    position: absolute;
+    right: 20px;
+    top: 0;
+    height: 100%;
+}
+
+
+.draw-pic-canvas{
+    top: 5px;
+    left: 20px;
+    height: 453px;
+    width: 1006px;
+    display: block;
+    background: url(../img/checkers.gif) repeat;
+    overflow: hidden;
+    z-index: 2;
+    margin: 0;
+    position: absolute;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
 .header-button{
     float: left;
     text-indent: -9999px;
@@ -8,4 +57,115 @@
 }
 .back.header-button{
     background: url(../img/stash_muro_undoredo_sprite.png) -7px -24px;
+}
+/* canvas 相关 */
+.paint-canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+.buffer-canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+
+}
+
+/* bottom-tool-bar */
+.buttons-controls{
+    float: left;
+    width: 400px;
+    height: 50px;
+    
+    font-family: "tool-button";
+}
+.tool-button{
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    -moz-transition: all .15s ease-in-out;
+    -webkit-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+    cursor: pointer;
+}
+.tool-button:hover{
+    font-size: 24px;
+    color: #4884d2;
+}
+.tool-button.draw i{
+    /* width: 20px; */
+    /* height: 20px; */
+    display: block;
+
+}
+.tool-button.draw i:before{
+    content:"\e03e";
+}
+.tool-button.eraser i:before{
+    content:"\e03c";
+}
+.color-picker{
+    float: left;
+    width: 450px;
+    height: 102px;
+    
+}
+#colorPicker{
+    float: left;
+}
+#color{
+    float: left;
+
+}
+
+.brush-slider{
+    font-family: Verdana,sans-serif;
+    color: #7f7f7f;
+    font-size: 12px;
+    float: left;
+    width: 320px;
+    height: 85px;
+}
+.opacity-slider,.size-slider,.effect-slider{
+    margin-bottom: 5px;
+}
+.brush-slider .label{
+    width: 70px;
+    text-align: right;
+    color: #7f7f7f;
+    display: inline-block;
+    vertical-align: middle;
+}
+.brush-slider .track {
+    width: 120px;
+    height: 7px;
+    background: #E2E1E1;
+    display: inline-block;
+    vertical-align: middle;
+    border: none;
+}
+.brush-slider .track .ui-slider-handle{
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    background: -webkit-linear-gradient(top, #fff, #f6f6f6);
+    background: -moz-linear-gradient(top, #fff, #f6f6f6);
+    background: linear-gradient(top, #fff, #f6f6f6);
+    border: 1px solid #bbb;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    cursor: pointer;
+}
+.brush-slider .track .ui-slider-range{
+    background: #b1b1b1;
+}
+.brush-slider .value{
+    display: inline-block;
+    vertical-align: middle;
 }
