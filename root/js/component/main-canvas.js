@@ -42,6 +42,9 @@ define(function (require) {
             this.startY = e.clientY-this.$canvas.offset().top;
             this.isPaint = true;
             this.pathTempArr = [];
+
+            this.pathTempArr.push({x : this.startX, y : this.startY });
+
         },
         _bufferCanvasMouseMove : function (e) {
             if(this.isPaint){
@@ -65,13 +68,7 @@ define(function (require) {
                 this.endX = e.clientX-this.$canvas.offset().left;
                 this.endY = e.clientY-this.$canvas.offset().top;
 
-                var obj = {
-                    startX : this.startX,
-                    startY : this.startY,
-                    endX : this.endX,
-                    endY : this.endY
-                };
-                this.pathTempArr.push(obj);
+                this.pathTempArr.push({ x : this.endX, y : this.endY});
                 this.redraw();
 
                 this.startX = this.endX;
@@ -88,25 +85,43 @@ define(function (require) {
         },
         _bufferCanvasMouseEnter : function (e) {
             if(this.isPaint){
-                this.startX = e.clientX-this.$canvas.offset().left;
-                this.startY = e.clientY-this.$canvas.offset().top;
+                this.startX = e.offsetX;
+                this.startY = e.offsetY;
+                this.pathTempArr.push({ x : e.offsetX, Y : e.offsetY});
             }
         },
         _bufferCanvasMouseLeave : function (e) {
 
         },
         redraw : function () {
-            this.clear();
+           // this.clear();
 
+            var dist = _.distanceBetween({x : this.startX, y: this.startY}, {x: this.endX, y : this.endY});
+            var angle = _.angleBetween({x : this.startX, y: this.startY}, {x: this.endX, y : this.endY});
+
+            for(var i = 0,len = dist; i < len ; i++){
+                var x = this.startX + (Math.sin(angle) * i);
+                var y = this.startY + (Math.cos(angle) * i);
+                var radgrad = this.context.createRadialGradient(x, y, 10, x, y, 20);
+                radgrad.addColorStop(0, '#000');
+                radgrad.addColorStop(0.5, 'rgba(0,0,0,0.5)');
+                radgrad.addColorStop(1, 'rgba(0,0,0,0)');
+
+                this.context.fillStyle = radgrad;
+                this.context.globalAlpha = 0.2;
+                this.context.fillRect(x-20, y-20, 40, 40);
+
+            }
+
+/*
             this.context.beginPath();
             for(var i = 0,len = this.pathTempArr.length; i < len ; i++){
                 this.context.moveTo(this.pathTempArr[i].startX, this.pathTempArr[i].startY);
                 this.context.lineTo(this.pathTempArr[i].endX, this.pathTempArr[i].endY);
             }
-            this.context.lineWidth = this.getLineWidth()*(j*0.05+1);
+            this.context.lineWidth = this.getLineWidth();
             this.context.lineCap = 'round';
-            this.context.lineJoin = 'round'
-            ;
+            this.context.lineJoin = 'round';
             this.context.strokeStyle = this.getStrokeStyle();
             //this.context.globalAlpha = this.getGlobalAlpha();
             this.context.globalAlpha = this.getGlobalAlpha();
@@ -114,7 +129,7 @@ define(function (require) {
             //this.context.shadowColor = this.getStrokeStyle();
 
             this.context.stroke();
-            this.context.closePath();
+            this.context.closePath();*/
         },
         getStrokeStyle : function () {
             return this.strokeStyle || '#000';
@@ -203,6 +218,11 @@ define(function (require) {
         },
         getCurrentCanvas : function () {
             return _.findWhere(this.canvasArr, {isCurrent : true});
+        },
+        clear : function () {
+            _.each(this.canvasArr, function (canvas) {
+                canvas.clear();
+            })
         }
     };
 

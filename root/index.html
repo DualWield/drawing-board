@@ -20,8 +20,8 @@
         <div class="top-tool-bar">
             <div class="header-button back" data-action="back">后退</div>
             <div class="header-button forward" data-action="forward">前进</div>
-            <div>清空</div>
-            <div>保存</div>
+            <div class="clear-button" data-action="clear">清空</div>
+            <div class="save-button" data-action="save">保存</div>
         </div>
     </div>
     <div id="middle-area">
@@ -90,25 +90,11 @@
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-ui.js"></script>
 <script src="js/lib/underscore.js"></script>
+<script src="js/lib/Board.js"></script>
+<!-- extend underscore.js -->
+<script src="js/plugin/extend_lib.js"></script>
 <!-- scripts here -->
-<script src="js/lib/require.js"></script>
-<script data-main="js/init" src="js/init.js"></script>
-<script>
-    require.config({
-        baseUrl: 'js',
-        paths: {
-            // the left side is the module ID,
-            // the right side is the path to
-            // the jQuery file, relative to baseUrl.
-            // Also, the path should NOT include
-            // the '.js' file extension. This example
-            // is using jQuery 1.9.0 located at
-            // js/lib/jquery-1.9.0.js, relative to
-            // the HTML page.
-            jquery: 'lib/jquery',
-            jqueryUi :  'lib/jquery-ui'
-        }
-    });
-</script>
+<script src="js/index.js"></script>
+
 </body>
 </html>
