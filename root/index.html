@@ -27,35 +27,47 @@
     <div id="middle-area">
         <div id="canvas-container">
             <div class="mouse-capture">
-                <canvas class="cursor-preview">
-
-                </canvas>
+                <canvas class="cursor-preview"></canvas>
             </div>
             <div class="draw-pic-canvas">
-                <canvas class="buffer-canvas"></canvas>
+                <canvas id="buffer-canvas" class="buffer-canvas"></canvas>
             </div>
         </div>
         <div id="slide-bar">
             <h5>预览图</h5>
-
-            <div class="slide-bar-well"></div>
+            <div class="slide-bar-well drawPlzZoom">
+                <div class="zoom-well">
+                    <div class="zoom-capture">
+                        <div class="zoom-indicator"></div>
+                    </div>
+                    <div class="zoom-canvas-container">
+                        <canvas id="zoom-canvas" width="1006" height="453" style="width:300px;height:130px"></canvas>
+                    </div>
+                </div>
+                <div class="zoom-control">
+                    <div class="zoom-in zoom-button"></div>
+                    <div class="zoom-zero zoom-button"></div>
+                    <div class="zoom-out zoom-button"></div>
+                    <div class="zoom-percentage">100%</div>
+                </div>
+            </div>
             <div class="tool-side-bar-tab"></div>
         </div>
     </div>
     <div id="bottom-area">
         <div class="bottom-tool-bar-container">
             <div class="buttons-controls">
-                <a class="tool-button draw" data-action="draw">
-                    <i></i>
+                <a class="tool-button draw" data-action="Pencil">
+                    pen
                 </a>
-                <a class="tool-button eraser" data-action="draw">
-                    <i></i>
+                <a class="tool-button eraser" data-action="Eraser">
+                    eraser
                 </a>
-                <a class="tool-button" data-action="draw">
-                    <i></i>
+                <a class="tool-button" data-action="Line">
+                    line
                 </a>
-                <a class="tool-button" data-action="draw">
-                    <i></i>
+                <a class="tool-button" data-action="Rect">
+                    rect
                 </a>
             </div>
             <div class="color-picker">
@@ -90,11 +102,14 @@
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-ui.js"></script>
 <script src="js/lib/underscore.js"></script>
-<script src="js/lib/Board.js"></script>
+
 <!-- extend underscore.js -->
 <script src="js/plugin/extend_lib.js"></script>
 <!-- scripts here -->
-<script src="js/index.js"></script>
+<script data-main="js/index" src="js/lib/require.js"></script>
+<script>
+
+</script>
 
 </body>
 </html>
