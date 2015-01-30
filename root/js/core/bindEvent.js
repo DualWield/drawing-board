@@ -10,7 +10,7 @@ define(function (require) {
         mc.$bc.on('mousemove', function (e) {
             var x = e.clientX - mc.$bc.offset().left;
             var y = e.clientY - mc.$bc.offset().top;
-            x = x/mc.zoom;git
+            x = x/mc.zoom;
             y= y/mc.zoom;
             mc.continue(x, y);
         });
