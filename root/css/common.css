@@ -206,12 +206,23 @@ body{
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    position: relative;
 }
 .zoom-capture{
+    position: absolute;
 
+    width: 288px;
+    height: 130px;
+    top: 0;
+    left: 0;
+    margin: 4px;
+    box-sizing: border-box;
 }
 .zoom-indicator{
+    border: 1px solid #000;
 
+    position: absolute;
+    box-sizing: border-box;
 }
 .zoom-canvas{
 
@@ -242,4 +253,84 @@ body{
     color: #7f7f7f;
     float: right;
     text-align: right;
+}
+.zoom-canvas-container{
+    margin: 4px;
+    width: 288px;
+    height: 130px;
+}
+#zoom-canvas{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/*  layer */
+.LayerList{
+    height: 149px;
+    background-color: #f0f0f0;
+    border: 1px solid #dedede;
+    border-radius: 6px;
+    z-index: 1;
+    box-shadow: 0 0 4px #eee;
+    padding: 5px;
+}
+.Layer{
+    background: #fff;
+
+    height: 32px;
+    list-style: none;
+    line-height: 32px;
+}
+.nameInput{
+    display: none;
+    float: left;
+    width: 210px;
+}
+.LayerControl{
+    margin-top: 12px;
+}
+.LayerOpacityControlTrack{
+    width: 165px;
+    float: left;
+}
+.LayerOpacityControlName{
+    float: left;
+
+}
+.LayerOpacityControlValue{
+    float: right;
+
+}
+.LayerOpacityControl{
+    height: 30px;
+    
+}
+.eyeButton {
+    position: absolute;
+
+    right: 10px;
+}
+.eye-icon{
+
+}
+.font-icon{
+    font-family: tool-button;
+    font-style: normal;
+}
+.eyeButton i:before{
+    content: "\e03a";
+}
+.LayerName{
+    float: left;
+
+    width: 210px;
+}
+.opacityDisplay{
+    position: absolute;
+    left: 230px;
+}
+.LayerOpacityControlTrack {
+    margin-top: 5px;
 }

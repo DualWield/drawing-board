@@ -659,9 +659,9 @@ button.ui-button::-moz-focus-inner {
 	z-index: 2;
 	width: 1.2em;
 	height: 1.2em;
-	cursor: default;
-	-ms-touch-action: none;
-	touch-action: none;
+	cursor: pointer;
+	/*-ms-touch-action: none;
+	touch-action: none;*/
 }
 .ui-slider .ui-slider-range {
 	position: absolute;
@@ -679,7 +679,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-slider-horizontal {
-	height: .8em;
+	height: 6px;
 }
 .ui-slider-horizontal .ui-slider-handle {
 	top: -.3em;
@@ -845,7 +845,7 @@ body .ui-tooltip {
 }
 .ui-widget-content {
 	border: 1px solid #aaaaaa;
-	background: #ffffff url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
+	background: #FAEEEE url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
 	color: #222222;
 }
 .ui-widget-content a {
@@ -853,7 +853,7 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	border: 1px solid #aaaaaa;
-	background: #cccccc url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
+	background: #b1b1b1;
 	color: #222222;
 	font-weight: bold;
 }
@@ -867,9 +867,13 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid #d3d3d3;
-	background: #e6e6e6 url("images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;
 	font-weight: normal;
 	color: #555555;
+	background: #fff;  background: -webkit-linear-gradient(top, #fff, #f6f6f6);  background: -moz-linear-gradient(top, #fff, #f6f6f6);  background: linear-gradient(top, #fff, #f6f6f6);
+	border: 1px solid #bbb;  box-shadow: 0 1px 3px rgba(0,0,0,0.2);  border-radius: 20px;
+	width: 14px;
+	height: 14px;
+	outline: none !important;
 }
 .ui-state-default a,
 .ui-state-default a:link,

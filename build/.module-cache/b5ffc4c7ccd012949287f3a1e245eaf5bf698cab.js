@@ -3,7 +3,7 @@ define(function (require) {
         require('component/colorPicker').init(mc);
         require('component/toolButton').init(mc);
         require('component/zoom').init(mc);
-        require('jsx!component/layer').init(mc);
+        require('component/layer').init(mc);
 
     };
 

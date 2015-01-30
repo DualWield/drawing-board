@@ -1,8 +1,12 @@
 requirejs.config({
    baseUrl: 'js',
    paths: {
-
+      'react' : 'lib/react'
+   },
+   jsx:{
+      fileExtension: '.jsx'
    }
+
 });
 
 define(function (require) {

@@ -9,6 +9,12 @@ define(function (require) {
     var DrawCanvas = require('core/DrawCanvas');
     var component = require('component/init');
 
+    /*  const value */
+    window.MC = window.MC || {};
+    window.MC.WIDTH = 1006;
+    window.MC.HEIGHT = 453;
+
+
     function MyCanvas(){
         this.width = 1006;
         this.height = 453;
@@ -20,13 +26,13 @@ define(function (require) {
         this.bcCtx = this.bc.getContext('2d');
         this.tool = new Pencil();
 
+        this.zoom = 1; //缩放
 
         this.dc = new DrawCanvas();
         //新加一个背景的layer
-        this.dc.addCanvas();
+        this.dc.addCanvas({name:'background'});
         this.dc.getCanvas().setBackground('#fff');
 
-        component.init(this);
 
 
         bindEvent(this);
@@ -72,6 +78,7 @@ define(function (require) {
             this.clearBc();
             this.cloneToZoomCanvas();
         },
+
         cloneToZoomCanvas : function () {
             if(this.timer){
                 clearTimeout(this.timer);

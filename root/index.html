@@ -35,23 +35,12 @@
         </div>
         <div id="slide-bar">
             <h5>预览图</h5>
-            <div class="slide-bar-well drawPlzZoom">
-                <div class="zoom-well">
-                    <div class="zoom-capture">
-                        <div class="zoom-indicator"></div>
-                    </div>
-                    <div class="zoom-canvas-container">
-                        <canvas id="zoom-canvas" width="1006" height="453" style="width:300px;height:130px"></canvas>
-                    </div>
-                </div>
-                <div class="zoom-control">
-                    <div class="zoom-in zoom-button"></div>
-                    <div class="zoom-zero zoom-button"></div>
-                    <div class="zoom-out zoom-button"></div>
-                    <div class="zoom-percentage">100%</div>
-                </div>
+            <div id="drawPlzZoom" class="slide-bar-well drawPlzZoom">
+
             </div>
-            <div class="tool-side-bar-tab"></div>
+            <div id="drawPlzLayers">
+
+            </div>
         </div>
     </div>
     <div id="bottom-area">
@@ -102,6 +91,7 @@
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-ui.js"></script>
 <script src="js/lib/underscore.js"></script>
+<script src="js/lib/JSXTransformer.js"></script>
 
 <!-- extend underscore.js -->
 <script src="js/plugin/extend_lib.js"></script>
