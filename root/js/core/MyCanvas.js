@@ -1,5 +1,5 @@
 define(function (require) {
-    var bindEvent = require('core/BindEvent');
+    var bindEvent = require('core/bindEvent');
 
     var Pencil = require('tools/Pencil');
     var Eraser = require('tools/Eraser');
