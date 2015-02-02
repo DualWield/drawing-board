@@ -40,10 +40,9 @@ define(function (require) {
         onChangeLayer: function () {
             var layerArr = $(".LayerList").sortable('toArray', {attribute: 'data-id'});
             this.props.data.resetCanvasArr(layerArr);
+            $( ".LayerList" ).sortable( "cancel" );
             this.props.refresh();
-            //React.unmountComponentAtNode(document.getElementById('drawPlzLayers'));
-            //
-            //window.init(window.mc);
+
         },
         setAllUnCur: function () {
             this.props.data.canvasArr.forEach(function (canvas) {

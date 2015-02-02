@@ -10,6 +10,30 @@ body{
 
     background: #f5f5f5;
 }
+
+/* logo */
+#top-area{
+    height: 59px;
+}
+.logo{
+    font-family: "微软雅黑";
+    
+    font-size: 22px;
+    float: left;
+}
+.top-tool-bar{
+    float: left;
+}
+.clear-button{
+    float: left;
+}
+.save-button{
+    float: left;
+}
+
+
+
+
 #middle-area{
     height: 467px;
     padding-right: 320px;
@@ -58,11 +82,24 @@ body{
     cursor: pointer;
 }
 .forward.header-button{
-    background: url(../img/stash_muro_undoredo_sprite.png) -39px -24px;
+    background-image: url(../img/stash_muro_undoredo_sprite.png);
+    background-position: -39px -24px;
+    width: 30px;  height: 26px;
+
+}
+.forward.header-button:hover{
+    background-position: -38px -49px;
+}
+.back.header-button:hover{
+    background-position: -7px -49px;
 }
 .back.header-button{
-    background: url(../img/stash_muro_undoredo_sprite.png) -7px -24px;
+    background-image: url(../img/stash_muro_undoredo_sprite.png);
+    background-position: -7px -24px;
+    width: 30px;
+    height: 26px;
 }
+
 /* canvas 相关 */
 .paint-canvas{
     position: absolute;
