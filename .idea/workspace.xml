@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b3f13db-3afa-4828-bce1-9412b6040151" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/root/js/core/bindEvent.js" afterPath="$PROJECT_DIR$/root/js/core/bindEvent.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/root/js/lib/react-with-addons.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/root/js/core/DrawCanvas.js" afterPath="$PROJECT_DIR$/root/js/core/DrawCanvas.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/root/css/common.css" afterPath="$PROJECT_DIR$/root/css/common.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/root/js/index.js" afterPath="$PROJECT_DIR$/root/js/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/root/js/component/layer.jsx" afterPath="$PROJECT_DIR$/root/js/component/layer.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="drawing-board.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,14 +30,14 @@
     <favorites_list name="drawing-board" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.499388">
       <split-first>
         <leaf>
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/root/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-2.8125" vertical-offset="2003" max-vertical-offset="2530">
-                  <caret line="91" column="36" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
+                <state vertical-scroll-proportion="-12.3125" vertical-offset="1975" max-vertical-offset="2530">
+                  <caret line="103" column="7" selection-start-line="103" selection-start-column="7" selection-end-line="103" selection-end-column="7" />
                   <folding />
                 </state>
               </provider>
@@ -41,9 +46,12 @@
           <file leaf-file-name="common.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/root/css/common.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-11.793103" vertical-offset="6811" max-vertical-offset="7843">
-                  <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
-                  <folding />
+                <state vertical-scroll-proportion="0.0" vertical-offset="7385" max-vertical-offset="8970">
+                  <caret line="334" column="21" selection-start-line="334" selection-start-column="21" selection-end-line="334" selection-end-column="21" />
+                  <folding>
+                    <marker date="1422610596903" expanded="true" signature="4875:5046" placeholder="{...}" />
+                    <marker date="1422610596903" expanded="true" signature="5998:6054" placeholder="{...}" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -68,22 +76,49 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="layer.jsx" pinned="false" current-in-tab="false">
+          <file leaf-file-name="layer.jsx" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/root/js/component/layer.jsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="319" max-vertical-offset="2645">
-                  <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+                <state vertical-scroll-proportion="0.64615387" vertical-offset="588" max-vertical-offset="4002">
+                  <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+                  <folding>
+                    <element signature="e#5456#7825#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/root/js/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="598">
+                  <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="bindEvent.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/root/js/core/bindEvent.js">
+          <file leaf-file-name="Pencil.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/root/js/tools/Pencil.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.45320198" vertical-offset="0" max-vertical-offset="736">
-                  <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="366" max-vertical-offset="966">
+                  <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
                   <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="zoom.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/root/js/component/zoom.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2967">
+                  <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+                  <folding>
+                    <marker date="1422518162798" expanded="true" signature="484:820" placeholder="..." />
+                    <marker date="1422518162798" expanded="true" signature="532:624" placeholder="..." />
+                    <marker date="1422518162798" expanded="true" signature="681:796" placeholder="..." />
+                    <marker date="1422518162798" expanded="true" signature="864:1135" placeholder="..." />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -92,11 +127,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="MyCanvas.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="MyCanvas.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/root/js/core/MyCanvas.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.41543514" vertical-offset="0" max-vertical-offset="2737">
-                  <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="1870" max-vertical-offset="2737">
+                  <caret line="87" column="16" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
@@ -112,12 +147,14 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="DrawCanvas.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="DrawCanvas.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/root/js/core/DrawCanvas.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="283" max-vertical-offset="1219">
-                  <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-                  <folding />
+                <state vertical-scroll-proportion="0.8820513" vertical-offset="473" max-vertical-offset="2277">
+                  <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+                  <folding>
+                    <element signature="e#193#1363#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -145,7 +182,6 @@
         <option value="$PROJECT_DIR$/root/js/component/bottom-tool-bar.js" />
         <option value="$PROJECT_DIR$/root/js/lib/Board.js" />
         <option value="$PROJECT_DIR$/root/js/component/colorPicker.js" />
-        <option value="$PROJECT_DIR$/root/js/tools/Pencil.js" />
         <option value="$PROJECT_DIR$/root/js/component/toolButton.js" />
         <option value="$PROJECT_DIR$/root/js/tools/Eraser.js" />
         <option value="$PROJECT_DIR$/root/js/tools/Line.js" />
@@ -157,13 +193,14 @@
         <option value="$PROJECT_DIR$/root/js/component/layer.js" />
         <option value="$PROJECT_DIR$/build/layer.js" />
         <option value="$PROJECT_DIR$/root/js/component/init.js" />
-        <option value="$PROJECT_DIR$/root/js/index.js" />
-        <option value="$PROJECT_DIR$/root/js/core/DrawCanvas.js" />
         <option value="$PROJECT_DIR$/bower_components/jquery-ui/themes/smoothness/jquery-ui.css" />
-        <option value="$PROJECT_DIR$/root/css/common.css" />
-        <option value="$PROJECT_DIR$/root/js/component/layer.jsx" />
         <option value="$PROJECT_DIR$/root/js/core/MyCanvas.js" />
         <option value="$PROJECT_DIR$/root/js/core/bindEvent.js" />
+        <option value="$PROJECT_DIR$/root/js/index.js" />
+        <option value="$PROJECT_DIR$/root/css/common.css" />
+        <option value="$PROJECT_DIR$/root/js/tools/Pencil.js" />
+        <option value="$PROJECT_DIR$/root/js/core/DrawCanvas.js" />
+        <option value="$PROJECT_DIR$/root/js/component/layer.jsx" />
       </list>
     </option>
   </component>
@@ -172,7 +209,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1358" />
-    <option name="y" value="-332" />
+    <option name="y" value="-427" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
   </component>
@@ -267,6 +304,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawing-board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawing-board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="root" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -325,6 +384,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawing-board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawing-board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bower_components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawing-board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawing-board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bower_components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -339,8 +430,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Code\drawing-board\root\js" />
       <recent name="D:\Code\drawing-board\root\js\lib" />
+      <recent name="D:\Code\drawing-board\root\js" />
     </key>
   </component>
   <component name="RunManager">
@@ -389,11 +480,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-332" width="1936" height="1096" extended-state="6" />
+    <frame x="1358" y="-427" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3388601" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35025907" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -402,7 +493,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35025907" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -450,7 +541,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -467,14 +558,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46464646" vertical-offset="0" max-vertical-offset="1380">
           <caret line="18" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/root/js/tools/Pencil.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="966">
-          <caret line="17" column="10" selection-start-line="0" selection-start-column="0" selection-end-line="36" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -527,43 +610,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/root/js/component/zoom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1104" max-vertical-offset="2967">
-          <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
-          <folding>
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="/** Created by xuli07 on 2015/1/28. ...*/" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{&quot;tpl&quot;: '&lt;div class=&quot;zoom-well&quot;&gt;\&#10;                    &lt;div class=&quot;zoom-capture&quot;&gt;\&#10;                        &lt;div class=&quot;zoom-indicator&quot;&gt;&lt;/div&gt;\&#10;                        &lt;/div&gt;\&#10;                    &lt;div class=&quot;zoom-canvas-container&quot;&gt;\&#10;                         &lt;canvas id=&quot;zoom-canvas&quot; width=&quot;1006&quot; height=&quot;453&quot;&gt;&lt;/canvas&gt;\&#10;                    &lt;/div&gt;\&#10;                &lt;/div&gt;\&#10;                &lt;div class=&quot;zoom-control&quot;&gt;\&#10;                    &lt;div class=&quot;zoom-in zoom-button&quot;&gt;&lt;/div&gt;\&#10;                    &lt;div class=&quot;zoom-zero zoom-button&quot;&gt;&lt;/div&gt;\&#10;                    &lt;div class=&quot;zoom-out zoom-button&quot;&gt;&lt;/div&gt;\&#10;                    &lt;div class=&quot;zoom-percentage&quot;&gt;100%&lt;/div&gt;\&#10;                &lt;/div&gt;'...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{&quot;top&quot;: 0...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{&quot;containment&quot;: &quot;parent&quot;...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{&quot;transform&quot;: 'translate(0,0)'...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1422518162798" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/root/js/lib/react.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39093485" vertical-offset="0" max-vertical-offset="416783">
@@ -598,14 +644,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/root/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.8125" vertical-offset="2003" max-vertical-offset="2530">
-          <caret line="91" column="36" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/root/js/JSXTransformer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="349692">
@@ -618,14 +656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1203" max-vertical-offset="5727">
           <caret line="67" column="50" selection-start-line="67" selection-start-column="43" selection-end-line="67" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/root/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="575">
-          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -646,30 +676,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/root/js/core/DrawCanvas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="283" max-vertical-offset="1219">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/root/css/common.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.793103" vertical-offset="6811" max-vertical-offset="7843">
-          <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/root/js/component/layer.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="319" max-vertical-offset="2645">
-          <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bower_components/jquery-ui/themes/smoothness/jquery-ui.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="14804" max-vertical-offset="28405">
@@ -678,19 +684,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/root/js/core/MyCanvas.js">
+    <entry file="file://$PROJECT_DIR$/root/js/core/bindEvent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41543514" vertical-offset="0" max-vertical-offset="2737">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.71756977" vertical-offset="0" max-vertical-offset="736">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/root/js/core/bindEvent.js">
+    <entry file="file://$PROJECT_DIR$/root/js/lib/react-with-addons.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45320198" vertical-offset="0" max-vertical-offset="736">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.5402685" vertical-offset="0" max-vertical-offset="456021">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.3125" vertical-offset="1975" max-vertical-offset="2530">
+          <caret line="103" column="7" selection-start-line="103" selection-start-column="7" selection-end-line="103" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/css/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="7385" max-vertical-offset="8970">
+          <caret line="334" column="21" selection-start-line="334" selection-start-column="21" selection-end-line="334" selection-end-column="21" />
+          <folding>
+            <marker date="1422610596903" expanded="true" signature="4875:5046" placeholder="{...}" />
+            <marker date="1422610596903" expanded="true" signature="5998:6054" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="598">
+          <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/js/tools/Pencil.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="366" max-vertical-offset="966">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/js/component/zoom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2967">
+          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+          <folding>
+            <marker date="1422518162798" expanded="true" signature="484:820" placeholder="..." />
+            <marker date="1422518162798" expanded="true" signature="532:624" placeholder="..." />
+            <marker date="1422518162798" expanded="true" signature="681:796" placeholder="..." />
+            <marker date="1422518162798" expanded="true" signature="864:1135" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/js/core/MyCanvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1870" max-vertical-offset="2737">
+          <caret line="87" column="16" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/js/core/DrawCanvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8820513" vertical-offset="473" max-vertical-offset="2277">
+          <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+          <folding>
+            <element signature="e#193#1363#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/js/component/layer.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.64615387" vertical-offset="588" max-vertical-offset="4002">
+          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+          <folding>
+            <element signature="e#5456#7825#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

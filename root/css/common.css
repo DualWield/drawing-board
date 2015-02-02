@@ -275,18 +275,28 @@ body{
     z-index: 1;
     box-shadow: 0 0 4px #eee;
     padding: 5px;
+    overflow: auto;
 }
 .Layer{
-    background: #fff;
-
+  
     height: 32px;
     list-style: none;
     line-height: 32px;
+    border-bottom: 1px solid #d8d8d8;
+    cursor: pointer;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+}
+.Layer.active{
+      background: #fff;
+
 }
 .nameInput{
     display: none;
     float: left;
-    width: 210px;
+    width: 205px;
+    box-sizing: border-box;
+    margin-top: 6px;
 }
 .LayerControl{
     margin-top: 12px;
@@ -308,9 +318,9 @@ body{
     
 }
 .eyeButton {
-    position: absolute;
+    float: left;
 
-    right: 10px;
+    margin-left: 13px;
 }
 .eye-icon{
 
@@ -322,15 +332,54 @@ body{
 .eyeButton i:before{
     content: "\e03a";
 }
+.eyeButton.disabled i:before{
+    content: "\e03b";
+}
 .LayerName{
     float: left;
 
-    width: 210px;
+    width: 205px;
+    box-sizing: border-box;
 }
 .opacityDisplay{
-    position: absolute;
-    left: 230px;
+    float: left;
+    /* margin-left: 230px; */
+    width: 32px;
+    text-align: right;
 }
 .LayerOpacityControlTrack {
     margin-top: 5px;
+}
+.LayerAdd .font-icon:before{
+    content: "\e00a";
+ }
+.LayerDel .font-icon:before{
+    content: "\e00b";
+}
+.LayerMergeVisible .font-icon:before{
+    content: "\e039";
+    float: left;
+    width: 23px;
+}
+.LayerButton{
+
+font-size: 10px;
+border-radius: 4px;
+width: 23px;
+height: 23px;
+
+
+line-height: 23px;
+
+margin: 0 5px 0 0;
+cursor: pointer;
+float: left;
+
+
+color: #050505;
+text-align: center;
+
+}
+.LayerButton:hover{
+    background-color: #dedede;
 }

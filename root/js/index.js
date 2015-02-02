@@ -1,7 +1,7 @@
 requirejs.config({
    baseUrl: 'js',
    paths: {
-      'react' : 'lib/react'
+      'react' : 'lib/react-with-addons'
    },
    jsx:{
       fileExtension: '.jsx'
@@ -15,6 +15,7 @@ define(function (require) {
 
    var mc = new MyCanvas();
 
+   window.mc = mc;
    component.init(mc);
 
 });
