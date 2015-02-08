@@ -1,7 +1,8 @@
 requirejs.config({
    baseUrl: 'js',
    paths: {
-      'react' : 'lib/react-with-addons'
+      'react' : 'lib/react-with-addons',
+      'mediator': 'lib/mediator.min'
    },
    jsx:{
       fileExtension: '.jsx'

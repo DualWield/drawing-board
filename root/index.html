@@ -45,40 +45,26 @@
     </div>
     <div id="bottom-area">
         <div class="bottom-tool-bar-container">
-            <div class="buttons-controls">
-                <a class="tool-button draw" data-action="Pencil">
+            <div class="buttons-controls" id="buttons-controls">
+             <!--   <a class="tool-button draw" data-action="pencil">
                     pen
                 </a>
-                <a class="tool-button eraser" data-action="Eraser">
+                <a class="tool-button eraser" data-action="eraser">
                     eraser
                 </a>
-                <a class="tool-button" data-action="Line">
+                <a class="tool-button" data-action="line">
                     line
                 </a>
-                <a class="tool-button" data-action="Rect">
+                <a class="tool-button" data-action="rect">
                     rect
-                </a>
+                </a>-->
             </div>
             <div class="color-picker">
                 <div id="colorPicker"></div>
                 <input type="text" id="color" name="color" value="#123456" />
             </div>
-            <div class="brush-slider">
-                <div class="opacity-slider">
-                    <div class="label">Opacity</div>
-                    <div class="track"></div>
-                    <div class="value">50%</div>
-                </div>
-                <div class="size-slider">
-                    <div class="label">Size</div>
-                    <div class="track"></div>
-                    <div class="value">50%</div>
-                </div>
-                <div class="effect-slider">
-                    <div class="label">Softness</div>
-                    <div class="track"></div>
-                    <div class="value">50%</div>
-                </div>
+            <div class="brush-slider" id="brush-slider">
+
             </div>
         </div>
     </div>
@@ -92,6 +78,7 @@
 <script src="js/lib/jquery-ui.js"></script>
 <script src="js/lib/underscore.js"></script>
 <script src="js/lib/JSXTransformer.js"></script>
+<script src="js/lib/mediator.min.js"></script>
 
 <!-- extend underscore.js -->
 <script src="js/plugin/extend_lib.js"></script>

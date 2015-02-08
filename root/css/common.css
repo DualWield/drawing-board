@@ -13,7 +13,7 @@ body{
 
 /* logo */
 #top-area{
-    height: 59px;
+    height: 43px;
 }
 .logo{
     font-family: "微软雅黑";
@@ -115,7 +115,38 @@ body{
 
 }
 
-/* bottom-tool-bar */
+/* mainToolButton */
+.mainTool{
+    height: 35px;
+}
+.mainTool .active.toolButton,.subTool .subButton.active{
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    background: #fff;
+    background: -webkit-linear-gradient(top, #fff 0, #f6f6f6 100%);
+    background: -moz-linear-gradient(top, #fff 0, #f6f6f6 100%);
+    background: linear-gradient(top, #fff 0, #f6f6f6 100%);
+}
+.mainTool .toolButton{
+    float: left;
+    margin: 0 6px;
+}
+.subTool{
+    height: 35px;
+}
+.subButton{
+    float: left;
+    margin: 0 6px;
+    
+}
+
+
+
+
+
+
+
+
 .buttons-controls{
     float: left;
     width: 400px;
@@ -295,6 +326,7 @@ body{
     margin: 4px;
     width: 288px;
     height: 130px;
+    background: url(../img/checkers.gif) repeat;
 }
 #zoom-canvas{
     width: 100%;

@@ -1,54 +1,48 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+document.onselectstart = <function></function>(){ return false; };
+var x = 0;
+var y = 0;
+var lastX;
+var lastY;
+function draw(x,y,w,r,g,b,a){
+var gradient = ctx.createRadialGradient(x, y, 0, x, y, w);
+gradient.addColorStop(0, 'rgba('+r+', '+g+', '+b+', '+a+')');
+gradient.addColorStop(1, 'rgba('+r+', '+g+', '+b+', 0)');
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <!--[if IE]><script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/tags/m3/excanvas.compiled.js"></script><![endif]-->
-	<title>Farbtastic v2</title>
-	<script type="text/javascript" charset="utf-8" src="../src/farbtastic.js"></script>
-	<script type="text/javascript" charset="utf-8">
-	 $(function () {
-	   $('#colorpicker1').farbtastic('#color1');
-	   $('#colorpicker2').farbtastic({ callback: '#color2', width: 150 });
-	 });
-	</script>
-	<style type="text/css" media="screen">
-	 .colorpicker {
-	   float: left;
-	   margin: 1em;
-	 }
-	 form {
-	   margin: 2em 1em 0 1;
-	   text-align: center;
-	 }
-	 body {
-	   font-family: "Lucida Grande", "Lucida Unicode", "Lucida Sans", sans-serif;
-	 }
-	 p {
-	   clear: both;
-	 }
-	</style>
-</head>
+ctx.beginPath();
+ctx.arc(x, y, w, 0, 2 * Math.PI);
+ctx.fillStyle = gradient;
+ctx.fill();
+ctx.closePath();
+};
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var w = 10;
+var radius = w/2;
+var going = false;
+$('canvas').mousedown(function(e){
+going = true;
+lastX = e.offsetX;
+lastY = e.offsetY;
+draw(lastX, lastY,w,100,100,100, 0.5);
+});
+$('canvas').mouseup(function(){
+going = false;
+});
+$('canvas').mousemove(function(e){
+if(going == true){
+x = e.offsetX;
+y = e.offsetY;
 
-<body>
+// the distance the mouse has moved since last mousemove event
+var dis = Math.sqrt(Math.pow(lastX-x, 2)+Math.pow(lastY-y, 2));
 
-<h1>Farbtastic 2.0 alpha</h1>
-<h2>Canvas/JS. No external CSS, no images.</h2>
-<h3>Note: this is an alpha version, not suitable for use on production websites.</h3>
-
-<div class="colorpicker">
-  <div id="colorpicker1"></div>
-  <form><input type="text" id="color1" /></form>
-</div>
-
-<div class="colorpicker">
-  <div id="colorpicker2"></div>
-  <form><input type="text" id="color2" /></form>
-</div>
-
-<p><a href="http://acko.net/">› Acko.net</a></p>
-</body>
-</html>
-
+// for each pixel distance, draw a circle on the line connecting the two points
+// to get a continous line.
+for (i=0;i<dis;i+=1) {
+var s = i/dis;
+draw(lastX*s + x*(1-s), lastY*s + y*(1-s),w,100,100,100, 0.5);
+}
+lastX = x;
+lastY = y;
+};
+});

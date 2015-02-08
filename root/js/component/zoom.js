@@ -34,7 +34,7 @@ define(function (require) {
             this.element.html(this.tpl);
         },
         _refresh: function () {
-            this.mc.cloneToZoomCanvas();
+            this.cloneToZoomCanvas();
             if(this.mc.zoom >= 1){
                 var defaultWidth = $('.zoom-indicator').parent().width();
                 var defaultHeight = $('.zoom-indicator').parent().height();
@@ -44,9 +44,17 @@ define(function (require) {
                     width : defaultWidth/this.mc.zoom,
                     height: defaultHeight/this.mc.zoom
                 });
-                $('.zoom-indicator').trigger('drag');
             }
 
+        },
+        cloneToZoomCanvas: function () {
+            var ctx = $('#zoom-canvas')[0].getContext('2d');
+            ctx.clearRect(0, 0, 1006, 453);
+            var orderArr = this.mc.dc.getOrderArr(this.mc.dc.canvasArr);
+            var i = orderArr.length;
+            while(i--){
+                ctx.drawImage(orderArr[i].canvas[0], 0, 0);
+            }
         },
         _bindEvent : function () {
             $('.zoom-in').on('click', $.proxy(this.zoomIn, this));
@@ -56,7 +64,6 @@ define(function (require) {
                 containment:"parent",
                 cursor: "crosshair",
                 drag: function (event, ui) {
-                    console.log(event, ui);
                     var position = ui.position;
                     var rate = $('#buffer-canvas').width()/288;
                     $('.draw-pic-canvas').children().css({
@@ -64,6 +71,8 @@ define(function (require) {
                     })
                 }
             });
+            this.mc.mediator.subscribe('onChangeLayer', this.cloneToZoomCanvas.bind(this));
+            this.mc.mediator.subscribe('drawEnd', this.cloneToZoomCanvas.bind(this));
 
         },
         zoomIn: function () {

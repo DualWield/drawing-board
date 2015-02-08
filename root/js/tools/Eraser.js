@@ -4,6 +4,9 @@ define(function (require) {
         this.path = [];
     };
     Eraser.prototype = {
+        setting:{
+            Size: 20
+        },
         begin: function (x, y, mc) {
             this.path.push({x: x, y: y});
         },
@@ -17,18 +20,30 @@ define(function (require) {
 
         },
         redraw : function (mc) {
-            mc.bcCtx.lineCap = mc.bcCtx.lineJoin = 'round';
-            mc.bcCtx.beginPath();
-            mc.bcCtx.strokeStyle = '#fff';
-            mc.bcCtx.lineWidth = '20';
-            /* mc.bcCtx.moveTo(0, 0);
-             mc.bcCtx.lineTo(20,20);*/
-            mc.bcCtx.moveTo(this.path[0].x, this.path[0].y);
+            var length = this.path.length;
+            var nowPoint = this.path.slice(length-1,length)[0];
+            var lastPoint = this.path.slice(length-2,length-1)[0];
+            var w = this.setting.Size,
+                color = mc.getColor(),
+                r = +('0x'+color[1]+color[2]),
+                g =  (+('0x'+color[3]+color[4])),
+                b = (+('0x'+color[5]+color[6])),
+                dist = _.distanceBetween(nowPoint, lastPoint);
+            for(var j = 0; j < dist; j+=6) {
+                var s = j / dist;
+                mc.dc.getCanvas().ctx.clearRect(lastPoint.x * s + nowPoint.x * (1 - s),
+                    lastPoint.y * s + nowPoint.y * (1 - s), w, w);
+                //同时清理预览图的canvas ，待优化，耦合太高 todo
+                mc.zcCtx.clearRect(lastPoint.x * s + nowPoint.x * (1 - s),
+                    lastPoint.y * s + nowPoint.y * (1 - s), w, w);
 
-            for(var i = 1,len = this.path.length; i<len ; i++){
-                mc.bcCtx.lineTo(this.path[i].x, this.path[i].y);
+               /* this.draw(lastPoint.x * s + nowPoint.x * (1 - s),
+                    lastPoint.y * s + nowPoint.y * (1 - s), w, r, g, b, 0.5);*/
             }
-            mc.bcCtx.stroke();
+            /*for(var i = 0,len = this.path.length; i<len ; i++){
+                mc.dc.getCanvas().ctx.clearRect(this.path[i].x, this.path[i].y,10,10);
+            }
+            mc.bcCtx.stroke();*/
         }
     };
 

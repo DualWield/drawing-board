@@ -1,6 +1,6 @@
 define(function (require) {
     var Line = function () {
-        this.name = 'pencil';
+        this.name = 'line';
         this.path = [];
     };
     Line.prototype = {

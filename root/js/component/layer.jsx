@@ -186,6 +186,10 @@ define(function (require) {
             this.props.data.delCurCanvas();
             this.props.refresh();
         },
+        concatLayer: function () {
+            this.props.data.concatLayer();
+            this.props.refresh();
+        },
         render: function () {
             $('.LayerOpacityControlTrack').slider('value', (this.props.data.getCanvas().opacity * 100).toFixed(0));
             $('#buffer-canvas').css({opacity: this.props.data.getCanvas().opacity});
@@ -203,7 +207,7 @@ define(function (require) {
                         <div onClick={this.delLayer} className="LayerDel LayerButton">
                             <i className="font-icon"></i>
                         </div>
-                        <div className="LayerMergeVisible LayerButton">
+                        <div onClick={this.concatLayer} className="LayerMergeVisible LayerButton">
                             <i className="font-icon"></i>
                         Visible</div>
                     </div>
