@@ -53,7 +53,9 @@ define(function (require) {
             var orderArr = this.mc.dc.getOrderArr(this.mc.dc.canvasArr);
             var i = orderArr.length;
             while(i--){
-                ctx.drawImage(orderArr[i].canvas[0], 0, 0);
+                if(orderArr[i].visibility){
+                    ctx.drawImage(orderArr[i].canvas[0], 0, 0);
+                }
             }
         },
         _bindEvent : function () {

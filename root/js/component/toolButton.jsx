@@ -43,9 +43,9 @@ define(function (require) {
                     </div>
                 )
             }.bind(this));
-            var subToolNodes = _.map(this.state.data.tool.subTool, function (value, key) {
+            var subToolNodes = _.map(this.state.data.tool.classes, function (value, key) {
                 var classSet = React.addons.classSet({
-                    'active': value.name === this.props.data.tool.type.name,
+                    'active': value.name === this.props.data.tool.subTool.name,
                     'subButton': true
                 });
                 return (

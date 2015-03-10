@@ -1,10 +1,22 @@
 define(function (require) {
-    var Eraser = function () {
+    var Tool = require('tools/tool');
+
+    var Eraser = function (type) {
+        Tool.call(this, arguments);
+        this.classes = {
+            Basic: new Basic()
+        };
+        this.name = 'eraser';
+        this.subTool = this.classes[this.type];
+    };
+    Eraser.prototype = new Tool();
+
+    var Basic = function () {
         this.name = 'eraser';
         this.path = [];
     };
-    Eraser.prototype = {
-        setting:{
+    Basic.prototype = {
+        setting: {
             Size: 20
         },
         begin: function (x, y, mc) {
@@ -19,31 +31,26 @@ define(function (require) {
             this.path = [];
 
         },
-        redraw : function (mc) {
-            var length = this.path.length;
-            var nowPoint = this.path.slice(length-1,length)[0];
-            var lastPoint = this.path.slice(length-2,length-1)[0];
+        redraw: function (mc) {
+            var ctx = mc.dc.getCanvas().ctx;
+            //var ctx = mc.bcCtx;
+            ctx.save();
+            var nowPoint = this.path[this.path.length - 1];
+            var lastPoint = this.path[this.path.length - 2];
             var w = this.setting.Size,
-                color = mc.getColor(),
-                r = +('0x'+color[1]+color[2]),
-                g =  (+('0x'+color[3]+color[4])),
-                b = (+('0x'+color[5]+color[6])),
                 dist = _.distanceBetween(nowPoint, lastPoint);
-            for(var j = 0; j < dist; j+=6) {
+            for (var j = 0; j < dist; j += 6) {
                 var s = j / dist;
-                mc.dc.getCanvas().ctx.clearRect(lastPoint.x * s + nowPoint.x * (1 - s),
-                    lastPoint.y * s + nowPoint.y * (1 - s), w, w);
-                //同时清理预览图的canvas ，待优化，耦合太高 todo
-                mc.zcCtx.clearRect(lastPoint.x * s + nowPoint.x * (1 - s),
-                    lastPoint.y * s + nowPoint.y * (1 - s), w, w);
+                ctx.beginPath();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.arc(lastPoint.x * s + nowPoint.x * (1 - s),
+                    lastPoint.y * s + nowPoint.y * (1 - s), w, 0, Math.PI * 2);
+                ctx.fill();
 
-               /* this.draw(lastPoint.x * s + nowPoint.x * (1 - s),
-                    lastPoint.y * s + nowPoint.y * (1 - s), w, r, g, b, 0.5);*/
             }
-            /*for(var i = 0,len = this.path.length; i<len ; i++){
-                mc.dc.getCanvas().ctx.clearRect(this.path[i].x, this.path[i].y,10,10);
-            }
-            mc.bcCtx.stroke();*/
+
+            ctx.restore();
+
         }
     };
 

@@ -114,7 +114,8 @@ define(function (require) {
             this.props.data.visibility
                 ? this.props.data.canvas.show()
                 : this.props.data.canvas.hide();
-
+            //todo
+            window.mc.mediator.publish('onChangeLayer');
         },
         editName: function () {
             var name = this.refs.nameInput.getDOMNode().value.trim();

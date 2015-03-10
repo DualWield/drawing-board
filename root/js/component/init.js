@@ -5,7 +5,8 @@ define(function (require) {
         require('component/zoom').init(mc);
         require('jsx!component/layer').init(mc);
         require('jsx!component/brushSetting').init(mc);
-
+        require('jsx!component/clearButton').init(mc);
+        require('jsx!component/undoRedoButtons').init(mc);
     };
 
     return {

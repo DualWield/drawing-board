@@ -8,7 +8,6 @@ define(function (require) {
         this.order = 10;
 
 
-
     };
     DrawCanvas.prototype = {
         addCanvas: function (options) {
@@ -44,7 +43,7 @@ define(function (require) {
             }
             this.canvasArr.unshift(canvas);
             this.mc.mediator.publish('onChangeLayer');
-      },
+        },
         getCanvas: function () {
             for (var i = 0, len = this.canvasArr.length; i < len; i++) {
                 if (this.canvasArr[i].isCur) {
@@ -128,6 +127,8 @@ define(function (require) {
         this.height = options.height || 453;
         this.isCur = options.isCur || true;
         this.visibility = options.visibility || true;
+        this.undoStack = [];
+        this.redoStack = [];
         this.canvas = $('<canvas>')
             .attr({
                 width: this.width,
@@ -149,6 +150,9 @@ define(function (require) {
             this.canvas.on('onchangeOpacity', $.proxy(this.onChangeOpacity, this))
                 .on('onDelete', $.proxy(this.onDelete, this));
 
+        },
+        clear: function () {
+            this.ctx.clearRect(0, 0, this.width, this.height);
         },
         onDelete: function () {
             this.canvas.remove();

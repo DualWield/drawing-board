@@ -8,14 +8,15 @@ define(function (require) {
             }
         },
         componentDidMount: function () {
-            _.each(this.props.data.tool.type.setting, function (num, key) {
+            _.each(this.props.data.tool.subTool.setting, function (num, key) {
                 $(this.refs[key].getDOMNode()).find('.track').slider({
                     value: num,
                     orientation: 'horizontal',
                     range: "min",
+                    min: 1,
                     animate: true,
                     slide: function (event, data) {
-                        this.props.data.tool.type.setting[key] = data.value;
+                        this.props.data.tool.subTool.setting[key] = data.value;
                         this.refresh();
                     }.bind(this)
                 });
@@ -23,14 +24,14 @@ define(function (require) {
 
         },
         componentDidUpdate: function () {
-            _.each(this.props.data.tool.type.setting, function (num, key) {
+            _.each(this.props.data.tool.subTool.setting, function (num, key) {
                 $(this.refs[key].getDOMNode()).find('.track').slider({
                     value: num,
                     orientation: 'horizontal',
                     range: "min",
                     animate: true,
                     slide: function (event, data) {
-                        this.props.data.tool.type.setting[key] = data.value;
+                        this.props.data.tool.subTool.setting[key] = data.value;
                         this.refresh();
                     }.bind(this)
                 });
@@ -50,7 +51,7 @@ define(function (require) {
         },
         render: function () {
 
-            var nodes = _.map(this.props.data.tool.type.setting, function (num, key) {
+            var nodes = _.map(this.props.data.tool.subTool.setting, function (num, key) {
                 return (
                     <div className="row-slider" key={key} ref={key}>
                         <div className="label">{key}</div>
