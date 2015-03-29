@@ -43,6 +43,8 @@ define(function (require) {
             }
             this.canvasArr.unshift(canvas);
             this.mc.mediator.publish('onChangeLayer');
+
+            return canvas;
         },
         getCanvas: function () {
             for (var i = 0, len = this.canvasArr.length; i < len; i++) {

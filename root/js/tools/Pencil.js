@@ -39,13 +39,12 @@ define(function (require) {
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilBasicShape.create();
             this.currentShape.canvas = mc.dc.getCanvas();
-            this.currentShape.addPoint(x, y);
+            this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
         },
         continue: function (x, y, mc) {
             this.currentShape.addPoint(x, y);
             //mc.drawShapeInProgress(this.currentShape);
-
             mc.repaintlayer();
         },
 
@@ -463,7 +462,7 @@ define(function (require) {
             }
         },
         begin: function (x, y, mc) {
-            this.currentShape = shapes.PecilRibbonShape.create();
+            this.currentShape = shapes.PencilRibbonShape.create();
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);

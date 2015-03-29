@@ -4,6 +4,7 @@ define(function (require) {
     var Shape = Class.extend({
         init: function () {
             this.path = [];
+            this.drawPath = [];
             this.color = mc.getColor();
             for (var i in mc.tool.subTool.setting) {
                 this[i] = mc.tool.subTool.setting[i];
@@ -43,7 +44,6 @@ define(function (require) {
             ctx.stroke();
         }
     });
-
     var PencilHalfToneShape = Shape.extend({
         getPattern: function (ctx) {
             var patternCanvas = document.createElement('canvas'),
@@ -87,7 +87,6 @@ define(function (require) {
             ctx.stroke();
         }
     });
-
     var PencilHLineShape = Shape.extend({
         getPattern: function (ctx) {
             var patternCanvas = document.createElement('canvas'),
@@ -278,7 +277,7 @@ define(function (require) {
 
             var nowPoint = this.path[this.path.length - 1];
             var lastPoint = this.path[this.path.length - 2] ||
-                {x: nowPoint.x, y:nowPoint.y-1};
+                {x: nowPoint.x, y: nowPoint.y - 1};
             var opacity = this.Opacity / 100;
             var color = this.color;
             var dx, dy;
@@ -298,12 +297,14 @@ define(function (require) {
                 var d = dx * dx + dy * dy;
                 if (d < 1000) {
                     ctx.strokeStyle = RGBAColor;
-                    this.linePath.push({x1: nowPoint.x + (dx * 0.2), y1: lastPoint.y,
-                        x2:this.path[i].x - (dx * 0.2), y2:this.path[i].y - (dy * 0.2)});
+                    this.linePath.push({
+                        x1: nowPoint.x + (dx * 0.2), y1: lastPoint.y,
+                        x2: this.path[i].x - (dx * 0.2), y2: this.path[i].y - (dy * 0.2)
+                    });
                 }
             }
             ctx.beginPath();
-            for(var i = 0,len = this.linePath.length; i< len ; i++){
+            for (var i = 0, len = this.linePath.length; i < len; i++) {
                 ctx.moveTo(this.linePath[i].x1, this.linePath[i].y1);
                 ctx.lineTo(this.linePath[i].x2, this.linePath[i].y2);
             }
@@ -321,7 +322,7 @@ define(function (require) {
 
             var nowPoint = this.path[this.path.length - 1];
             var lastPoint = this.path[this.path.length - 2] ||
-                {x: nowPoint.x, y:nowPoint.y-1};
+                {x: nowPoint.x, y: nowPoint.y - 1};
             var opacity = this.Opacity / 100;
             var color = this.color;
             var dx, dy;
@@ -353,7 +354,7 @@ define(function (require) {
                 }
             }
             ctx.beginPath();
-            for(var i = 0,len = this.linePath.length; i< len ; i++){
+            for (var i = 0, len = this.linePath.length; i < len; i++) {
                 ctx.moveTo(this.linePath[i].x1, this.linePath[i].y1);
                 ctx.lineTo(this.linePath[i].x2, this.linePath[i].y2);
             }
@@ -369,7 +370,7 @@ define(function (require) {
             var ctx = canvas.getContext('2d');
             var nowPoint = this.path[this.path.length - 1];
             var lastPoint = this.path[this.path.length - 2] ||
-                {x: nowPoint.x, y:nowPoint.y-1};
+                {x: nowPoint.x, y: nowPoint.y - 1};
             var opacity = this.Opacity / 100;
             var color = this.color;
             var dx, dy;
@@ -401,7 +402,7 @@ define(function (require) {
                 }
             }
             ctx.beginPath();
-            for(var i = 0,len = this.linePath.length; i< len ; i++){
+            for (var i = 0, len = this.linePath.length; i < len; i++) {
                 ctx.moveTo(this.linePath[i].x1, this.linePath[i].y1);
                 ctx.lineTo(this.linePath[i].x2, this.linePath[i].y2);
             }
@@ -411,8 +412,8 @@ define(function (require) {
     });
     var PencilSquaresShape = Shape.extend({
         /*
-        * this.linePath 四个一组，画矩形
-        * */
+         * this.linePath 四个一组，画矩形
+         * */
         init: function () {
             this.callSuper();
             this.linePath = [];
@@ -421,7 +422,7 @@ define(function (require) {
             var ctx = canvas.getContext('2d');
             var nowPoint = this.path[this.path.length - 1];
             var lastPoint = this.path[this.path.length - 2] ||
-                {x: nowPoint.x, y:nowPoint.y-1};
+                {x: nowPoint.x, y: nowPoint.y - 1};
             var dx = nowPoint.x - lastPoint.x;
             var dy = nowPoint.y - lastPoint.y;
             var angle = 1.57;
@@ -436,10 +437,10 @@ define(function (require) {
             ctx.fillStyle = '#fff';
             ctx.lineWidth = this.Size / 10;
             this.linePath.push({
-                x1:lastPoint.x - px,y1:lastPoint.y - py,
-                x2:lastPoint.x + px,y2:lastPoint.y + py,
-                x3:nowPoint.x + px,y3:nowPoint.y + py,
-                x4:nowPoint.x - px,y4:nowPoint.y - py
+                x1: lastPoint.x - px, y1: lastPoint.y - py,
+                x2: lastPoint.x + px, y2: lastPoint.y + py,
+                x3: nowPoint.x + px, y3: nowPoint.y + py,
+                x4: nowPoint.x - px, y4: nowPoint.y - py
             });
             ctx.beginPath();
             _.each(this.linePath, function (value, key) {
@@ -455,7 +456,7 @@ define(function (require) {
 
         }
     });
-    var PecilRibbonShape = Shape.extend({
+    var PencilRibbonShape = Shape.extend({
         init: function () {
             this.tempPath = [];
             this.linePath = [];
@@ -482,7 +483,7 @@ define(function (require) {
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
             ctx.strokeStyle = RGBAColor;
-            for(var i = 0,len = this.linePath.length; i< len ; i++){
+            for (var i = 0, len = this.linePath.length; i < len; i++) {
                 ctx.moveTo(this.linePath[i].x1, this.linePath[i].y1);
                 ctx.lineTo(this.linePath[i].x2, this.linePath[i].y2);
             }
@@ -492,17 +493,177 @@ define(function (require) {
             var i;
             for (i = 0; i < this.tempPath.length; i++) {
                 var tempX = this.tempPath[i].dx, tempY = this.tempPath[i].dy;
-                this.tempPath[i].dx -= this.tempPath[i].ax = (this.tempPath[i].ax + (this.tempPath[i].dx - this.path[this.path.length-1].x) * this.tempPath[i].div) * this.tempPath[i].ease;
-                this.tempPath[i].dy -= this.tempPath[i].ay = (this.tempPath[i].ay + (this.tempPath[i].dy - this.path[this.path.length-1].y) * this.tempPath[i].div) * this.tempPath[i].ease;
+                this.tempPath[i].dx -= this.tempPath[i].ax = (this.tempPath[i].ax + (this.tempPath[i].dx - this.path[this.path.length - 1].x) * this.tempPath[i].div) * this.tempPath[i].ease;
+                this.tempPath[i].dy -= this.tempPath[i].ay = (this.tempPath[i].ay + (this.tempPath[i].dy - this.path[this.path.length - 1].y) * this.tempPath[i].div) * this.tempPath[i].ease;
                 this.linePath.push({
                     x1: tempX, y1: tempY,
-                    x2: this.tempPath[i].dx, y2:this.tempPath[i].dy
+                    x2: this.tempPath[i].dx, y2: this.tempPath[i].dy
                 });
             }
 
         }
     });
 
+    var EraserShape = Shape.extend({
+        init: function () {
+            this.callSuper();
+            this.drawPath = [];
+            this.name = 'EraserShape';
+        },
+        draw: function (canvas) {
+            var ctx = canvas.getContext('2d');
+
+            ctx.save();
+            var nowPoint = this.path[this.path.length - 1];
+            var lastPoint = this.path[this.path.length - 2] ||
+                {x: nowPoint.x, y: nowPoint.y - 1};
+
+            var w = this.Size,
+                dist = _.distanceBetween(nowPoint, lastPoint);
+            for (var j = 0; j < dist; j += 6) {
+                var s = j / dist;
+                this.drawPath.push({
+                    x: lastPoint.x * s + nowPoint.x * (1 - s),
+                    y: lastPoint.y * s + nowPoint.y * (1 - s)
+                });
+
+
+            }
+            ctx.beginPath();
+            ctx.globalCompositeOperation = 'destination-out';
+
+            _.each(this.drawPath, function (value, key) {
+                ctx.arc(value.x, value.y, w, 0, Math.PI * 2);
+            });
+            ctx.fill();
+
+            ctx.restore();
+
+        }
+    });
+
+    /*  实线 */
+    var LineBasicShape = Shape.extend({
+        init: function () {
+            this.callSuper();
+            this.name = 'LineBasicShape';
+        },
+        draw: function (canvas) {
+            var ctx = canvas.getContext('2d');
+
+            var nowPoint = this.path[this.path.length-1];
+            var lastPoint = this.path[this.path.length-2] ||
+                {x: nowPoint.x, y: nowPoint.y - 1};
+
+            ctx.lineCap = ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.strokeStyle = this.color;
+            ctx.lineWidth = '20';
+            /* ctx.moveTo(0, 0);
+             ctx.lineTo(20,20);*/
+            ctx.moveTo(nowPoint.x, nowPoint.y);
+            ctx.lineTo(lastPoint.x, lastPoint.y);
+            ctx.stroke();
+
+        }
+    });
+ var LineDottedShape = Shape.extend({
+        init: function () {
+            this.callSuper();
+            this.name = 'LineDottedShape';
+            this.drawPath = [];
+        },
+        addDrawPath: function () {
+            var nowPoint = this.path[this.path.length-1];
+            var lastPoint = this.path[this.path.length-2] ||
+                {x: nowPoint.x, y: nowPoint.y - 1};
+            this.drawPath = [];
+            var dist = _.distanceBetween(nowPoint, lastPoint);
+            for (var j = 0; j < dist; j += 40) {
+                var s = j / dist,
+                    s2 = (j+25 )/dist;
+                this.drawPath.push({
+                    x1: lastPoint.x * s + nowPoint.x * (1 - s),
+                    y1: lastPoint.y * s + nowPoint.y * (1 - s),
+                    x2: lastPoint.x * s2 + nowPoint.x * (1 - s2),
+                    y2: lastPoint.y * s2 + nowPoint.y * (1 - s2)
+                });
+
+
+            }
+        },
+        draw: function (canvas) {
+            var ctx = canvas.getContext('2d');
+
+            ctx.lineCap = ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.strokeStyle = this.color;
+            ctx.lineWidth = this.Size/10;
+            /* ctx.moveTo(0, 0);
+             ctx.lineTo(20,20);*/
+            _.each(this.drawPath, function (point) {
+                ctx.moveTo(point.x1, point.y1);
+                ctx.lineTo(point.x2, point.y2);
+
+            });
+            ctx.stroke();
+
+        }
+    });
+    var RectBasicShape = Shape.extend({
+        init: function () {
+            this.callSuper();
+        },
+        addDrawPath: function () {
+
+        },
+        draw: function (canvas) {
+            var ctx = canvas.getContext('2d');
+
+            var nowPoint = this.path[this.path.length-1];
+            var lastPoint = this.path[this.path.length-2] ||
+                {x: nowPoint.x, y: nowPoint.y - 1};
+
+            ctx.lineCap = ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.strokeStyle = this.color;
+            ctx.lineWidth = this.Border/3;
+            /* ctx.moveTo(0, 0);
+             ctx.lineTo(20,20);*/
+            var width = nowPoint.x - lastPoint.x;
+            var height = nowPoint.y - lastPoint.y;
+            ctx.rect(this.path[0].x, this.path[0].y, width, height);
+            ctx.stroke();
+
+        }
+    });
+    var RectSolidShape = Shape.extend({
+        init: function () {
+            this.callSuper();
+        },
+        addDrawPath: function () {
+
+        },
+        draw: function (canvas) {
+            var ctx = canvas.getContext('2d');
+
+            var nowPoint = this.path[this.path.length-1];
+            var lastPoint = this.path[this.path.length-2] ||
+                {x: nowPoint.x, y: nowPoint.y - 1};
+
+            ctx.lineCap = ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.fillStyle = this.color;
+            ctx.lineWidth = this.Border/3;
+            /* ctx.moveTo(0, 0);
+             ctx.lineTo(20,20);*/
+            var width = nowPoint.x - lastPoint.x;
+            var height = nowPoint.y - lastPoint.y;
+            ctx.rect(this.path[0].x, this.path[0].y, width, height);
+            ctx.fill();
+
+        }
+    });
     shapes = {
         PencilBasicShape: PencilBasicShape,
         PencilHalfToneShape: PencilHalfToneShape,
@@ -514,7 +675,12 @@ define(function (require) {
         PencilFurShape: PencilFurShape,
         PencilShadedShape: PencilShadedShape,
         PencilSquaresShape: PencilSquaresShape,
-        PecilRibbonShape: PecilRibbonShape
+        PencilRibbonShape: PencilRibbonShape,
+        EraserShape: EraserShape,
+        LineBasicShape: LineBasicShape,
+        LineDottedShape: LineDottedShape,
+        RectBasicShape: RectBasicShape,
+        RectSolidShape: RectSolidShape
     };
 
     return shapes;

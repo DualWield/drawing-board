@@ -141,7 +141,6 @@ define(function (require) {
 
         },
         clear: function () {
-            alert('test');
             var oldShapes = this.shapes;
             var newShapes = [];
             this.execute(new action.ClearAction(this, oldShapes, newShapes));

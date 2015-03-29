@@ -11,12 +11,22 @@
                 x: (p2.x + p1.x) / 2,
                 y: (p2.y + p1.y) / 2
             };
+        },
+        rgbToHex: function (R, G, B) {
+            return _.toHex(R) + _.toHex(G) + _.toHex(B)
+        },
+        toHex: function (n) {
+            n = parseInt(n, 10);
+            if (isNaN(n)) return "00";
+            n = Math.max(0, Math.min(n, 255));
+            return "0123456789ABCDEF".charAt((n - n % 16) / 16) + "0123456789ABCDEF".charAt(n % 16);
         }
     })
 })(_);
 
 
-function Class() {}
+function Class() {
+}
 
 Class.extend = function extend(props) {
 
@@ -49,12 +59,13 @@ Class.extend = function extend(props) {
         }
     }
 
-    function Class() {}
+    function Class() {
+    }
 
     Class.prototype = prototype;
     Class.prototype.constructor = Class;
 
-    Class.extend =  extend;
+    Class.extend = extend;
     Class.create = Class.prototype.create = function () {
 
         var instance = new this();
@@ -70,45 +81,45 @@ Class.extend = function extend(props) {
 };
 
 /*
-var Human = Class.extend({
-    init: function () {
-        this.nature = "Human";
-    },
-    say: function () {
-        console.log("I am a human");
-    }
-});
+ var Human = Class.extend({
+ init: function () {
+ this.nature = "Human";
+ },
+ say: function () {
+ console.log("I am a human");
+ }
+ });
 
-var human = Human.create();
-console.log(human);
-human.say();
+ var human = Human.create();
+ console.log(human);
+ human.say();
 
-var Man = Human.extend({
-    init: function () {
-        this.callSuper();
-        this.sex = "man";
-    },
-    say: function () {
-        this.callSuper();
-        console.log("I am a man");
-    }
-});
+ var Man = Human.extend({
+ init: function () {
+ this.callSuper();
+ this.sex = "man";
+ },
+ say: function () {
+ this.callSuper();
+ console.log("I am a man");
+ }
+ });
 
-var man = Man.create();
-console.log(man);
-man.say();
+ var man = Man.create();
+ console.log(man);
+ man.say();
 
-var Person = Man.extend({
-    init: function () {
-        this.callSuper();
-        this.name = "lee";
-    },
-    say: function () {
-        this.callSuper();
-        console.log("I am Lee");
-    }
-})
+ var Person = Man.extend({
+ init: function () {
+ this.callSuper();
+ this.name = "lee";
+ },
+ say: function () {
+ this.callSuper();
+ console.log("I am Lee");
+ }
+ })
 
-var person = Person.create();
-console.log(person);
-person.say();*/
+ var person = Person.create();
+ console.log(person);
+ person.say();*/

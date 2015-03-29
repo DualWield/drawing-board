@@ -24,7 +24,7 @@ body{
 .top-tool-bar{
     float: left;
 }
-.clear-button{
+.clear-button,#clearButton{
     float: left;
 }
 .save-button{

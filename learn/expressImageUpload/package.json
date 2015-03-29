@@ -1,0 +1,15 @@
+{
+  "name": "Leo",
+  "version": "1.0.0",
+  "description": "测试express+imageUpload",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.12.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "'"
+  },
+  "author": "",
+  "license": "ISC"
+}
