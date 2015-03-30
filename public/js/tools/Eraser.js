@@ -24,35 +24,16 @@ define(function (require) {
             this.currentShape = shapes.EraserShape.create();
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
+            this.currentShape.createDrawPath();
             mc.saveShape(this.currentShape);
         },
         continue: function (x, y, mc) {
             this.currentShape.addPath(x, y);
+            this.currentShape.createDrawPath();
             mc.repaintlayer();
 
         },
         end: function (x, y, mc) {
-        },
-        redraw: function (mc) {
-            var ctx = mc.dc.getCanvas().ctx;
-            //var ctx = mc.bcCtx;
-            ctx.save();
-            var nowPoint = this.path[this.path.length - 1];
-            var lastPoint = this.path[this.path.length - 2];
-            var w = this.setting.Size,
-                dist = _.distanceBetween(nowPoint, lastPoint);
-            for (var j = 0; j < dist; j += 6) {
-                var s = j / dist;
-                ctx.beginPath();
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.arc(lastPoint.x * s + nowPoint.x * (1 - s),
-                    lastPoint.y * s + nowPoint.y * (1 - s), w, 0, Math.PI * 2);
-                ctx.fill();
-
-            }
-
-            ctx.restore();
-
         }
     };
 

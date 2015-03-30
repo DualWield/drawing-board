@@ -49,14 +49,17 @@ define(function (require) {
         },
         cloneToZoomCanvas: function () {
             var ctx = $('#zoom-canvas')[0].getContext('2d');
-            ctx.clearRect(0, 0, 1006, 453);
+            ctx.clearRect(0, 0, mc.width, mc.height);
             var orderArr = this.mc.dc.getOrderArr(this.mc.dc.canvasArr);
             var i = orderArr.length;
             while(i--){
                 if(orderArr[i].visibility){
+                    ctx.globalAlpha = orderArr[i].opacity;
                     ctx.drawImage(orderArr[i].canvas[0], 0, 0);
                 }
             }
+            require('jsx!component/layer').init(mc);
+
         },
         _bindEvent : function () {
             $('.zoom-in').on('click', $.proxy(this.zoomIn, this));
@@ -74,7 +77,7 @@ define(function (require) {
                 }
             });
             this.mc.mediator.subscribe('onChangeLayer', this.cloneToZoomCanvas.bind(this));
-            this.mc.mediator.subscribe('drawEnd', this.cloneToZoomCanvas.bind(this));
+            this.mc.mediator.subscribe('drawOnchange', this.cloneToZoomCanvas.bind(this));
 
         },
         zoomIn: function () {
@@ -103,8 +106,8 @@ define(function (require) {
         onChangeZoom: function () {
             var scale = this.mc.zoom;
             $('.zoom-percentage').text((scale*100).toFixed(0) + '%');
-            var newWidth = window.MC.WIDTH*scale;
-            var newHeight = window.MC.HEIGHT*scale;
+            var newWidth = mc.width*scale;
+            var newHeight = mc.height*scale;
             $('.draw-pic-canvas').children().css({
                 width : newWidth,
                 height: newHeight

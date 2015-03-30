@@ -43,7 +43,6 @@ define(function (require) {
     };
     Solid.prototype = {
         setting: {
-            Border: 50
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.RectSolidShape.create();

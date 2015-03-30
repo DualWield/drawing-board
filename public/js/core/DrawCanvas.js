@@ -12,25 +12,33 @@ define(function (require) {
     DrawCanvas.prototype = {
         addCanvas: function (options) {
             options = options || {};
+            _.extend(options, {
+                width: this.mc.width,
+                height: this.mc.height
+            });
             /* 对name进行加工,layer自增1 */
-            var nameTempArr = [], nameTemp, numArr = [], i, len, orderArr = [], orderTempArr = [];
-            for (i = 0, len = this.canvasArr.length; i < len; i++) {
-                if (nameTemp = /layer(\d)/.exec(this.canvasArr[i].name)) {
-                    nameTempArr.push(+nameTemp[1]);
+            if(!options.name){
+                //如果没有定义name的话
+                var nameTempArr = [], nameTemp, numArr = [], i, len, orderArr = [], orderTempArr = [];
+                for (i = 0, len = this.canvasArr.length; i < len; i++) {
+                    if (nameTemp = /layer(\d)/.exec(this.canvasArr[i].name)) {
+                        nameTempArr.push(+nameTemp[1]);
+                    }
+                    orderTempArr.push(this.canvasArr[i].order);
                 }
-                orderTempArr.push(this.canvasArr[i].order);
+
+                for (i = 1, len = nameTempArr.length + 2; i < len; i++) {
+                    numArr.push(i);
+                }
+                for (i = 1, len = orderTempArr.length + 2; i < len; i++) {
+                    orderArr.push(i);
+                }
+
+                var num = _.difference(numArr, nameTempArr);
+
+                options.name = options.name || 'layer' + num[0];
             }
 
-            for (i = 1, len = nameTempArr.length + 2; i < len; i++) {
-                numArr.push(i);
-            }
-            for (i = 1, len = orderTempArr.length + 2; i < len; i++) {
-                orderArr.push(i);
-            }
-
-            var num = _.difference(numArr, nameTempArr);
-
-            options.name = options.name || 'layer' + num[0];
 
             /* 对order进行加工 */
 
@@ -122,12 +130,12 @@ define(function (require) {
 
     var Canvas = function (options) {
         options = options || {};
-        this.id = _.uniqueId('canvas_');
+        this.id = options.id || _.uniqueId('canvas_');
         this.name = options.name || 'layer';
         this.order = options.order || 1;
         this.opacity = 1;
-        this.width = options.width || 1006;
-        this.height = options.height || 453;
+        this.width = options.width;
+        this.height = options.height;
         this.isCur = options.isCur || true;
         this.visibility = options.visibility || true;
         this.undoStack = [];

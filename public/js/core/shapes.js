@@ -8,14 +8,15 @@ define(function (require) {
             this.color = mc.getColor();
             this.setting = {};
             /*  属性都加上来 */
-            _.extend(this, arg);
             for (var i in mc.tool.subTool.setting) {
                 this[i] = mc.tool.subTool.setting[i];
                 this.setting[i] = mc.tool.subTool.setting[i];
             }
+            _.extend(this, arg);
+
         },
         convertToJSON: function () {
-            var obj ={
+            var obj = {
                 name: this.name,
                 path: this.path,
                 color: this.color,
@@ -539,37 +540,44 @@ define(function (require) {
     });
 
     var EraserShape = Shape.extend({
-        init: function () {
-            this.callSuper();
-            this.drawPath = [];
+        init: function (arg) {
+            this.callSuper(arg);
             this.name = 'EraserShape';
+        },
+        createDrawPath: function () {
+            this.drawPath = [];
+            if(this.path.length === 1){
+                this.drawPath.push({
+                    x1: this.path[0].x,
+                    y1: this.path[0].y,
+                    x2: this.path[0].x,
+                    y2: this.path[0].y
+                });
+            }
+            for (var i = 0, len = this.path.length; i < len - 1; i++) {
+                this.drawPath.push({
+                    x1: this.path[i].x,
+                    y1: this.path[i].y,
+                    x2: this.path[i + 1].x,
+                    y2: this.path[i + 1].y
+                });
+            }
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
 
             ctx.save();
-            var nowPoint = this.path[this.path.length - 1];
-            var lastPoint = this.path[this.path.length - 2] ||
-                {x: nowPoint.x, y: nowPoint.y - 1};
 
-            var w = this.Size,
-                dist = _.distanceBetween(nowPoint, lastPoint);
-            for (var j = 0; j < dist; j += 6) {
-                var s = j / dist;
-                this.drawPath.push({
-                    x: lastPoint.x * s + nowPoint.x * (1 - s),
-                    y: lastPoint.y * s + nowPoint.y * (1 - s)
-                });
-
-
-            }
             ctx.beginPath();
+            ctx.lineWidth = this.Size;
             ctx.globalCompositeOperation = 'destination-out';
-
-            _.each(this.drawPath, function (value, key) {
-                ctx.arc(value.x, value.y, w, 0, Math.PI * 2);
-            });
-            ctx.fill();
+            ctx.moveTo(this.drawPath[0].x1, this.drawPath[0].y1);
+            ctx.lineTo(this.drawPath[0].x2, this.drawPath[0].y2);
+            for (var i = 1, len = this.drawPath.length; i < len; i++) {
+                ctx.lineTo(this.drawPath[i].x1, this.drawPath[i].y1);
+                ctx.lineTo(this.drawPath[i].x2, this.drawPath[i].y2)
+            }
+            ctx.stroke();
 
             ctx.restore();
 
@@ -578,21 +586,21 @@ define(function (require) {
 
     /*  实线 */
     var LineBasicShape = Shape.extend({
-        init: function () {
-            this.callSuper();
+        init: function (arg) {
+            this.callSuper(arg);
             this.name = 'LineBasicShape';
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
 
-            var nowPoint = this.path[this.path.length-1];
-            var lastPoint = this.path[this.path.length-2] ||
+            var nowPoint = this.path[this.path.length - 1];
+            var lastPoint = this.path[this.path.length - 2] ||
                 {x: nowPoint.x, y: nowPoint.y - 1};
 
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
             ctx.strokeStyle = this.color;
-            ctx.lineWidth = '20';
+            ctx.lineWidth = this.Size;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
             ctx.moveTo(nowPoint.x, nowPoint.y);
@@ -602,29 +610,27 @@ define(function (require) {
         }
     });
     var LineDottedShape = Shape.extend({
-        init: function () {
-            this.callSuper();
+        init: function (arg) {
+            this.callSuper(arg);
             this.name = 'LineDottedShape';
-            this.drawPath = [];
         },
         addDrawPath: function () {
-            var nowPoint = this.path[this.path.length-1];
-            var lastPoint = this.path[this.path.length-2] ||
-                {x: nowPoint.x, y: nowPoint.y - 1};
             this.drawPath = [];
+            var nowPoint = this.path[this.path.length - 1];
+            var lastPoint = this.path[this.path.length - 2] ||
+                {x: nowPoint.x, y: nowPoint.y - 1};
             var dist = _.distanceBetween(nowPoint, lastPoint);
-            for (var j = 0; j < dist; j += 40) {
+            for (var j = dist; j > 0; j -= 40) {
                 var s = j / dist,
-                    s2 = (j+25 )/dist;
+                    s2 = (j - 25 ) / dist;
                 this.drawPath.push({
                     x1: lastPoint.x * s + nowPoint.x * (1 - s),
                     y1: lastPoint.y * s + nowPoint.y * (1 - s),
                     x2: lastPoint.x * s2 + nowPoint.x * (1 - s2),
                     y2: lastPoint.y * s2 + nowPoint.y * (1 - s2)
                 });
-
-
             }
+
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
@@ -632,7 +638,7 @@ define(function (require) {
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
             ctx.strokeStyle = this.color;
-            ctx.lineWidth = this.Size/10;
+            ctx.lineWidth = this.Size / 10;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
             _.each(this.drawPath, function (point) {
@@ -645,8 +651,9 @@ define(function (require) {
         }
     });
     var RectBasicShape = Shape.extend({
-        init: function () {
-            this.callSuper();
+        init: function (arg) {
+            this.callSuper(arg);
+            this.name = 'RectBasicShape';
         },
         addDrawPath: function () {
 
@@ -654,14 +661,14 @@ define(function (require) {
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
 
-            var nowPoint = this.path[this.path.length-1];
-            var lastPoint = this.path[this.path.length-2] ||
+            var nowPoint = this.path[this.path.length - 1];
+            var lastPoint = this.path[this.path.length - 2] ||
                 {x: nowPoint.x, y: nowPoint.y - 1};
 
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
             ctx.strokeStyle = this.color;
-            ctx.lineWidth = this.Border/3;
+            ctx.lineWidth = this.Border / 3;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
             var width = nowPoint.x - lastPoint.x;
@@ -672,8 +679,9 @@ define(function (require) {
         }
     });
     var RectSolidShape = Shape.extend({
-        init: function () {
-            this.callSuper();
+        init: function (arg) {
+            this.callSuper(arg);
+            this.name = 'RectSolidShape';
         },
         addDrawPath: function () {
 
@@ -681,14 +689,14 @@ define(function (require) {
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
 
-            var nowPoint = this.path[this.path.length-1];
-            var lastPoint = this.path[this.path.length-2] ||
+            var nowPoint = this.path[this.path.length - 1];
+            var lastPoint = this.path[this.path.length - 2] ||
                 {x: nowPoint.x, y: nowPoint.y - 1};
 
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
             ctx.fillStyle = this.color;
-            ctx.lineWidth = this.Border/3;
+            ctx.lineWidth = this.Border / 3;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
             var width = nowPoint.x - lastPoint.x;
@@ -701,6 +709,8 @@ define(function (require) {
 
     var ImageShape = Shape.extend({
         init: function (arg) {
+            this.callSuper(arg);
+            this.name = 'ImageShape';
             this.x = arg.x;
             this.y = arg.y;
             this.url = arg.url;
@@ -713,9 +723,9 @@ define(function (require) {
             var image = document.createElement('img');
             image.src = this.url;
             //image.addEventListener('load', function () {
-                ctx.scale(this.radioX, this.radioY);
-                ctx.drawImage(image, this.x, this.y);
-                ctx.scale(1/this.radioX, 1/this.radioY);
+            ctx.scale(this.radioX, this.radioY);
+            ctx.drawImage(image, this.x, this.y);
+            ctx.scale(1 / this.radioX, 1 / this.radioY);
             //}.bind(this));
 
         }

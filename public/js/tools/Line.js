@@ -44,7 +44,8 @@ define(function (require) {
     };
     Dotted.prototype = {
         setting: {
-            Size: 50
+            Size: 50,
+            LineLongness: 50
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.LineDottedShape.create();

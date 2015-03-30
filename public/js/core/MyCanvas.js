@@ -7,17 +7,22 @@ define(function (require) {
     var DrawCanvas = require('core/DrawCanvas');
     var component = require('component/init');
 
-    /*  const value */
-    window.MC = window.MC || {};
-    window.MC.WIDTH = 1006;
-    window.MC.HEIGHT = 453;
+
 
 
     function MyCanvas() {
+
+        //this.width = $(window).width() - 300;
+        //this.height = $(window).height() - $('#top-area').height() - $('#bottom-area').height();
         this.width = 1006;
         this.height = 453;
         this.mediator = new Mediator();
 
+        this.$dcWrap = $('.draw-pic-canvas')
+            .css({
+                width: this.width,
+                height: this.height
+            });
         this.$bc = $('#buffer-canvas')
             .attr('width', this.width)
             .attr('height', this.height);
@@ -38,17 +43,16 @@ define(function (require) {
 
         this.dc = new DrawCanvas(this);
         //新加一个背景的layer
-        this.dc.addCanvas({name: 'background'});
-        this.dc.getCanvas().setBackground('#fff');
-
+        this.dc.addCanvas({name: 'background', mc: this});
+        //新加一个透明的layer
+        //this.dc.addCanvas({name: 'layer1', mc: this});
 
         bindEvent(this);
         this.refreshStyle();
-        /*this.mediator.subscribe('drawEnd', function () {
-         this.dc.getCanvas().ctx.drawImage(this.bc, 0, 0);
-         this.clearBc();
-         }.bind(this));*/
 
+        setTimeout(function () {
+            this.recoverFromLS();
+        }.bind(this),0)
     }
 
     MyCanvas.prototype = {
@@ -70,7 +74,7 @@ define(function (require) {
         end: function (x, y) {
             this.isDragging = false;
             this.tool.end(x, y, this);
-            this.mediator.publish('drawEnd', {tool: this.tool});
+            this.mediator.publish('drawOnchange', {tool: this.tool});
 
         },
         drawShapeInProgress: function (shape) {
@@ -145,7 +149,7 @@ define(function (require) {
             var oldShapes = this.shapes;
             var newShapes = [];
             this.execute(new action.ClearAction(this, oldShapes, newShapes));
-
+            this.mediator.publish('drawOnchange');
         },
         saveShape: function (shape, triggerShapeSaveEvent, previousShapeId) {
             this.execute(new action.AddShapeAction(this, shape, previousShapeId));
@@ -168,6 +172,7 @@ define(function (require) {
             var action = this.undoStack.pop();
             action.undo();
             this.redoStack.push(action);
+            this.mediator.publish('drawOnchange');
         },
         redo: function () {
             if (!this.redoStack.length) {
@@ -176,6 +181,7 @@ define(function (require) {
             var action = this.redoStack.pop();
             action.do();
             this.undoStack.push(action);
+            this.mediator.publish('drawOnchange');
         },
         saveJsonToLS: function () {
             /*  把shapes 转化成json 存进ls里面 */
@@ -192,10 +198,18 @@ define(function (require) {
                     var obj = JSON.parse(shapeString);
                     var shape = require('core/shapes')[obj.name].create(obj);
                     shape.canvas = _.where(mc.dc.canvasArr, {id: shape.canvasId})[0];
-
+                    if(!shape.canvas){
+                        //如果这个canvas已经被删掉了
+                        shape.canvas = this.dc.addCanvas({
+                            id: shape.canvasId
+                        });
+                    }
                     this.shapes.push(shape);
-                }.bind(this))
+                }.bind(this));
+                this.repaintlayer();
+                this.mediator.publish('drawOnchange');
             }
+
             //this.repaintlayer();
         }
 

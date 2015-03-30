@@ -37,41 +37,42 @@
         <canvas id="buffer-canvas" class="buffer-canvas"></canvas>
       </div>
     </div>
-    <div id="slide-bar">
-      <h5>预览图</h5>
-      <div id="drawPlzZoom" class="slide-bar-well drawPlzZoom">
+    <div id="bottom-area">
+      <div class="bottom-tool-bar-container clearfix">
+        <div class="buttons-controls" id="buttons-controls">
+          <!--   <a class="tool-button draw" data-action="pencil">
+                 pen
+             </a>
+             <a class="tool-button eraser" data-action="eraser">
+                 eraser
+             </a>
+             <a class="tool-button" data-action="line">
+                 line
+             </a>
+             <a class="tool-button" data-action="rect">
+                 rect
+             </a>-->
+        </div>
+        <div class="color-picker">
+          <div id="colorPicker"></div>
+          <input type="text" id="color" name="color" value="#123456" />
+        </div>
+        <div class="brush-slider" id="brush-slider">
 
-      </div>
-      <div id="drawPlzLayers">
-
+        </div>
       </div>
     </div>
   </div>
-  <div id="bottom-area">
-    <div class="bottom-tool-bar-container">
-      <div class="buttons-controls" id="buttons-controls">
-        <!--   <a class="tool-button draw" data-action="pencil">
-               pen
-           </a>
-           <a class="tool-button eraser" data-action="eraser">
-               eraser
-           </a>
-           <a class="tool-button" data-action="line">
-               line
-           </a>
-           <a class="tool-button" data-action="rect">
-               rect
-           </a>-->
-      </div>
-      <div class="color-picker">
-        <div id="colorPicker"></div>
-        <input type="text" id="color" name="color" value="#123456" />
-      </div>
-      <div class="brush-slider" id="brush-slider">
+  <div id="slide-bar">
+    <h5>预览图</h5>
+    <div id="drawPlzZoom" class="slide-bar-well drawPlzZoom">
 
-      </div>
+    </div>
+    <div id="drawPlzLayers">
+
     </div>
   </div>
+
 </div>
 <div id="footer">
 
@@ -89,7 +90,10 @@
 <!-- scripts here -->
 <script data-main="js/index" src="js/lib/require.js"></script>
 <script>
-
+  $(function(){
+    var height = $(window).height() - $('#top-area').height() - $('#bottom-area').height();
+    $('#canvas-container').height(height);
+  })
 </script>
 
 </body>

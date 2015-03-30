@@ -178,6 +178,7 @@ define(function (require) {
             });
             this.props.data.getCanvas().setOpacity(data.value / 100);
             this.props.refresh();
+            mc.mediator.publish('drawOnchange');
         },
         addLayer: function () {
             this.props.data.addCanvas();
@@ -201,7 +202,7 @@ define(function (require) {
                         <div className="LayerOpacityControlTrack"></div>
                         <div className="LayerOpacityControlValue">{(this.props.data.getCanvas().opacity * 100).toFixed(0)}%</div>
                     </div>
-                    <div className="LayerNumControl">
+                    <div className="LayerNumControl clearfix">
                         <div onClick={this.addLayer} className="LayerAdd LayerButton">
                             <i className="font-icon"></i>
                         </div>
