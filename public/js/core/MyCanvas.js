@@ -6,12 +6,15 @@ define(function (require) {
 
     var DrawCanvas = require('core/DrawCanvas');
     var component = require('component/init');
-
-
+    var Mediator = require('mediator-js');
+    var Class = require('Class');
+    var store = require('lib/store');
 
 
     function MyCanvas() {
-
+        //从ls中取出数据备用
+        this.shapesData = store.get('shapes');
+        this.canvasData = store.get('canvas');
         //this.width = $(window).width() - 300;
         //this.height = $(window).height() - $('#top-area').height() - $('#bottom-area').height();
         this.width = 1006;
@@ -50,6 +53,7 @@ define(function (require) {
         bindEvent(this);
         this.refreshStyle();
 
+
         setTimeout(function () {
             this.recoverFromLS();
         }.bind(this),0)
@@ -60,20 +64,20 @@ define(function (require) {
             this.$bc.css({width: this.width, height: this.height});
         },
         begin: function (x, y) {
-            this.tool.begin(x, y, this);
+            this.tool.subTool.begin(x, y, this);
             this.isDragging = true;
             this.mediator.publish('drawStart', {tool: this.tool});
         },
         continue: function (x, y) {
             if (this.isDragging) {
-                this.tool.continue(x, y, this);
+                this.tool.subTool.continue(x, y, this);
                 this.mediator.publish('drawContinue', {tool: this.tool});
             }
 
         },
         end: function (x, y) {
             this.isDragging = false;
-            this.tool.end(x, y, this);
+            this.tool.subTool.end(x, y, this);
             this.mediator.publish('drawOnchange', {tool: this.tool});
 
         },
@@ -119,9 +123,6 @@ define(function (require) {
                 ctx = contexts[i];
                 ctx.restore()
             }
-        },
-        clearBc: function () {
-            this.bcCtx.clearRect(0, 0, this.width, this.height);
         },
         getColor: function () {
             //todo
@@ -190,28 +191,70 @@ define(function (require) {
                 shapesJSONArr.push(shape.convertToJSON());
             });
             store.set('shapes', shapesJSONArr);
+            /* 把Layer/Canvas 转化成json 存进ls里面 */
+            var CanvasJSONArr = [];
+            _.each(this.dc.canvasArr, function (canvas) {
+                CanvasJSONArr.push(canvas.convertToJSON());
+            });
+            store.set('canvas', CanvasJSONArr);
         },
         recoverFromLS: function () {
-            this.shapes = [];
-            if(store.get('shapes')){
-                _.each(store.get('shapes'), function (shapeString) {
+            //鉴于可能会有图片从ls中加载进来，这里进行预加载操作
+            var shapesArr = this.shapesData;
+            var imageArr = [];
+            if(shapesArr && shapesArr.length !== 0){
+                _.each(shapesArr, function (shapeString) {
                     var obj = JSON.parse(shapeString);
-                    var shape = require('core/shapes')[obj.name].create(obj);
-                    shape.canvas = _.where(mc.dc.canvasArr, {id: shape.canvasId})[0];
-                    if(!shape.canvas){
-                        //如果这个canvas已经被删掉了
-                        shape.canvas = this.dc.addCanvas({
-                            id: shape.canvasId
-                        });
+                    if(obj.name == 'ImageShape'){
+                        imageArr.push(obj.url);
                     }
-                    this.shapes.push(shape);
-                }.bind(this));
-                this.repaintlayer();
-                this.mediator.publish('drawOnchange');
+                });
+            }
+            function nextTip(){
+                this.shapes = [];
+                if(this.canvasData){
+                    //复原canvas
+                    _.each(this.canvasData, function (canvasString) {
+                        var obj = JSON.parse(canvasString);
+                        if(obj.name !== 'background'){
+                            //如果是background图层的话，就不增加了
+                            var canvas = this.dc.addCanvas(obj);
+                        }
+                    }.bind(this));
+                    this.mediator.publish('onChangeLayer');
+
+                }
+                if(this.shapesData){
+                    _.each(this.shapesData, function (shapeString) {
+                        var obj = JSON.parse(shapeString);
+                        var shape = require('core/shapes')[obj.name].create(obj);
+                        shape.canvas = _.where(mc.dc.canvasArr, {id: shape.canvasId})[0];
+                        /*if(!shape.canvas){
+                         //如果这个canvas已经被删掉了
+                         shape.canvas = this.dc.addCanvas({
+                         id: shape.canvasId
+                         });
+                         }*/
+                        this.shapes.push(shape);
+                    }.bind(this));
+                    this.repaintlayer();
+                    this.mediator.publish('drawOnchange');
+                }
+                //this.repaintlayer();
+            }
+            if(imageArr.length == 0){
+                nextTip.apply(this);
+            }else{
+                _.preloadimages(imageArr).done(nextTip.bind(this));
             }
 
-            //this.repaintlayer();
+
+        },
+        saveImage: function () {
+            var zoomCanvas = $('#zoom-canvas')[0];
+            window.open(zoomCanvas.toDataURL());
         }
+        
 
     };
 

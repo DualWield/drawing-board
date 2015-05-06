@@ -1,20 +1,21 @@
 define(function (require) {
+    var $ = require('jquery');
     var bindEvent = function (mc) {
-        mc.$bc.on('mousedown', function (e) {
+        $('#canvas-container').on('mousedown', function (e) {
             var x = e.clientX - mc.$bc.offset().left;
             var y = e.clientY - mc.$bc.offset().top;
             x = x/mc.zoom;
             y= y/mc.zoom;
             mc.begin(x, y);
         });
-        mc.$bc.on('mousemove', function (e) {
+        $('#canvas-container').on('mousemove', function (e) {
             var x = e.clientX - mc.$bc.offset().left;
             var y = e.clientY - mc.$bc.offset().top;
             x = x/mc.zoom;
             y= y/mc.zoom;
             mc.continue(x, y);
         });
-        mc.$bc.on('mouseup', function (e) {
+        $('#canvas-container').on('mouseup', function (e) {
             var x = e.clientX - mc.$bc.offset().left;
             var y = e.clientY - mc.$bc.offset().top;
             x = x/mc.zoom;

@@ -1,24 +1,23 @@
 define(function (require) {
-    var Base = require('tools/Base');
+
     var shapes = require('core/shapes');
+    var Base = require('tools/Base');
     var Class = require('Class');
 
-    var Rect = Class.extend({
+    var Circle = Class.extend({
         init: function () {
             this.type = this.type || 'Basic';
             this.classes = {
-
                 Basic: new Basic(),
                 Solid: new Solid()
             };
-            this.name = 'Rect';
+            this.name = 'circle';
             this.subTool = this.classes[this.type];
         },
         setType: function (type) {
             this.subTool = this.classes[type];
         }
     });
-
 
     var Basic = function () {
         this.name = 'Basic'
@@ -29,7 +28,7 @@ define(function (require) {
             Border: 50
         },
         begin: function (x, y, mc) {
-            this.currentShape = shapes.RectBasicShape.create();
+            this.currentShape = shapes.CircleBasicShape.create();
             _.each(this.setting, function (value, key) {
                 this.currentShape.setting[key] = value;
             }.bind(this));
@@ -52,7 +51,7 @@ define(function (require) {
         setting: {
         },
         begin: function (x, y, mc) {
-            this.currentShape = shapes.RectSolidShape.create();
+            this.currentShape = shapes.CircleSolidShape.create();
             _.each(this.setting, function (value, key) {
                 this.currentShape.setting[key] = value;
             }.bind(this));
@@ -68,6 +67,6 @@ define(function (require) {
         }
     };
 
-    return Rect;
+    return Circle;
 
 });

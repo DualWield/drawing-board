@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define(['JSXTransformer', 'text'], function (JSXTransformer, text) {
+define(['lib/JSXTransformer', 'text'], function (JSXTransformer, text) {
 
   'use strict';
 

@@ -1,5 +1,6 @@
 define(function (require) {
     //var Mediator = require('mediator');
+    var Canvas = require('core/Canvas');
 
     var DrawCanvas = function (mc) {
         this.mc = mc;
@@ -17,7 +18,7 @@ define(function (require) {
                 height: this.mc.height
             });
             /* 对name进行加工,layer自增1 */
-            if(!options.name){
+            if (!options.name) {
                 //如果没有定义name的话
                 var nameTempArr = [], nameTemp, numArr = [], i, len, orderArr = [], orderTempArr = [];
                 for (i = 0, len = this.canvasArr.length; i < len; i++) {
@@ -41,11 +42,22 @@ define(function (require) {
 
 
             /* 对order进行加工 */
+            if(!options.order){
+                var order = _.difference(orderArr, orderTempArr);
+                options.order = order[0];
+            }
 
-            var order = _.difference(orderArr, orderTempArr);
-            options.order = order[0];
+            /* 对id进行加工 */
+            var tempArr = _.map(_.pluck(this.canvasArr, 'id'), function (canvasId) {
+                return +canvasId.replace('canvas_', '');
+            }.bind(this));
+            if (tempArr.length === 0) {
+                options.id = 'canvas_1';
+            } else {
+                options.id = 'canvas_' + (_.max(tempArr) + 1);
+            }
 
-            var canvas = new Canvas(options);
+            var canvas = Canvas.create(options);
             for (i = 0, len = this.canvasArr.length; i < len; i++) {
                 this.canvasArr[i].isCur = false;
             }
@@ -99,6 +111,7 @@ define(function (require) {
             /*  把shapes 所在的canvas指向这一个 */
             _.each(mc.shapes, function (shape) {
                 shape.canvas = this.canvasArr[0];
+                shape.canvasId = this.canvasArr[0].id;
             }.bind(this));
             this.mc.mediator.publish('onChangeLayer');
 
@@ -128,57 +141,6 @@ define(function (require) {
         }
     };
 
-    var Canvas = function (options) {
-        options = options || {};
-        this.id = options.id || _.uniqueId('canvas_');
-        this.name = options.name || 'layer';
-        this.order = options.order || 1;
-        this.opacity = 1;
-        this.width = options.width;
-        this.height = options.height;
-        this.isCur = options.isCur || true;
-        this.visibility = options.visibility || true;
-        this.undoStack = [];
-        this.redoStack = [];
-        this.canvas = $('<canvas>')
-            .attr({
-                width: this.width,
-                height: this.height
-            })
-            .data({
-                name: this.name
-            })
-            .css({
-                opacity: this.opacity,
-                zIndex: this.order
-            })
-            .appendTo($('.draw-pic-canvas'));
-        this.ctx = this.canvas[0].getContext('2d');
-        this._bindEvent();
-    };
-    Canvas.prototype = {
-        _bindEvent: function () {
-            this.canvas.on('onchangeOpacity', $.proxy(this.onChangeOpacity, this))
-                .on('onDelete', $.proxy(this.onDelete, this));
 
-        },
-        clear: function () {
-            this.ctx.clearRect(0, 0, this.width, this.height);
-        },
-        onDelete: function () {
-            this.canvas.remove();
-        },
-        onChangeOpacity: function (event, data) {
-            this.canvas.css({opacity: data});
-        },
-        setBackground: function (color) {
-            this.ctx.fillStyle = color;
-            this.ctx.fillRect(0, 0, this.width, this.height);
-        },
-        setOpacity: function (value) {
-            this.opacity = value;
-            this.canvas.trigger('onchangeOpacity', value);
-        }
-    };
     return DrawCanvas;
 });

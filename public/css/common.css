@@ -23,13 +23,31 @@ body{
 
     content: ".";
 }
-
+.l{
+    float: left;
+}
 .clearfix {
     display: inline-block;
+}
+.uploadButtonWrap{
+    display: block;
+    width: 200px;
+    height: 26px;
+    float: left;
+}
+
+.uploadForm button{
+    display: none;
+    float: left;
 }
 /* logo */
 #top-area{
     height: 43px;
+}
+#bottom-area{
+    /* position: absolute; */
+    /* bottom: 0; */
+    left: 0;
 }
 .logo{
     font-family: "微软雅黑";
@@ -49,6 +67,11 @@ body{
 
 .uploadImageWrap{
     z-index: 100;
+    display: block;
+    float: left;
+}
+#uploadImage{
+    display: none;
 }
 .uploadImageWrap .ok{
     position: absolute;
@@ -66,7 +89,7 @@ body{
 
 
 #middle-area{
-    height: 467px;
+    /* height: 467px; */
     padding-right: 320px;
     position: relative;
 }
@@ -95,7 +118,7 @@ body{
     height: 453px;
     width: 1006px;
     display: block;
-    background: url(../img/checkers.gif) repeat;
+    background: #fff;
     overflow: hidden;
     z-index: 2;
     margin: 0;
@@ -359,7 +382,7 @@ body{
     margin: 4px;
     width: 288px;
     height: 130px;
-    background: url(../img/checkers.gif) repeat;
+    background: #fff;
 }
 #zoom-canvas{
     width: 100%;

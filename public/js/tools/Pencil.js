@@ -4,31 +4,17 @@ define(function (require) {
      *
      * */
     var shapes = require('core/shapes');
-    var Tool = require('tools/tool')
-/*
-    var Tool = Class.extend({
-        setType: function (type) {
-            this.subTool = this.classes[type];
-        },
-        begin: function (x, y, mc) {
-            this.subTool.begin(x, y, mc);
-        },
-        continue: function (x, y, mc) {
-            this.subTool.continue(x, y, mc);
+    var Base = require('tools/Base');
+    var Class = require('Class');
 
-        },
-        end: function (x, y, mc) {
-            this.subTool.end(x, y, mc);
-        }
-    });*/
-   /* var Pencil = Tool.extend({
+    var Pencil = Class.extend({
         init: function () {
+            this.type = this.type || 'Basic';
             this.classes = {
-                Basic: new Basic(),
+                Basic: Basic.create(),
                 HalfTone: new HalfTone(),
                 HLine: new HLine(),
                 VLine: new VLine(),
-                Circle: new Circle(),
                 Spray: new Spray(),
                 Neighbor: new Neighbor(),
                 Fur: new Fur(),
@@ -39,41 +25,28 @@ define(function (require) {
             };
             this.name = 'pencil';
             this.subTool = this.classes[this.type];
+        },
+        setType: function (type) {
+            this.subTool = this.classes[type];
         }
-    });*/
-    var Pencil = function (type) {
-        Tool.call(this, arguments);
-        this.classes = {
-            Basic: new Basic(),
-            HalfTone: new HalfTone(),
-            HLine: new HLine(),
-            VLine: new VLine(),
-            Circle: new Circle(),
-            Spray: new Spray(),
-            Neighbor: new Neighbor(),
-            Fur: new Fur(),
-            Shaded: new Shaded(),
-            Squares: new Squares(),
-            Ribbon: new Ribbon()
+    });
 
-        };
-        this.name = 'pencil';
-        this.subTool = this.classes[this.type];
 
-    };
-    Pencil.prototype = new Tool();
-
-    var Basic = function () {
-        this.name = 'pencil';
-        this.path = [];
-    };
-    Basic.prototype = {
+    var Basic = Base.extend({
+        init: function () {
+            this.name = 'pencil';
+            this.path = [];
+        },
         setting: {
             Opacity: 100,
             Size: 20
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilBasicShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
+            this.currentShape.canvasId = mc.dc.getCanvas().id;
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
@@ -86,7 +59,8 @@ define(function (require) {
 
         end: function (x, y, mc) {
         }
-    };
+
+    });
 
     var HalfTone = function () {
         this.name = 'halftone';
@@ -120,6 +94,9 @@ define(function (require) {
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilHalfToneShape.create();
             this.currentShape.canvas = mc.dc.getCanvas();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.addPoint(x, y);
             mc.saveShape(this.currentShape);
 
@@ -191,6 +168,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilHLineShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPoint(x, y);
             mc.saveShape(this.currentShape);
@@ -240,6 +220,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilVLineShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPoint(x, y);
             mc.saveShape(this.currentShape);
@@ -252,30 +235,7 @@ define(function (require) {
         }
     };
 
-    var Circle = function () {
-        this.name = 'circle';
-        this.path = [];
-    };
-    Circle.prototype = {
-        setting: {
-            Opacity: 100,
-            Size: 20,
-            Density: 50
-        },
-        begin: function (x, y, mc) {
-            this.currentShape = shapes.PencilCircleShape.create();
-            this.currentShape.canvas = mc.dc.getCanvas();
-            this.currentShape.addPoint(x, y);
-            mc.saveShape(this.currentShape);
-        },
-        continue: function (x, y, mc) {
-            this.currentShape.addPoint(x, y);
-          //  mc.repaintlayer();
-            mc.drawShapeInProgress(this.currentShape);
-        },
-        end: function (x, y, mc) {
-        }
-    };
+
 
     var Spray = function () {
         this.name = 'spray';
@@ -289,6 +249,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilSprayShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
@@ -315,6 +278,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilNeighborShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
@@ -372,6 +338,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilFurShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
@@ -381,43 +350,10 @@ define(function (require) {
             mc.repaintlayer();
         },
         end: function (x, y, mc) {
-        },
-        redraw: function (mc) {
-            var length = this.path.length;
-            var ctx = mc.bcCtx;
-            var nowPoint = this.path[this.path.length - 1];
-            var lastPoint = this.path[this.path.length - 2];
-            var opacity = this.setting.Opacity / 100;
-            var color = mc.getColor();
-            var dx, dy;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
-
-            mc.bcCtx.lineCap = mc.bcCtx.lineJoin = 'round';
-            mc.bcCtx.beginPath();
-            ctx.strokeStyle = RGBAColor;
-            ctx.lineWidth = this.setting.Size / 20;
-            ctx.moveTo(lastPoint.x, lastPoint.y);
-            ctx.lineTo(nowPoint.x, nowPoint.y);
-            ctx.stroke();
-            for (var i = 0, len = this.path.length; i < len; i++) {
-                dx = this.path[i].x - nowPoint.x;
-                dy = this.path[i].y - nowPoint.y;
-                var d = dx * dx + dy * dy;
-
-                if (d < 2000 && Math.random() > d / 2000) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = RGBAColor;
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(nowPoint.x + (dx * 0.5), nowPoint.y + (dy * 0.5));
-                    ctx.lineTo(nowPoint.x - (dx * 0.5), nowPoint.y - (dy * 0.5));
-                    ctx.stroke();
-                }
-            }
-
-
         }
+
+
+
     };
 
     var Shaded = function () {
@@ -431,6 +367,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilShadedShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
@@ -452,6 +391,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilSquaresShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
@@ -499,6 +441,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilRibbonShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);

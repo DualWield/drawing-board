@@ -1,17 +1,14 @@
 define(function (require) {
     var shapes = {};
-
+    var Class = require('Class');
     var Shape = Class.extend({
         init: function (arg) {
             this.path = []; //只用来记录鼠标的轨迹
-            this.drawPath = []; //用来记录真实的形状
-            this.color = mc.getColor();
-            this.setting = {};
             /*  属性都加上来 */
-            for (var i in mc.tool.subTool.setting) {
-                this[i] = mc.tool.subTool.setting[i];
-                this.setting[i] = mc.tool.subTool.setting[i];
-            }
+            this.setting = {};
+            this.drawPath = []; //用来记录真实的形状
+            this.setting.color = mc.getColor();
+
             _.extend(this, arg);
 
         },
@@ -19,14 +16,13 @@ define(function (require) {
             var obj = {
                 name: this.name,
                 path: this.path,
-                color: this.color,
+                points: this.points,
                 drawPath: this.drawPath,
-                canvasId: this.canvas.id
-
+                linePath: this.linePath,
+                canvasId: this.canvas.id,
+                setting: {}
             };
-            for (var i in this.setting) {
-                obj[i] = this.setting[i];
-            }
+            _.extend(obj.setting, this.setting);
             return JSON.stringify(obj);
         },
         addPoint: function (x, y) {
@@ -38,12 +34,6 @@ define(function (require) {
     });
 
     var PencilBasicShape = Shape.extend({
-        /*  init: function () {
-         this.path = [];
-         this.color = mc.getColor();
-         this.opacity = mc.tool.subTool.setting.Opacity;
-         this.size = mc.tool.subTool.setting.Size
-         },*/
         init: function (arg) {
             this.callSuper(arg);
             this.name = 'PencilBasicShape';
@@ -52,14 +42,14 @@ define(function (require) {
             var ctx = canvas.getContext('2d');
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
-            var color = this.color;
-            var opacity = this.Opacity / 100;
+            var color = this.setting.color;
+            var opacity = this.setting.Opacity / 100;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
             ctx.strokeStyle = RGBAColor;
             ctx.strokeStyle = RGBAColor;
-            ctx.lineWidth = this.Size;
+            ctx.lineWidth = this.setting.Size;
             ctx.moveTo(this.path[0].x, this.path[0].y);
             for (var i = 1, len = this.path.length; i < len; i++) {
                 ctx.lineTo(this.path[i].x, this.path[i].y);
@@ -74,14 +64,14 @@ define(function (require) {
         },
         getPattern: function (ctx) {
             var patternCanvas = document.createElement('canvas'),
-                dotWidth = this.DotSize,
+                dotWidth = this.setting.DotSize,
                 dotDistance = 5,
                 patternCtx = patternCanvas.getContext('2d');
 
             patternCanvas.width = patternCanvas.height = dotWidth + dotDistance;
 
-            var color = this.color;
-            var opacity = this.Opacity / 100;
+            var color = this.setting.color;
+            var opacity = this.setting.Opacity / 100;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
@@ -95,7 +85,7 @@ define(function (require) {
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
             ctx.strokeStyle = this.getPattern(ctx);
-            ctx.lineWidth = this.Size;
+            ctx.lineWidth = this.setting.Size;
             ctx.lineJoin = ctx.lineCap = 'round';
 
             var p1 = this.path[0];
@@ -121,14 +111,14 @@ define(function (require) {
         },
         getPattern: function (ctx) {
             var patternCanvas = document.createElement('canvas'),
-                dotWidth = this.LineSize,
+                dotWidth = this.setting.LineSize,
                 dotDistance = 5,
                 patternCtx = patternCanvas.getContext('2d');
 
             patternCanvas.width = patternCanvas.height = dotWidth * 2;
 
-            var color = this.color;
-            var opacity = this.Opacity / 100;
+            var color = this.setting.color;
+            var opacity = this.setting.Opacity / 100;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
@@ -146,7 +136,7 @@ define(function (require) {
             var ctx = canvas.getContext('2d');
 
             ctx.strokeStyle = this.getPattern(ctx);
-            ctx.lineWidth = this.Size;
+            ctx.lineWidth = this.setting.Size;
             ctx.lineJoin = ctx.lineCap = 'round';
 
             var p1 = this.path[0];
@@ -172,14 +162,14 @@ define(function (require) {
         },
         getPattern: function (ctx) {
             var patternCanvas = document.createElement('canvas'),
-                dotWidth = this.LineSize,
+                dotWidth = this.setting.LineSize,
                 dotDistance = 5,
                 patternCtx = patternCanvas.getContext('2d');
 
             patternCanvas.width = patternCanvas.height = dotWidth * 2;
 
             var color = mc.getColor();
-            var opacity = this.Opacity / 100;
+            var opacity = this.setting.Opacity / 100;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
@@ -197,7 +187,7 @@ define(function (require) {
             var ctx = canvas.getContext('2d');
 
             ctx.strokeStyle = this.getPattern(ctx);
-            ctx.lineWidth = this.Size;
+            ctx.lineWidth = this.setting.Size;
             ctx.lineJoin = ctx.lineCap = 'round';
 
             var p1 = this.path[0];
@@ -216,53 +206,17 @@ define(function (require) {
             ctx.stroke();
         }
     });
-    var PencilCircleShape = Shape.extend({
-        /* TODO:有bug尚未解决*/
-        draw: function (canvas) {
-            var ctx = canvas.getContext('2d');
-            ctx.save();
-            var length = this.path.length;
-            var nowPoint = this.path.slice(length - 1, length)[0];
-            var lastPoint = this.path.slice(length - 2, length - 1)[0] ||
-                {x: nowPoint.x, y: nowPoint.y - 1};
-            var dist = _.distanceBetween(nowPoint, lastPoint);
-
-            if (dist < 1) {
-                return;
-            }
-            ctx.lineCap = ctx.lineJoin = 'round';
-            ctx.beginPath();
-            var color = this.color;
-            var opacity = this.Opacity / 100;
-            var RGBAcolor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
-            ctx.fillStyle = RGBAcolor;
-
-            ctx.strokeStyle = RGBAcolor;
-            ctx.lineWidth = this.Size;
-
-            for (var i = 0, len = dist; i < len; i += this.Density) {
-                var s = i / dist;
-                var radius = this.Size/* * Math.random()*/;
-                ctx.globalAlpha = opacity/* * Math.random()*/;
-                ctx.arc(lastPoint.x * s + nowPoint.x * (1 - s),
-                    lastPoint.y * s + nowPoint.y * (1 - s), radius, 0, Math.PI * 2);
-            }
-            ctx.fill();
-            ctx.restore();
-        }
-    });
     var PencilSprayShape = Shape.extend({
-        init: function () {
-            this.callSuper();
+        init: function (arg) {
             this.points = [];
+            this.callSuper(arg);
+            this.name = 'PencilSprayShape';
         },
         setInterVal: function () {
             this.timer = setInterval(function () {
-                for (var i = 0, len = this.Density; i < len; i++) {
+                for (var i = 0, len = this.setting.Density; i < len; i++) {
                     var angle = Math.PI * Math.random() * 2;
-                    var size = this.Size * Math.random();
+                    var size = this.setting.Size * Math.random();
                     this.points.push(
                         {
                             x: this.path[this.path.length - 1].x + size * Math.cos(angle),
@@ -282,11 +236,11 @@ define(function (require) {
             var ctx = canvas.getContext('2d');
 
             ctx.save();
-            var opacity = this.Opacity / 100;
+            var opacity = this.setting.Opacity / 100;
 
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
-            var color = this.color;
+            var color = this.setting.color;
             var RGBAcolor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
@@ -300,9 +254,10 @@ define(function (require) {
         }
     });
     var PencilNeighborShape = Shape.extend({
-        init: function () {
-            this.callSuper();
+        init: function (arg) {
             this.linePath = [];
+            this.name = 'PencilNeighborShape';
+            this.callSuper(arg);
         },
         /*
          *  this.path 2个一组，连成一条线
@@ -313,15 +268,15 @@ define(function (require) {
             var nowPoint = this.path[this.path.length - 1];
             var lastPoint = this.path[this.path.length - 2] ||
                 {x: nowPoint.x, y: nowPoint.y - 1};
-            var opacity = this.Opacity / 100;
-            var color = this.color;
+            var opacity = this.setting.Opacity / 100;
+            var color = this.setting.color;
             var dx, dy;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
 
             ctx.strokeStyle = RGBAColor;
-            ctx.lineWidth = this.Size / 20;
+            ctx.lineWidth = this.setting.Size / 20;
             this.linePath.push({
                 x1: lastPoint.x, y1: lastPoint.y,
                 x2: nowPoint.x, y2: nowPoint.y
@@ -348,9 +303,10 @@ define(function (require) {
         }
     });
     var PencilFurShape = Shape.extend({
-        init: function () {
-            this.callSuper();
+        init: function (arg) {
             this.linePath = [];
+            this.name = 'PencilFurShape';
+            this.callSuper(arg);
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
@@ -358,8 +314,8 @@ define(function (require) {
             var nowPoint = this.path[this.path.length - 1];
             var lastPoint = this.path[this.path.length - 2] ||
                 {x: nowPoint.x, y: nowPoint.y - 1};
-            var opacity = this.Opacity / 100;
-            var color = this.color;
+            var opacity = this.setting.Opacity / 100;
+            var color = this.setting.color;
             var dx, dy;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
@@ -368,7 +324,7 @@ define(function (require) {
             mc.bcCtx.lineCap = mc.bcCtx.lineJoin = 'round';
             mc.bcCtx.beginPath();
             ctx.strokeStyle = RGBAColor;
-            ctx.lineWidth = this.Size / 10;
+            ctx.lineWidth = this.setting.Size / 10;
             this.linePath.push({
                 x1: lastPoint.x, y1: lastPoint.y,
                 x2: nowPoint.x, y2: nowPoint.y
@@ -397,17 +353,18 @@ define(function (require) {
         }
     });
     var PencilShadedShape = Shape.extend({
-        init: function () {
-            this.callSuper();
+        init: function (options) {
             this.linePath = [];
+            this.name = 'PencilShadedShape';
+            this.callSuper(options);
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
             var nowPoint = this.path[this.path.length - 1];
             var lastPoint = this.path[this.path.length - 2] ||
                 {x: nowPoint.x, y: nowPoint.y - 1};
-            var opacity = this.Opacity / 100;
-            var color = this.color;
+            var opacity = this.setting.Opacity / 100;
+            var color = this.setting.color;
             var dx, dy;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
@@ -416,7 +373,7 @@ define(function (require) {
             mc.bcCtx.lineCap = mc.bcCtx.lineJoin = 'round';
             mc.bcCtx.beginPath();
             ctx.strokeStyle = RGBAColor;
-            ctx.lineWidth = this.Size / 20;
+            ctx.lineWidth = this.setting.Size / 20;
             this.linePath.push({
                 x1: lastPoint.x, y1: lastPoint.y,
                 x2: nowPoint.x, y2: nowPoint.y
@@ -449,9 +406,10 @@ define(function (require) {
         /*
          * this.linePath 四个一组，画矩形
          * */
-        init: function () {
-            this.callSuper();
+        init: function (options) {
             this.linePath = [];
+            this.name = 'PencilSquaresShape';
+            this.callSuper(options);
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
@@ -463,14 +421,14 @@ define(function (require) {
             var angle = 1.57;
             var px = Math.cos(angle) * dx - Math.sin(angle) * dy;
             var py = Math.sin(angle) * dx + Math.cos(angle) * dy;
-            var color = this.color;
+            var color = this.setting.color;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + '1' + ')';
 
             ctx.strokeStyle = RGBAColor;
             ctx.fillStyle = '#fff';
-            ctx.lineWidth = this.Size / 10;
+            ctx.lineWidth = this.setting.Size / 10;
             this.linePath.push({
                 x1: lastPoint.x - px, y1: lastPoint.y - py,
                 x2: lastPoint.x + px, y2: lastPoint.y + py,
@@ -492,10 +450,9 @@ define(function (require) {
         }
     });
     var PencilRibbonShape = Shape.extend({
-        init: function () {
+        init: function (options) {
             this.tempPath = [];
             this.linePath = [];
-            this.callSuper();
             for (var i = 0; i < this.LineNum; i++) {
                 this.path.push({
                     dx: 0,
@@ -506,14 +463,16 @@ define(function (require) {
                     ease: Math.random() * 0.2 + 0.6
                 });
             }
+            this.name = 'PencilRibbonShape';
+            this.callSuper(options);
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
             ctx.beginPath();
 
             ctx.lineWidth = 1;
-            var opacity = this.Opacity / 100;
-            var color = this.color;
+            var opacity = this.setting.Opacity / 100;
+            var color = this.setting.color;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
                 (+('0x' + color[3] + color[4])) + ',' +
                 (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
@@ -569,7 +528,7 @@ define(function (require) {
             ctx.save();
 
             ctx.beginPath();
-            ctx.lineWidth = this.Size;
+            ctx.lineWidth = this.setting.Size;
             ctx.globalCompositeOperation = 'destination-out';
             ctx.moveTo(this.drawPath[0].x1, this.drawPath[0].y1);
             ctx.lineTo(this.drawPath[0].x2, this.drawPath[0].y2);
@@ -599,8 +558,8 @@ define(function (require) {
 
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
-            ctx.strokeStyle = this.color;
-            ctx.lineWidth = this.Size;
+            ctx.strokeStyle = this.setting.color;
+            ctx.lineWidth = this.setting.Size;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
             ctx.moveTo(nowPoint.x, nowPoint.y);
@@ -637,8 +596,8 @@ define(function (require) {
 
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
-            ctx.strokeStyle = this.color;
-            ctx.lineWidth = this.Size / 10;
+            ctx.strokeStyle = this.setting.color;
+            ctx.lineWidth = this.setting.Size / 10;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
             _.each(this.drawPath, function (point) {
@@ -667,7 +626,7 @@ define(function (require) {
 
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
-            ctx.strokeStyle = this.color;
+            ctx.strokeStyle = this.setting.color;
             ctx.lineWidth = this.Border / 3;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
@@ -695,7 +654,7 @@ define(function (require) {
 
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
-            ctx.fillStyle = this.color;
+            ctx.fillStyle = this.setting.color;
             ctx.lineWidth = this.Border / 3;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
@@ -707,6 +666,57 @@ define(function (require) {
         }
     });
 
+    var CircleBasicShape = Shape.extend({
+        init: function (arg) {
+            this.callSuper(arg);
+            this.name = 'CircleBasicShape';
+        },
+        addDrawPath: function () {
+
+        },
+        draw: function (canvas) {
+            var ctx = canvas.getContext('2d');
+
+            var nowPoint = this.path[this.path.length - 1];
+            var lastPoint = this.path[this.path.length - 2] ||
+                {x: nowPoint.x, y: nowPoint.y - 1};
+            var midPoint = {
+                x: (nowPoint.x + lastPoint.x)/2,
+                y: (nowPoint.y + lastPoint.y)/2
+            };
+            var dist = _.distanceBetween(lastPoint, nowPoint);
+
+            ctx.beginPath();
+            ctx.arc(midPoint.x, midPoint.y, dist/2, 0, 2*Math.PI);
+            ctx.lineWidth = this.setting.Border;
+            ctx.strokeStyle = this.setting.color;
+            ctx.stroke();
+        }
+    });
+    var CircleSolidShape = Shape.extend({
+        init: function (arg) {
+            this.callSuper(arg);
+            this.name = 'CircleSolidShape';
+        },
+        draw: function (canvas) {
+            var ctx = canvas.getContext('2d');
+
+            var nowPoint = this.path[this.path.length - 1];
+            var lastPoint = this.path[this.path.length - 2] ||
+                {x: nowPoint.x, y: nowPoint.y - 1};
+            var midPoint = {
+                x: (nowPoint.x + lastPoint.x)/2,
+                y: (nowPoint.y + lastPoint.y)/2
+            };
+            var dist = _.distanceBetween(lastPoint, nowPoint);
+
+            ctx.beginPath();
+            ctx.arc(midPoint.x, midPoint.y, dist/2, 0, 2*Math.PI);
+            ctx.lineWidth = this.setting.Border;
+            ctx.fillStyle = this.setting.color;
+            ctx.fill();
+        }
+    });
     var ImageShape = Shape.extend({
         init: function (arg) {
             this.callSuper(arg);
@@ -717,16 +727,38 @@ define(function (require) {
             this.radioX = arg.radioX;
             this.radioY = arg.radioY;
         },
+        convertToJSON: function () {
+            var obj = {
+                name: this.name,
+                x: this.x,
+                y: this.y,
+                url: this.url,
+                radioX: this.radioX,
+                radioY: this.radioY,
+                canvasId: this.canvas.id
+
+            };
+            for (var i in this.setting) {
+                obj[i] = this.setting[i];
+            }
+            return JSON.stringify(obj);
+        },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
-
             var image = document.createElement('img');
             image.src = this.url;
-            //image.addEventListener('load', function () {
             ctx.scale(this.radioX, this.radioY);
-            ctx.drawImage(image, this.x, this.y);
+            ctx.drawImage(image, this.x/this.radioX, this.y/this.radioY);
             ctx.scale(1 / this.radioX, 1 / this.radioY);
-            //}.bind(this));
+        }
+    });
+
+    var FontBasicShape = Shape.extend({
+        init: function (arg) {
+            this.callSuper(arg);
+            this.name = 'FontBasicShape';
+        },
+        draw: function () {
 
         }
     });
@@ -735,7 +767,6 @@ define(function (require) {
         PencilHalfToneShape: PencilHalfToneShape,
         PencilHLineShape: PencilHLineShape,
         PencilVLineShape: PencilVLineShape,
-        PencilCircleShape: PencilCircleShape,
         PencilSprayShape: PencilSprayShape,
         PencilNeighborShape: PencilNeighborShape,
         PencilFurShape: PencilFurShape,
@@ -747,7 +778,10 @@ define(function (require) {
         LineDottedShape: LineDottedShape,
         RectBasicShape: RectBasicShape,
         RectSolidShape: RectSolidShape,
-        ImageShape: ImageShape
+        CircleBasicShape: CircleBasicShape,
+        CircleSolidShape: CircleSolidShape,
+        ImageShape: ImageShape,
+        FontBasicShape: FontBasicShape
     };
 
     return shapes;

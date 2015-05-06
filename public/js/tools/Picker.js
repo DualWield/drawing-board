@@ -1,19 +1,22 @@
 define(function (require) {
 
+    var Base = require('tools/Base');
     var shapes = require('core/shapes');
-    var Tool = require('tools/tool');
     var colorPicker = require('component/colorPicker');
+    var Class = require('Class');
 
-    var Picker = function () {
-        Tool.call(this, arguments);
-        this.classes = {
-            Basic: new Basic()
-        };
-        this.name = 'Picker';
-        this.subTool = this.classes[this.type];
+    var Picker = Class.extend({
+        init: function () {
+            this.type = this.type || 'Basic';
+            this.classes = {
+                Basic: new Basic()
+            };
+            this.name = 'Picker';
+            this.subTool = this.classes[this.type];
+        }
+    });
 
-    };
-    Picker.prototype = new Tool();
+
 
     var Basic = function () {
         this.name = 'Basic'

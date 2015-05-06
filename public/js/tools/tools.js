@@ -4,12 +4,17 @@ define(function (require) {
     var Line = require('tools/Line');
     var Rect = require('tools/Rect');
     var Picker = require('tools/Picker');
+    var Circle = require('tools/Circle');
+    var Font = require('tools/Font');
+
     var Tools = {
-        pencil : new Pencil(),
-        eraser : new Eraser(),
-        line : new Line(),
-        Rect: new Rect(),
-        Picker: new Picker()
+        pencil : Pencil.create(),
+        eraser : Eraser.create(),
+        line : Line.create(),
+        Rect: Rect.create(),
+        Picker: Picker.create(),
+        Circle: Circle.create(),
+        Font: Font.create()
     };
 
 

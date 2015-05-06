@@ -2,6 +2,7 @@
  * Created by xuli07 on 2015/1/28.
  */
 define(function (require) {
+    require('jquery.ui');
     var zoom = {
         init :  function (mc) {
             this.mc = mc;
@@ -14,7 +15,7 @@ define(function (require) {
             mc.zcCtx = mc.zc.getContext('2d');
 
             this._bindEvent();
-            this._refresh();
+            //this._refresh();
         },
         tpl: '<div class="zoom-well">\
                     <div class="zoom-capture">\
@@ -59,7 +60,7 @@ define(function (require) {
                 }
             }
             require('jsx!component/layer').init(mc);
-
+            mc.repaintlayer();
         },
         _bindEvent : function () {
             $('.zoom-in').on('click', $.proxy(this.zoomIn, this));

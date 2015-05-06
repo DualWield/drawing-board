@@ -1,20 +1,22 @@
 define(function (require) {
-
+    var Base = require('tools/Base');
     var shapes = require('core/shapes');
-    var Tool = require('tools/tool');
+    var Class = require('Class');
 
-    var Line = function () {
-        Tool.call(this, arguments);
-        this.classes = {
-            Basic: new Basic(),
-            Dotted: new Dotted()
-        };
-        this.name = 'line';
-        this.subTool = this.classes[this.type];
-
-    };
-
-    Line.prototype = new    Tool();
+    var Line = Class.extend({
+        init: function () {
+            this.type = this.type || 'Basic';
+            this.classes = {
+                Basic: new Basic(),
+                Dotted: new Dotted()
+            };
+            this.name = 'Line';
+            this.subTool = this.classes[this.type];
+        },
+        setType: function (type) {
+            this.subTool = this.classes[type];
+        }
+    });
 
     var Basic = function () {
         this.name = '实线';

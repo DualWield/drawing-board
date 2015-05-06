@@ -1,5 +1,7 @@
 /**
- * Created by xuli07 on 2015/1/28.
+ * author: xuli@shnow.cn
+ * date: 2015.04.10
+ *
  */
 define(function (require) {
 

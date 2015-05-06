@@ -8,6 +8,7 @@ define(function (require) {
         require('jsx!component/clearButton').init(mc);
         require('jsx!component/undoRedoButtons').init(mc);
         require('jsx!component/insertImageButton').init(mc);
+        require('jsx!component/saveButton').init(mc);
     };
 
     return {
