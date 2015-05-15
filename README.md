@@ -14,4 +14,4 @@
 
 # Demo
 
-https://draw-board.herokuapp.com/
+http://draw-board.herokuapp.com/
