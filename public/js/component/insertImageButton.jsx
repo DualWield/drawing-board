@@ -78,22 +78,27 @@ define(function (require) {
         },
         render: function () {
             return (
-                <form id="uploadForm"
-                    enctype="multipart/form-data"
-                    action="/api/photos"
-                    method="post"
-                    className="uploadForm">
-                    <a className="uploadButtonWrap" onClick={this.handleUploadClick}></a>
-                    <input type="file" id="uploadImage" name="uploadImage" onChange={this.handleChange}/>
-                    <button ref="ok" className="ok" type="button" onClick={this.drawImageToCanvas}>Ok</button>
-                    <button ref="cancel" className="cancel" type="button" onClick={this.cancelInsertImage}>Cancel</button>
-                </form>
+                <div>
+                    <div onClick={this.handleUploadClick} className="btn btn-default">插入图片</div>
+
+                    <form id="uploadForm"
+                        enctype="multipart/form-data"
+                        action="/api/photos"
+                        method="post"
+                        className="uploadForm">
+                        <a className="uploadButtonWrap" onClick={this.handleUploadClick}></a>
+                        <input type="file" id="uploadImage" name="uploadImage" onChange={this.handleChange}/>
+                        <button ref="ok" className="ok" type="button" onClick={this.drawImageToCanvas}>Ok</button>
+                        <button ref="cancel" className="cancel" type="button" onClick={this.cancelInsertImage}>Cancel</button>
+                    </form>
+                </div>
+
             );
         }
     });
     var init = function (mc) {
         React.render(
-            <InsertImageButton data={mc} />, document.getElementById('insertImage')
+            <InsertImageButton data={mc} />, document.getElementById('insertImageButton')
         )
     };
     return {

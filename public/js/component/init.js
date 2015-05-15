@@ -9,6 +9,8 @@ define(function (require) {
         require('jsx!component/undoRedoButtons').init(mc);
         require('jsx!component/insertImageButton').init(mc);
         require('jsx!component/saveButton').init(mc);
+        require('jsx!component/resetButton').init(mc);
+
     };
 
     return {

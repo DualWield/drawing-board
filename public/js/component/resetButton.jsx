@@ -7,12 +7,12 @@
 define(function (require) {
     var React = require('react');
 
-    var SaveButton = React.createClass({
-        handleSave: function () {
-            this.props.data.saveImage();
+    var ResetButton = React.createClass({
+        handleClick: function () {
+            this.props.data.reset();
         },
         render: function () {
-            return <div onClick={this.handleSave} className="btn btn-default">保存</div>
+            return <div onClick={this.handleClick} className="btn btn-default">重置</div>
 
         }
     });
@@ -20,7 +20,7 @@ define(function (require) {
 
     var init = function (mc) {
         React.render(
-            <SaveButton data={mc} />,document.getElementById('saveButton')
+            <ResetButton data={mc} />,document.getElementById('resetButton')
         )
     };
     return {

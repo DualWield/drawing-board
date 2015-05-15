@@ -138,6 +138,13 @@ define(function (require) {
                 canvas.order = j;
             }
             this.mc.mediator.publish('onChangeLayer');
+        },
+        removeAllCanvas: function () {
+            for(var i = 0 , len = this.canvasArr.length ; i < len ; i++){
+                var canvas = this.canvasArr[i];
+                canvas.canvas.remove();
+            }
+            this.canvasArr = [];
         }
     };
 

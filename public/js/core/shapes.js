@@ -10,7 +10,6 @@ define(function (require) {
             this.setting.color = mc.getColor();
 
             _.extend(this, arg);
-
         },
         convertToJSON: function () {
             var obj = {
@@ -39,16 +38,16 @@ define(function (require) {
             this.name = 'PencilBasicShape';
         },
         draw: function (canvas) {
+
             var ctx = canvas.getContext('2d');
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
             var color = this.setting.color;
             var opacity = this.setting.Opacity / 100;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor = _.hexToRGBA(color, opacity);
             ctx.strokeStyle = RGBAColor;
             ctx.strokeStyle = RGBAColor;
+
             ctx.lineWidth = this.setting.Size;
             ctx.moveTo(this.path[0].x, this.path[0].y);
             for (var i = 1, len = this.path.length; i < len; i++) {
@@ -72,9 +71,7 @@ define(function (require) {
 
             var color = this.setting.color;
             var opacity = this.setting.Opacity / 100;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor = _.hexToRGBA(color, opacity);
             patternCtx.fillStyle = RGBAColor;
             patternCtx.beginPath();
             patternCtx.arc(dotWidth / 2, dotWidth / 2, dotWidth / 2, 0, Math.PI * 2, false);
@@ -119,9 +116,7 @@ define(function (require) {
 
             var color = this.setting.color;
             var opacity = this.setting.Opacity / 100;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor =_.hexToRGBA(color, opacity);
             patternCtx.strokeStyle = RGBAColor;
             patternCtx.beginPath();
             patternCtx.lineWidth = dotWidth;
@@ -170,9 +165,7 @@ define(function (require) {
 
             var color = mc.getColor();
             var opacity = this.setting.Opacity / 100;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor = _.hexToRGBA(color, opacity);
             patternCtx.strokeStyle = RGBAColor;
             patternCtx.beginPath();
             patternCtx.lineWidth = dotWidth;
@@ -241,9 +234,7 @@ define(function (require) {
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
             var color = this.setting.color;
-            var RGBAcolor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAcolor =_.hexToRGBA(color, opacity);
             ctx.fillStyle = RGBAcolor;
             ctx.strokeStyle = RGBAcolor;
             for (var i = 0, len = this.points.length; i < len; i++) {
@@ -271,9 +262,7 @@ define(function (require) {
             var opacity = this.setting.Opacity / 100;
             var color = this.setting.color;
             var dx, dy;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor =_.hexToRGBA(color, opacity);
 
             ctx.strokeStyle = RGBAColor;
             ctx.lineWidth = this.setting.Size / 20;
@@ -317,9 +306,7 @@ define(function (require) {
             var opacity = this.setting.Opacity / 100;
             var color = this.setting.color;
             var dx, dy;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor = _.hexToRGBA(color, opacity);
 
             mc.bcCtx.lineCap = mc.bcCtx.lineJoin = 'round';
             mc.bcCtx.beginPath();
@@ -366,9 +353,7 @@ define(function (require) {
             var opacity = this.setting.Opacity / 100;
             var color = this.setting.color;
             var dx, dy;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor =_.hexToRGBA(color, opacity);
 
             mc.bcCtx.lineCap = mc.bcCtx.lineJoin = 'round';
             mc.bcCtx.beginPath();
@@ -422,9 +407,7 @@ define(function (require) {
             var px = Math.cos(angle) * dx - Math.sin(angle) * dy;
             var py = Math.sin(angle) * dx + Math.cos(angle) * dy;
             var color = this.setting.color;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + '1' + ')';
+            var RGBAColor = _.hexToRGBA(color, opacity);
 
             ctx.strokeStyle = RGBAColor;
             ctx.fillStyle = '#fff';
@@ -473,9 +456,7 @@ define(function (require) {
             ctx.lineWidth = 1;
             var opacity = this.setting.Opacity / 100;
             var color = this.setting.color;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor = _.hexToRGBA(color, opacity);
             ctx.strokeStyle = RGBAColor;
             for (var i = 0, len = this.linePath.length; i < len; i++) {
                 ctx.moveTo(this.linePath[i].x1, this.linePath[i].y1);

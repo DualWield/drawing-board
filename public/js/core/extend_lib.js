@@ -1,5 +1,5 @@
 define(function (require) {
-     var _ = require('underscore');
+    var _ = require('underscore');
     _.mixin({
         distanceBetween: function (point1, point2) {
             return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2))
@@ -23,30 +23,53 @@ define(function (require) {
             return "0123456789ABCDEF".charAt((n - n % 16) / 16) + "0123456789ABCDEF".charAt(n % 16);
         },
         preloadimages: function (arr) {
-            var newimages=[], loadedimages=0;
-            var postaction=function(){};  //此处增加了一个postaction函数
-            var arr=(typeof arr!="object")? [arr] : arr;
-            function imageloadpost(){
+            var newimages = [], loadedimages = 0;
+            var postaction = function () {
+            };  //此处增加了一个postaction函数
+            var arr = (typeof arr != "object") ? [arr] : arr;
+
+            function imageloadpost() {
                 loadedimages++;
-                if (loadedimages==arr.length){
+                if (loadedimages == arr.length) {
                     postaction(newimages); //加载完成用我们调用postaction函数并将newimages数组做为参数传递进去
                 }
             }
-            for (var i=0; i<arr.length; i++){
-                newimages[i]=new Image();
-                newimages[i].src=arr[i];
-                newimages[i].onload=function(){
+
+            for (var i = 0; i < arr.length; i++) {
+                newimages[i] = new Image();
+                newimages[i].src = arr[i];
+                newimages[i].onload = function () {
                     imageloadpost()
                 };
-                newimages[i].onerror=function(){
+                newimages[i].onerror = function () {
                     imageloadpost()
                 };
             }
             return { //此处返回一个空白对象的done方法
-                done:function(f){
-                    postaction=f || postaction;
+                done: function (f) {
+                    postaction = f || postaction;
                 }
             }
+        },
+        /* 将#fff 转化成 rgba()的形式*/
+        hexToRGBA: function (hex, a) {
+            var colorReg = /^#([0-9]|[a-f]){3}$/i;
+            var anotherColorReg = /^#([0-9]|[a-f]){6}/;
+            var rgba;
+            if (typeof a !== 'number' || a < 0 && a > 100) {
+                return false;
+            }
+            if (colorReg.test(hex)) {
+                hex = hex[0] + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+            }
+            if (anotherColorReg.test(hex)) {
+                rgba = 'rgba(' + (+('0x' + hex[1] + hex[2])) + ',' +
+                (+('0x' + hex[3] + hex[4])) + ',' +
+                (+('0x' + hex[5] + hex[6])) + ',' + a + ')';
+            }
+            return rgba;
+
         }
+
     });
 });

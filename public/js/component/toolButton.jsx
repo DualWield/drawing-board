@@ -41,7 +41,6 @@ define(function (require) {
                 });
                 return (
                     <div onClick={this.selectTool} data-action={key} className={classSet}>
-                    {value.name}
                     </div>
                 )
             }.bind(this));
@@ -51,8 +50,7 @@ define(function (require) {
                     'subButton': true
                 });
                 return (
-                    <div onClick={this.selectSubTool} data-action={key} className={classSet}>
-                    {value.name}
+                    <div onClick={this.selectSubTool} data-action={key} className={classSet + ' ' + this.props.data.tool.name+'-'+value.name}>
                     </div>
                 )
             }.bind(this));

@@ -8,7 +8,7 @@ body{
     -moz-user-select: none;
     -webkit-user-select: none;
 
-    background: #f5f5f5;
+    background: #f5f5f5 !important;
     overflow: hidden;
 }
 .mouse-capture{
@@ -45,9 +45,13 @@ body{
     height: 43px;
 }
 #bottom-area{
-    /* position: absolute; */
-    /* bottom: 0; */
-    left: 0;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 999;
+    background: #f5f5f5 !important;
+    width: 930px;
+    margin-left: -465px;
 }
 .logo{
     font-family: "微软雅黑";
@@ -89,28 +93,35 @@ body{
 
 
 #middle-area{
-    /* height: 467px; */
+    height: 827px;
     padding-right: 320px;
     position: relative;
 }
 #canvas-container{
     width: 100%;
-    /* height: 800px; */
-    overflow: hidden;
+    height: 100%;
+    /* overflow: hidden; */
     position: relative;
     z-index: 1;
     text-align: center;
     background-color: transparent;
-    top: -4px;
+    /* top: 11px; */
 }
 #slide-bar{
-    width: 300px;
+    width: 311px;
     position: absolute;
-    right: 20px;
-    top: 0;
+    right: 0px;
+    top: 37px;
     height: 100%;
+    z-index: 999;
+    background: #f5f5f5 !important;
+    margin-right: 27px;
+    padding-left: 15px;
 }
-
+#slide-bar>h5{
+    margin: 10px 0;
+    
+}
 
 .draw-pic-canvas{
     top: 5px;
@@ -118,6 +129,7 @@ body{
     height: 453px;
     width: 1006px;
     display: block;
+    /* margin-top: 53px; */
     background: #fff;
     overflow: hidden;
     z-index: 2;
@@ -132,16 +144,11 @@ body{
     top:0;
     left:0;
 }
+
 .header-button{
     float: left;
     text-indent: -9999px;
     cursor: pointer;
-}
-.forward.header-button{
-    background-image: url(../img/stash_muro_undoredo_sprite.png);
-    background-position: -39px -24px;
-    width: 30px;  height: 26px;
-
 }
 .forward.header-button:hover{
     background-position: -38px -49px;
@@ -149,12 +156,31 @@ body{
 .back.header-button:hover{
     background-position: -7px -49px;
 }
+
+.forward.header-button{
+    background-image: url(../img/stash_muro_undoredo_sprite.png);
+    background-position: -39px -24px;
+    width: 30px;  height: 26px;
+
+}
+.forward.header-button.disable{
+    cursor: default;
+    background-position: -39px -2px;
+}
+
+
 .back.header-button{
     background-image: url(../img/stash_muro_undoredo_sprite.png);
     background-position: -7px -24px;
     width: 30px;
     height: 26px;
 }
+.back.header-button.disable{
+    background-position: -7px -2px;
+
+    cursor: default;
+}
+
 
 /* canvas 相关 */
 .paint-canvas{
@@ -178,22 +204,35 @@ body{
 .mainTool .active.toolButton,.subTool .subButton.active{
     border: 1px solid #aaa;
     border-radius: 6px;
-    background: #fff;
-    background: -webkit-linear-gradient(top, #fff 0, #f6f6f6 100%);
+    /* background: #fff; */
+    /* background: -webkit-linear-gradient(top, #fff 0, #f6f6f6 100%); */
     background: -moz-linear-gradient(top, #fff 0, #f6f6f6 100%);
     background: linear-gradient(top, #fff 0, #f6f6f6 100%);
 }
 .mainTool .toolButton{
     float: left;
     margin: 0 6px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
 }
 .subTool{
-    height: 35px;
+    /* height: 35px; */
+    margin-top: 20px;
 }
 .subButton{
     float: left;
     margin: 0 6px;
 
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid transparent;
 }
 
 
@@ -210,6 +249,65 @@ body{
 
     font-family: "tool-button";
 }
+[data-action=pencil]:after{
+    content: "\e03e";
+}
+[data-action=eraser]:after{
+    content: "\e03c";
+}
+[data-action=line]{
+    background: url(../img/line_icon.png) no-repeat;
+    background-size: 26px;
+    background-position: 7px 6px;
+}
+[data-action=Rect]{
+    background: url(../img/rect_icon.png) no-repeat;
+    background-size: 26px;
+    background-position: 7px 6px;
+}
+[data-action=Circle]{
+    background: url(../img/circle_icon.png) no-repeat;
+    background-size: 26px;
+    background-position: 7px 6px;
+}
+[data-action=Picker]:after{
+    content: "\e037";
+}
+[data-action=Font]:after{
+    content: "\e03f";
+}
+.pencil-pencil:after{
+    content: "\e027";
+}
+.pencil-halftone:after{
+    content: "\e042";
+}
+.pencil-hline{
+    background: url(../img/pencil_hline.png) no-repeat;
+    background-size: 21px;
+    background-position: 3px 3px;
+    box-sizing: border-box;
+}
+.pencil-vline{
+    background: url(../img/pencil_vline.png) no-repeat;
+    background-size: 21px;
+    background-position: 3px 3px;
+    box-sizing: border-box;
+}
+.pencil-spray{
+    background: url(../img/pencil-spray.png) no-repeat;
+    background-size: 21px;
+    background-position: 3px 3px;
+    box-sizing: border-box;
+}
+.pencil-neighbor:after{
+    content: "\e031";
+}
+.pencil-fur:after{
+    content: "\e023";
+}
+
+
 .tool-button{
     float: left;
     width: 30px;
@@ -254,6 +352,10 @@ body{
 #color{
     float: left;
 
+    width: 68px;
+    margin-top: 30px;
+    margin-left: 9px;
+    border: none;
 }
 
 
@@ -262,7 +364,7 @@ body{
     color: #7f7f7f;
     font-size: 12px;
     float: left;
-    width: 320px;
+    /* width: 236px; */
     height: 85px;
 }
 .opacity-slider,.size-slider,.effect-slider{
@@ -319,6 +421,8 @@ body{
     height: 166px;
     font-family: tool-button;
 }
+.slide-bar>h5{
+}
 .zoom-well{
     width: 100%;
     height: 140px;
@@ -370,7 +474,7 @@ body{
     background-color: #dedede;
 }
 .zoom-percentage{
-    width: 30px;
+    /* width: 30px; */
     height: 23px;
     font-size: 9px;
     line-height: 21px;
@@ -393,7 +497,7 @@ body{
 
 /*  layer */
 .LayerList{
-    height: 149px;
+    height: 199px;
     background-color: #f0f0f0;
     border: 1px solid #dedede;
     border-radius: 6px;

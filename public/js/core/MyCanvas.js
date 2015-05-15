@@ -46,7 +46,23 @@ define(function (require) {
 
         this.dc = new DrawCanvas(this);
         //新加一个背景的layer
-        this.dc.addCanvas({name: 'background', mc: this});
+        if(!this.canvasData){
+            this.dc.addCanvas({name: 'background', mc: this});
+
+        }else {
+            if(this.canvasData){
+                //复原canvas
+                _.each(this.canvasData, function (canvasString) {
+                    var obj = JSON.parse(canvasString);
+                    if(obj.name !== 'background'){
+                        //如果是background图层的话，就不增加了
+                        this.dc.addCanvas(obj);
+                    }
+                }.bind(this));
+                this.mediator.publish('onChangeLayer');
+
+            }
+        }
         //新加一个透明的layer
         //this.dc.addCanvas({name: 'layer1', mc: this});
 
@@ -212,18 +228,7 @@ define(function (require) {
             }
             function nextTip(){
                 this.shapes = [];
-                if(this.canvasData){
-                    //复原canvas
-                    _.each(this.canvasData, function (canvasString) {
-                        var obj = JSON.parse(canvasString);
-                        if(obj.name !== 'background'){
-                            //如果是background图层的话，就不增加了
-                            var canvas = this.dc.addCanvas(obj);
-                        }
-                    }.bind(this));
-                    this.mediator.publish('onChangeLayer');
 
-                }
                 if(this.shapesData){
                     _.each(this.shapesData, function (shapeString) {
                         var obj = JSON.parse(shapeString);
@@ -253,6 +258,13 @@ define(function (require) {
         saveImage: function () {
             var zoomCanvas = $('#zoom-canvas')[0];
             window.open(zoomCanvas.toDataURL());
+        },
+        reset: function () {
+            this.shapes = [];
+            this.dc.removeAllCanvas();
+            this.dc.addCanvas({name: 'background', mc: this});
+            component.init(this);
+
         }
         
 

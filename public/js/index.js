@@ -30,7 +30,28 @@ define(function (require) {
     window.mc = mc;
     component.init(mc);
 
-    $('#canvas-container').css({
+
+    var $ = require('jquery');
+    $(function(){
+        var resize = function () {
+            var height = $(window).height() - $('#top-area').height() - $('#bottom-area').height();
+            $('#middle-area').height(height);
+            if($(window).width() > 1350){
+                var newWidth = $('.draw-pic-canvas').width();
+                var newHeight = $('.draw-pic-canvas').height();
+                $('.draw-pic-canvas').css({
+                    width : newWidth,
+                    height: newHeight,
+                    top : ($('.draw-pic-canvas').parent().height()-newHeight)/2,
+                    left : ($('.draw-pic-canvas').parent().width()-newWidth)/2
+                })
+            }
+
+        };
+        $(window).on('resize', resize);
+        resize();
+    });
+    /*$('#canvas-container').css({
         height: $(window).height()- $('#top-area').height() - $('#bottom-area').height()
-    })
+    })*/
 });

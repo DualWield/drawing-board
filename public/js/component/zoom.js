@@ -15,7 +15,7 @@ define(function (require) {
             mc.zcCtx = mc.zc.getContext('2d');
 
             this._bindEvent();
-            //this._refresh();
+            this.refresh();
         },
         tpl: '<div class="zoom-well">\
                     <div class="zoom-capture">\
@@ -60,7 +60,9 @@ define(function (require) {
                 }
             }
             require('jsx!component/layer').init(mc);
+            require('jsx!component/undoRedoButtons').init(mc);
             mc.repaintlayer();
+
         },
         _bindEvent : function () {
             $('.zoom-in').on('click', $.proxy(this.zoomIn, this));
@@ -68,7 +70,7 @@ define(function (require) {
             $('.zoom-out').on('click', $.proxy(this.zoomOut, this));
             $('.zoom-indicator').draggable({
                 containment:"parent",
-                cursor: "crosshair",
+                cursor: "move",
                 drag: function (event, ui) {
                     var position = ui.position;
                     var rate = $('#buffer-canvas').width()/288;
@@ -102,9 +104,9 @@ define(function (require) {
                 return false;
             }
             this.mc.zoom = scale;
-            this.onChangeZoom();
+            this.refresh();
         },
-        onChangeZoom: function () {
+        refresh: function () {
             var scale = this.mc.zoom;
             $('.zoom-percentage').text((scale*100).toFixed(0) + '%');
             var newWidth = mc.width*scale;
@@ -126,12 +128,7 @@ define(function (require) {
 
     };
 
-    var ZoomCanvas = function () {
 
-    };
-    ZoomCanvas.prototype = {
-
-    };
 
     return zoom;
 });

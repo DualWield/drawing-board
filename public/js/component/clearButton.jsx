@@ -7,12 +7,10 @@ define(function (require) {
 
     var ClearButton = React.createClass({
         handleClear: function () {
-            if(this.props.data.canUndo()){
-                this.props.data.clear();
-            }
+            this.props.data.clear();
         },
         render: function () {
-            return <div onClick={this.handleClear}>清空</div>
+            return <div onClick={this.handleClear} className="btn btn-default">清空</div>
         }
     });
     var init = function (mc) {
