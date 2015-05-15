@@ -48,16 +48,12 @@ define(function (require) {
         //新加一个背景的layer
         if(!this.canvasData){
             this.dc.addCanvas({name: 'background', mc: this});
-
         }else {
             if(this.canvasData){
                 //复原canvas
                 _.each(this.canvasData, function (canvasString) {
                     var obj = JSON.parse(canvasString);
-                    if(obj.name !== 'background'){
-                        //如果是background图层的话，就不增加了
                         this.dc.addCanvas(obj);
-                    }
                 }.bind(this));
                 this.mediator.publish('onChangeLayer');
 
