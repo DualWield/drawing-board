@@ -21,7 +21,9 @@ app.use(busboy());
 
 app.get('/', function (req, res) {
     res.render('index');
-
+});
+app.get('/debug', function (req, res) {
+    res.render('debugIndex');
 });
 app.post('/api/photos', function(req, res) {
      var fstream;   

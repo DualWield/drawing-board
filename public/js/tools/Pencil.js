@@ -53,9 +53,7 @@ define(function (require) {
         },
         continue: function (x, y, mc) {
             this.currentShape.addPoint(x, y);
-            //mc.drawShapeInProgress(this.currentShape);
             mc.repaintlayer();
-
         },
 
         end: function (x, y, mc) {

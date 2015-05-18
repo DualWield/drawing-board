@@ -19,7 +19,7 @@ define(function (require) {
     });
 
     var Basic = function () {
-        this.name = '实线';
+        this.name = 'solid';
     };
 
     Basic.prototype = {
@@ -42,7 +42,7 @@ define(function (require) {
     };
 
     var Dotted = function () {
-        this.name = '虚线';
+        this.name = 'dotted';
     };
     Dotted.prototype = {
         setting: {

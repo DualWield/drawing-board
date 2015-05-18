@@ -42,7 +42,9 @@ body{
 }
 /* logo */
 #top-area{
-    height: 43px;
+    height: 49px;
+    padding-top: 13px;
+    margin-left: 24px;
 }
 #bottom-area{
     position: absolute;
@@ -134,7 +136,7 @@ body{
     overflow: hidden;
     z-index: 2;
     margin: 0;
-    position: relative;
+    position: absolute;
     /* margin-top: 142px; */
     box-shadow: 0 2px 12px rgba(0,0,0,0.2);
     /* margin-left: 340px; */
@@ -255,25 +257,64 @@ body{
 [data-action=eraser]:after{
     content: "\e03c";
 }
+.Eraser-eraser:after{
+    content: "\e03c";
+}
 [data-action=line]{
     background: url(../img/line_icon.png) no-repeat;
     background-size: 26px;
     background-position: 7px 6px;
+}
+.Line-solid{
+    background: url(../img/line_icon.png) no-repeat;
+    background-size: 22px;
+    background-position: 4px 4px;
+}
+.Line-dotted{
+    background: url(../img/line_dotted_icon.png) no-repeat;
+    background-size: 22px;
+    background-position: 4px 4px;
 }
 [data-action=Rect]{
     background: url(../img/rect_icon.png) no-repeat;
     background-size: 26px;
     background-position: 7px 6px;
 }
+.Rect-Basic{
+    background: url(../img/rect_icon.png) no-repeat;
+    background-size: 22px;
+    background-position: 4px 4px;
+}
+.Rect-Solid{
+    background: url(../img/rect_solid_icon.png) no-repeat;
+    background-size: 22px;
+    background-position: 4px 4px;
+}
 [data-action=Circle]{
     background: url(../img/circle_icon.png) no-repeat;
     background-size: 26px;
     background-position: 7px 6px;
 }
+.circle-Basic{
+    background: url(../img/circle_icon.png) no-repeat;
+    background-size: 22px;
+    background-position: 4px 4px;
+}
+.circle-Solid{
+    background: url(../img/circle_solid_icon.png) no-repeat;
+    background-size: 22px;
+    background-position: 4px 4px;
+}
 [data-action=Picker]:after{
     content: "\e037";
 }
+.Picker-Basic:after{
+    content: "\e037";
+}
 [data-action=Font]:after{
+    content: "\e03f";
+}
+.Font-Basic:after{
     content: "\e03f";
 }
 .pencil-pencil:after{
@@ -403,6 +444,7 @@ body{
 .brush-slider .value{
     display: inline-block;
     vertical-align: middle;
+    margin-left: 8px;
 }
 
 
