@@ -1,1 +1,1 @@
-r.js -o public/js/build.js
+r.js -o public/js/build.json
