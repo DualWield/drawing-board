@@ -567,7 +567,10 @@ body{
     float: left;
     width: 205px;
     box-sizing: border-box;
-    margin-top: 6px;
+    /* margin-top: 6px; */
+      height: 29px;
+  line-height: 14px;
+  padding-left: 8px;
 }
 .LayerControl{
     margin-top: 12px;
@@ -610,6 +613,7 @@ body{
     float: left;
 
     width: 205px;
+    padding-left: 9px;
     box-sizing: border-box;
 }
 .opacityDisplay{

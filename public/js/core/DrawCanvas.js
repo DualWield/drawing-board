@@ -5,10 +5,7 @@ define(function (require) {
     var DrawCanvas = function (mc) {
         this.mc = mc;
         this.canvasArr = [];
-        this.mediator = new Mediator();
         this.order = 10;
-
-
     };
     DrawCanvas.prototype = {
         addCanvas: function (options) {
@@ -27,20 +24,15 @@ define(function (require) {
                     }
                     orderTempArr.push(this.canvasArr[i].order);
                 }
-
                 for (i = 1, len = nameTempArr.length + 2; i < len; i++) {
                     numArr.push(i);
                 }
                 for (i = 1, len = orderTempArr.length + 2; i < len; i++) {
                     orderArr.push(i);
                 }
-
                 var num = _.difference(numArr, nameTempArr);
-
                 options.name = options.name || 'layer' + num[0];
             }
-
-
             /* 对order进行加工 */
             if(!options.order){
                 var order = _.difference(orderArr, orderTempArr);

@@ -43,6 +43,7 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilBasicShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
                 this.currentShape.setting[key] = value;
             }.bind(this));
@@ -53,7 +54,7 @@ define(function (require) {
         },
         continue: function (x, y, mc) {
             this.currentShape.addPoint(x, y);
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
         },
 
         end: function (x, y, mc) {

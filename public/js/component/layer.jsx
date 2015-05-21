@@ -66,7 +66,7 @@ define(function (require) {
                     <Layer onSetCur={this.setAllUnCur} data={canvas}>
                     </Layer>
                 );
-            }.bind(this));
+            },this);
 
             return (
                 <div className="LayerList">
@@ -114,7 +114,6 @@ define(function (require) {
             this.props.data.visibility
                 ? this.props.data.canvas.show()
                 : this.props.data.canvas.hide();
-            //todo
             window.mc.mediator.publish('onChangeLayer');
         },
         editName: function () {
@@ -144,7 +143,7 @@ define(function (require) {
             return (
                 <li data-id={this.props.data.id} onClick={this.setCur} className={classes}>
                     <input onKeyDown={this.handleEnter} onBlur={this.handleBlur} type="text" className="nameInput" ref="nameInput" />
-                    <span onClick={this.handleEdit} className="LayerName" ref="nameSpan">{this.props.data.name + '-' + this.props.data.order}</span>
+                    <span onClick={this.handleEdit} className="LayerName" ref="nameSpan">{this.props.data.name}</span>
                     <div className="opacityDisplay">{(this.props.data.opacity * 100).toFixed(0)}</div>
                     <div onClick={this.handleVisible} className={eleClasses} ref="visibleButton">
                         <i className="font-icon eye-icon"></i>
@@ -156,7 +155,6 @@ define(function (require) {
 
     var LayerControl = React.createClass({
         getInitialState: function () {
-            console.log('test');
             return {
                 opacity: 100
             }
@@ -224,7 +222,6 @@ define(function (require) {
         );
     }
 
-    window.init = init;
     return {
         init: init
     }

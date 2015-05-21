@@ -34,20 +34,6 @@ define(function (require) {
         _render: function () {
             this.element.html(this.tpl);
         },
-        _refresh: function () {
-            this.cloneToZoomCanvas();
-            if(this.mc.zoom >= 1){
-                var defaultWidth = $('.zoom-indicator').parent().width();
-                var defaultHeight = $('.zoom-indicator').parent().height();
-                $('.zoom-indicator').css({
-                    top: 0,
-                    left:0,
-                    width : defaultWidth/this.mc.zoom,
-                    height: defaultHeight/this.mc.zoom
-                });
-            }
-
-        },
         cloneToZoomCanvas: function () {
             var ctx = $('#zoom-canvas')[0].getContext('2d');
             ctx.clearRect(0, 0, mc.width, mc.height);
@@ -62,7 +48,7 @@ define(function (require) {
             require('jsx!component/layer').init(mc);
             require('jsx!component/undoRedoButtons').init(mc);
             mc.repaintlayer();
-
+            mc.bc.width = mc.bc.width;
         },
         _bindEvent : function () {
             $('.zoom-in').on('click', $.proxy(this.zoomIn, this));
@@ -123,7 +109,17 @@ define(function (require) {
                     left : ($('.draw-pic-canvas').parent().width()-newWidth)/2
                 })
             }
-            this._refresh();
+            this.cloneToZoomCanvas();
+            if(this.mc.zoom >= 1){
+                var defaultWidth = $('.zoom-indicator').parent().width();
+                var defaultHeight = $('.zoom-indicator').parent().height();
+                $('.zoom-indicator').css({
+                    top: 0,
+                    left:0,
+                    width : defaultWidth/this.mc.zoom,
+                    height: defaultHeight/this.mc.zoom
+                });
+            }
         }
 
     };

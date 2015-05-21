@@ -90,6 +90,7 @@ define(function (require) {
         end: function (x, y) {
             this.isDragging = false;
             this.tool.subTool.end(x, y, this);
+            this.dc.getCanvas().ctx.drawImage(this.bc, 0, 0);
             this.mediator.publish('drawOnchange', {tool: this.tool});
 
         },
@@ -157,6 +158,10 @@ define(function (require) {
                 shape.draw(shape.canvas.canvas[0]);
             }
             this.saveJsonToLS();
+        },
+        repaintBufferLayer: function () {
+            this.bc.width = this.bc.width;
+            this.bufferShape.draw(this.bc);
         },
         clear: function () {
             var oldShapes = this.shapes;
