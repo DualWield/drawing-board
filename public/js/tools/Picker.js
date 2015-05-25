@@ -27,7 +27,6 @@ define(function (require) {
            //var ctx = mc.dc.getCanvas().ctx;
             /*   用最后合成的canvas 取色比较好 */
             var ctx = $('#zoom-canvas')[0].getContext('2d');
-
             var img_data = ctx.getImageData(x, y, 1, 1).data;
             var R = img_data[0];
             var G = img_data[1];
@@ -36,7 +35,6 @@ define(function (require) {
                 return false;
             }
              var hex = _.rgbToHex(R, G, B);
-            console.log(hex);
             colorPicker.onChangeColor('#' + hex);
         },
         continue: function (x, y, mc) {
@@ -50,7 +48,6 @@ define(function (require) {
                 return false;
             }
             var hex = _.rgbToHex(R, G, B);
-            console.log(hex);
             colorPicker.onChangeColor('#' + hex);
         },
         end: function (x, y, mc) {

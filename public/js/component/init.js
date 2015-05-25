@@ -7,9 +7,10 @@ define(function (require) {
         require('jsx!component/brushSetting').init(mc);
         require('jsx!component/clearButton').init(mc);
         require('jsx!component/undoRedoButtons').init(mc);
-        require('jsx!component/insertImageButton').init(mc);
         require('jsx!component/saveButton').init(mc);
         require('jsx!component/resetButton').init(mc);
+        require('component/insertFontButton').init(mc);
+        require('component/insertImageButton').init(mc);
     };
     return {
         init : init

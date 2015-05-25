@@ -5,7 +5,6 @@ define(function (require) {
     var Rect = require('tools/Rect');
     var Picker = require('tools/Picker');
     var Circle = require('tools/Circle');
-    var Font = require('tools/Font');
 
     var Tools = {
         pencil : Pencil.create(),
@@ -13,12 +12,8 @@ define(function (require) {
         line : Line.create(),
         Rect: Rect.create(),
         Picker: Picker.create(),
-        Circle: Circle.create(),
-        Font: Font.create()
+        Circle: Circle.create()
     };
 
-
     return Tools;
-
-
 });

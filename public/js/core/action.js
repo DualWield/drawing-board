@@ -31,7 +31,6 @@ define(function (require) {
         do: function () {
             mc.shapes.push(this.shape);
             mc.repaintlayer();
-            mc.repaintBufferLayer();
         },
         undo: function () {
             mc.shapes.pop();

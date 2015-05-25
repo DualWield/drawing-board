@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- smoothness  humanity redmond -->
 </head>
 <body>
@@ -16,13 +16,12 @@
             毕业设计-画板
         </div>
         <div class="top-tool-bar clearfix">
-            <div class="undoRedoButtons l" id="undoRedoButtons">
-
-            </div>
+            <div class="undoRedoButtons l" id="undoRedoButtons"></div>
             <div id="clearButton" class="l">清空</div>
             <div id="saveButton" class="l">保存</div>
             <div id="resetButton" class="l">重置</div>
             <div id="insertImageButton" class="l"></div>
+            <div id="insertFontButton" class="l"></div>
         </div>
     </div>
     <div id="middle-area">
@@ -54,7 +53,19 @@
     </div>
 
 </div>
-<script data-main="js/src/index" src="js/lib/require.js"></script>
+<% if(isDebug){  %>
+    <script data-main="js/index" src="js/lib/require.js"></script>
+<% }else { %>
+    <script data-main="js/src/index" src="js/lib/require.js"></script>
 
+<% } %>
+<script id="insertImageModel" type="text/html">
+    <h1>保存图片</h1>
+    <div>
+        <label for="#layer-input">Layer:</label>
+        <input type="text" name="layer-input" id="layer-input"/>
+    </div>
+
+</script>
 </body>
 </html>

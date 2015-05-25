@@ -28,7 +28,12 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.LineBasicShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
+            this.currentShape.canvasId = mc.dc.getCanvas().id;
+
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
         },
@@ -51,6 +56,10 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.LineDottedShape.create();
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value;
+            }.bind(this));
+            this.currentShape.canvasId = mc.dc.getCanvas().id;
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);

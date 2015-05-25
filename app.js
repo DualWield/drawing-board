@@ -20,10 +20,11 @@ app.use(express.static('public'));
 app.use(busboy());
 
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render('index', { isDebug : false });
 });
 app.get('/debug', function (req, res) {
-    res.render('debugIndex');
+    res.render('index', { isDebug : true });
+
 });
 app.post('/api/photos', function(req, res) {
      var fstream;   

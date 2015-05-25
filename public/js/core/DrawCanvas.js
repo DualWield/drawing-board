@@ -15,21 +15,21 @@ define(function (require) {
                 height: this.mc.height
             });
             /* 对name进行加工,layer自增1 */
+            var nameTempArr = [], nameTemp, numArr = [], i, len, orderArr = [], orderTempArr = [];
+            for (i = 0, len = this.canvasArr.length; i < len; i++) {
+                if (nameTemp = /layer(\d)/.exec(this.canvasArr[i].name)) {
+                    nameTempArr.push(+nameTemp[1]);
+                }
+                orderTempArr.push(this.canvasArr[i].order);
+            }
+            for (i = 1, len = nameTempArr.length + 2; i < len; i++) {
+                numArr.push(i);
+            }
+            for (i = 1, len = orderTempArr.length + 2; i < len; i++) {
+                orderArr.push(i);
+            }
             if (!options.name) {
                 //如果没有定义name的话
-                var nameTempArr = [], nameTemp, numArr = [], i, len, orderArr = [], orderTempArr = [];
-                for (i = 0, len = this.canvasArr.length; i < len; i++) {
-                    if (nameTemp = /layer(\d)/.exec(this.canvasArr[i].name)) {
-                        nameTempArr.push(+nameTemp[1]);
-                    }
-                    orderTempArr.push(this.canvasArr[i].order);
-                }
-                for (i = 1, len = nameTempArr.length + 2; i < len; i++) {
-                    numArr.push(i);
-                }
-                for (i = 1, len = orderTempArr.length + 2; i < len; i++) {
-                    orderArr.push(i);
-                }
                 var num = _.difference(numArr, nameTempArr);
                 options.name = options.name || 'layer' + num[0];
             }
@@ -92,20 +92,27 @@ define(function (require) {
 
         },
         concatLayer: function () {
-            var orderArr = this.getOrderArr(this.canvasArr);
+            var orderArr = this.getOrderArr(this.canvasArr).reverse();
             for (var i = 1, len = orderArr.length; i < len; i++) {
                 this.removeCanvas(orderArr[i - 1].id);
-                orderArr[i].ctx.globalAlpha = orderArr[i - 1].opacity;
-                orderArr[i].ctx.drawImage(orderArr[i - 1].canvas[0], 0, 0);
             }
 
             this.canvasArr[0].isCur = true;
             /*  把shapes 所在的canvas指向这一个 */
+            //首先要根据shapes 的order进行排序
+            mc.shapes = _.sortBy(mc.shapes, function(data){ return data.canvas.order;});
+            var shapes = [];
             _.each(mc.shapes, function (shape) {
-                shape.canvas = this.canvasArr[0];
-                shape.canvasId = this.canvasArr[0].id;
+                if(shape.canvas.visibility){
+                    shape.canvas = this.canvasArr[0];
+                    shape.canvasId = this.canvasArr[0].id;
+                    shapes.push(shape);
+                }
             }.bind(this));
+            mc.shapes = shapes;
             this.mc.mediator.publish('onChangeLayer');
+            this.mc.mediator.publish('drawOnchange');
+
 
         },
         getOrderArr: function (arr) {
@@ -114,7 +121,6 @@ define(function (require) {
                 orderArr[canvas.order] = canvas;
             });
             orderArr = _.compact(orderArr).reverse();
-
             return orderArr;
         },
         /*

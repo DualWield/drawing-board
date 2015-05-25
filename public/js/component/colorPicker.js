@@ -1,3 +1,7 @@
+/**
+ *  @file: colorPicker.js
+ *  @author: xuli@shnow.cn
+* */
 define(function(require){
     require('plugin/farbtastic');
 

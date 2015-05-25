@@ -1,9 +1,10 @@
 /* layout.css */
 @font-face {
     font-family: 'tool-button';
-    src: url('font/stash-icons.eot?6#iefix') format('embedded-opentype'),url('font/stash-icons.ttf?6') format('truetype');
+    src: url('font/stash-icons.eot?6#iefix') format('embedded-opentype'), url('font/stash-icons.ttf?6') format('truetype');
 }
-body{
+
+body {
     -ms-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -11,9 +12,19 @@ body{
     background: #f5f5f5 !important;
     overflow: hidden;
 }
-.mouse-capture{
+
+.blur {
+    -ms-filter: blur(1.5px);
+    -moz-filter: blur(1.5px);
+    /* -webkit-filter: blur(1.5px); */
+    filter: blur(1.5px);
+    opacity: .7;
+}
+
+.mouse-capture {
     position: absolute;
 }
+
 .clearfix:after {
     display: block;
     visibility: hidden;
@@ -23,30 +34,49 @@ body{
 
     content: ".";
 }
-.l{
+
+.l {
     float: left;
 }
+
+.r {
+    float: right;
+}
+
+.insert-font-demo {
+    position: absolute;
+    z-index: 1000;
+    border: 1px dotted #1c1c1c;
+    cursor: move;
+}
+
+
+
+
 .clearfix {
     display: inline-block;
 }
-.uploadButtonWrap{
+
+.uploadButtonWrap {
     display: block;
     width: 200px;
     height: 26px;
     float: left;
 }
 
-.uploadForm button{
+.uploadForm button {
     display: none;
     float: left;
 }
+
 /* logo */
-#top-area{
+#top-area {
     height: 49px;
     padding-top: 13px;
     margin-left: 24px;
 }
-#bottom-area{
+
+#bottom-area {
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -55,51 +85,94 @@ body{
     width: 930px;
     margin-left: -465px;
 }
-.logo{
+
+.bottom-stop-touch {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 1000;
+    width: 930px;
+    margin-left: -465px;
+    background-color: #f6f6f6;
+    opacity: .7;
+}
+
+.left-model {
+    width: 311px;
+    position: absolute;
+    right: -11px;
+    top: 67px;
+    height: 460px;
+    z-index: 1000;
+    background: #f5f5f5 !important;
+    margin-right: 27px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.top-stop-touch {
+    height: 49px;
+    padding-top: 13px;
+    margin-left: 24px;
+    position: absolute;
+    background-color: #f6f6f6;
+    opacity: .7;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.logo {
     font-family: "微软雅黑";
 
     font-size: 22px;
     float: left;
 }
-.top-tool-bar{
-    float: left;
-}
-.clear-button,#clearButton{
-    float: left;
-}
-.save-button{
+
+.top-tool-bar {
     float: left;
 }
 
-.uploadImageWrap{
+.clear-button, #clearButton {
+    float: left;
+}
+
+.save-button {
+    float: left;
+}
+
+.uploadImageWrap {
     z-index: 100;
     display: block;
     float: left;
 }
-#uploadImage{
+
+#uploadImage {
     display: none;
 }
-.uploadImageWrap .ok{
+
+.uploadImageWrap .ok {
     position: absolute;
     left: 40%;
     top: 30%;
     z-index: 102;
 }
-.uploadImageWrap .cancel{
+
+.uploadImageWrap .cancel {
     position: absolute;
     left: 60%;
     top: 30%;
     z-index: 102;
 }
 
-
-
-#middle-area{
+#middle-area {
     height: 827px;
     padding-right: 320px;
     position: relative;
 }
-#canvas-container{
+
+#canvas-container {
     width: 100%;
     height: 100%;
     /* overflow: hidden; */
@@ -109,23 +182,25 @@ body{
     background-color: transparent;
     /* top: 11px; */
 }
-#slide-bar{
+
+#slide-bar {
     width: 311px;
     position: absolute;
     right: 0px;
-    top: 37px;
+    top: 67px;
     height: 100%;
     z-index: 999;
     background: #f5f5f5 !important;
     margin-right: 27px;
     padding-left: 15px;
 }
-#slide-bar>h5{
-    margin: 10px 0;
-    
+
+#slide-bar > h5 {
+    margin: 7px 0;
+
 }
 
-.draw-pic-canvas{
+.draw-pic-canvas {
     top: 5px;
     left: 20px;
     height: 453px;
@@ -138,60 +213,69 @@ body{
     margin: 0;
     position: absolute;
     /* margin-top: 142px; */
-    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
     /* margin-left: 340px; */
 }
-.draw-pic-canvas canvas{
-    position:absolute;
-    top:0;
-    left:0;
+
+.draw-pic-canvas canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.header-button{
+.header-button {
     float: left;
     text-indent: -9999px;
     cursor: pointer;
 }
-.forward.header-button:hover{
+
+.forward.header-button:hover {
     background-position: -38px -49px;
 }
-.back.header-button:hover{
+
+.back.header-button:hover {
     background-position: -7px -49px;
 }
 
-.forward.header-button{
+.forward.header-button {
     background-image: url(../img/stash_muro_undoredo_sprite.png);
     background-position: -39px -24px;
-    width: 30px;  height: 26px;
+    width: 30px;
+    height: 26px;
 
 }
-.forward.header-button.disable{
+
+.forward.header-button.disable {
     cursor: default;
     background-position: -39px -2px;
 }
 
+.img-sliders {
+    position: relative;
+}
 
-.back.header-button{
+.back.header-button {
     background-image: url(../img/stash_muro_undoredo_sprite.png);
     background-position: -7px -24px;
     width: 30px;
     height: 26px;
 }
-.back.header-button.disable{
+
+.back.header-button.disable {
     background-position: -7px -2px;
 
     cursor: default;
 }
 
-
 /* canvas 相关 */
-.paint-canvas{
+.paint-canvas {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 10;
 }
-.buffer-canvas{
+
+.buffer-canvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -200,10 +284,11 @@ body{
 }
 
 /* mainToolButton */
-.mainTool{
+.mainTool {
     height: 35px;
 }
-.mainTool .active.toolButton,.subTool .subButton.active{
+
+.mainTool .active.toolButton, .subTool .subButton.active {
     border: 1px solid #aaa;
     border-radius: 6px;
     /* background: #fff; */
@@ -211,7 +296,8 @@ body{
     background: -moz-linear-gradient(top, #fff 0, #f6f6f6 100%);
     background: linear-gradient(top, #fff 0, #f6f6f6 100%);
 }
-.mainTool .toolButton{
+
+.mainTool .toolButton {
     float: left;
     margin: 0 6px;
     width: 40px;
@@ -221,11 +307,13 @@ body{
     line-height: 40px;
     cursor: pointer;
 }
-.subTool{
+
+.subTool {
     /* height: 35px; */
     margin-top: 20px;
 }
-.subButton{
+
+.subButton {
     float: left;
     margin: 0 6px;
 
@@ -237,119 +325,134 @@ body{
     border: 1px solid transparent;
 }
 
-
-
-
-
-
-
-
-.buttons-controls{
+.buttons-controls {
     float: left;
     width: 400px;
     height: 50px;
 
     font-family: "tool-button";
 }
-[data-action=pencil]:after{
+
+[data-action=pencil]:after {
     content: "\e03e";
 }
-[data-action=eraser]:after{
+
+[data-action=eraser]:after {
     content: "\e03c";
 }
-.Eraser-eraser:after{
+
+.Eraser-eraser:after {
     content: "\e03c";
 }
-[data-action=line]{
+
+[data-action=line] {
     background: url(../img/line_icon.png) no-repeat;
     background-size: 26px;
     background-position: 7px 6px;
 }
-.Line-solid{
+
+.Line-solid {
     background: url(../img/line_icon.png) no-repeat;
     background-size: 22px;
     background-position: 4px 4px;
 }
-.Line-dotted{
+
+.Line-dotted {
     background: url(../img/line_dotted_icon.png) no-repeat;
     background-size: 22px;
     background-position: 4px 4px;
 }
-[data-action=Rect]{
+
+[data-action=Rect] {
     background: url(../img/rect_icon.png) no-repeat;
     background-size: 26px;
     background-position: 7px 6px;
 }
-.Rect-Basic{
+
+.Rect-Basic {
     background: url(../img/rect_icon.png) no-repeat;
     background-size: 22px;
     background-position: 4px 4px;
 }
-.Rect-Solid{
+
+.Rect-Solid {
     background: url(../img/rect_solid_icon.png) no-repeat;
     background-size: 22px;
     background-position: 4px 4px;
 }
-[data-action=Circle]{
+
+[data-action=Circle] {
     background: url(../img/circle_icon.png) no-repeat;
     background-size: 26px;
     background-position: 7px 6px;
 }
-.circle-Basic{
+
+.circle-Basic {
     background: url(../img/circle_icon.png) no-repeat;
     background-size: 22px;
     background-position: 4px 4px;
 }
-.circle-Solid{
+
+.circle-Solid {
     background: url(../img/circle_solid_icon.png) no-repeat;
     background-size: 22px;
     background-position: 4px 4px;
 }
-[data-action=Picker]:after{
+
+[data-action=Picker]:after {
     content: "\e037";
 }
-.Picker-Basic:after{
+
+.Picker-Basic:after {
     content: "\e037";
 }
-[data-action=Font]:after{
+
+[data-action=Font]:after {
     content: "\e03f";
 }
-.Font-Basic:after{
+
+.Font-Basic:after {
     content: "\e03f";
 }
-.pencil-pencil:after{
+
+.pencil-pencil:after {
     content: "\e027";
 }
-.pencil-halftone:after{
+
+.pencil-halftone:after {
     content: "\e042";
 }
-.pencil-hline{
+
+.pencil-hline {
     background: url(../img/pencil_hline.png) no-repeat;
     background-size: 21px;
     background-position: 3px 3px;
     box-sizing: border-box;
 }
-.pencil-vline{
+
+.pencil-vline {
     background: url(../img/pencil_vline.png) no-repeat;
     background-size: 21px;
     background-position: 3px 3px;
     box-sizing: border-box;
 }
-.pencil-spray{
+
+.pencil-spray {
     background: url(../img/pencil-spray.png) no-repeat;
     background-size: 21px;
     background-position: 3px 3px;
     box-sizing: border-box;
 }
-.pencil-neighbor:after{
+
+.pencil-neighbor:after {
     content: "\e031";
 }
-.pencil-fur:after{
+
+.pencil-fur:after {
     content: "\e023";
 }
 
-
-.tool-button{
+.tool-button {
     float: left;
     width: 30px;
     height: 30px;
@@ -362,35 +465,43 @@ body{
     transition: all .15s ease-in-out;
     cursor: pointer;
 }
-.tool-button.active{
-    border:1px solid blue;
+
+.tool-button.active {
+    border: 1px solid blue;
 }
-.tool-button:hover{
+
+.tool-button:hover {
     font-size: 24px;
     color: #4884d2;
 }
-.tool-button.draw i{
+
+.tool-button.draw i {
     /* width: 20px; */
     /* height: 20px; */
     display: block;
 
 }
-.tool-button.draw i:before{
-    content:"\e03e";
+
+.tool-button.draw i:before {
+    content: "\e03e";
 }
-.tool-button.eraser i:before{
-    content:"\e03c";
+
+.tool-button.eraser i:before {
+    content: "\e03c";
 }
-.color-picker{
+
+.color-picker {
     float: left;
     width: 280px;
     height: 102px;
-    
+
 }
-#colorPicker{
+
+#colorPicker {
     float: left;
 }
-#color{
+
+#color {
     float: left;
 
     width: 68px;
@@ -399,26 +510,28 @@ body{
     border: none;
 }
 
-
-.brush-slider{
-    font-family: Verdana,sans-serif;
+.brush-slider {
+    font-family: Verdana, sans-serif;
     color: #7f7f7f;
     font-size: 12px;
     float: left;
     /* width: 236px; */
     height: 85px;
 }
-.opacity-slider,.size-slider,.effect-slider{
+
+.opacity-slider, .size-slider, .effect-slider {
     margin-bottom: 5px;
 }
-.brush-slider .label{
+
+.brush-slider .label, .left-model .label {
     width: 70px;
     text-align: right;
     color: #7f7f7f;
     display: inline-block;
     vertical-align: middle;
 }
-.brush-slider .track {
+
+.brush-slider .track, .left-model .track {
     width: 120px;
     height: 7px;
     background: #E2E1E1;
@@ -426,7 +539,8 @@ body{
     vertical-align: middle;
     border: none;
 }
-.brush-slider .track .ui-slider-handle{
+
+.brush-slider .track .ui-slider-handle, .left-model .track .ui-slider-handle {
     width: 14px;
     height: 14px;
     background: #fff;
@@ -434,38 +548,103 @@ body{
     background: -moz-linear-gradient(top, #fff, #f6f6f6);
     background: linear-gradient(top, #fff, #f6f6f6);
     border: 1px solid #bbb;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     cursor: pointer;
 }
-.brush-slider .track .ui-slider-range{
+
+.brush-slider .track .ui-slider-range, .left-model .track .ui-slider-range {
     background: #b1b1b1;
 }
-.brush-slider .value{
+
+.brush-slider .value, .left-model .value {
     display: inline-block;
     vertical-align: middle;
     margin-left: 8px;
 }
 
+.lockWrapper {
+    width: 15px;
+    height: 28px;
+    border: 1px solid #ccc;
+    border-left: 1px solid transparent;
+    position: absolute;
+    top: 8px;
+    right: 20px;
+}
+
+.lockButton {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 3px;
+    right: -10px;
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.lockButton.Locked:before {
+    content: "\e041";
+}
+
+.lockButton.unLocked:before {
+    content: "\e040";
+}
+
+.lockButton:hover {
+    background-color: #fff;
+    color: #404040;
+}
+
+.button-control {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #FFF;
+    border-top: 1px solid #ccc;
+}
+
+.button-wrap {
+    width: 153px;
+    margin: 0 auto;
+    margin-top: 11px;
+}
 
 /* zoom */
-.zoom-in:before{
+.zoom-in:before {
     content: "\e00a";
 }
-.zoom-zero:before{
-    content:"\e00c";
+
+.zoom-zero:before {
+    content: "\e00c";
 }
-.zoom-out:before{
-    content:"\e00b";
+
+.zoom-out:before {
+    content: "\e00b";
 }
-.slide-bar-well{
+
+.slide-bar-well {
     width: 300px;
     height: 166px;
     font-family: tool-button;
 }
-.slide-bar>h5{
+
+.font-icon {
+    font-family: tool-button;
 }
-.zoom-well{
+
+.slide-bar > h5 {
+}
+
+.zoom-well {
     width: 100%;
     height: 140px;
     border-radius: 6px;
@@ -478,7 +657,8 @@ body{
     box-sizing: border-box;
     position: relative;
 }
-.zoom-capture{
+
+.zoom-capture {
     position: absolute;
 
     width: 288px;
@@ -488,20 +668,24 @@ body{
     margin: 4px;
     box-sizing: border-box;
 }
-.zoom-indicator{
+
+.zoom-indicator {
     border: 1px solid #000;
 
     position: absolute;
     box-sizing: border-box;
 }
-.zoom-canvas{
+
+.zoom-canvas {
 
 }
-.zoom-control{
+
+.zoom-control {
     height: 25px;
 
 }
-.zoom-button{
+
+.zoom-button {
     font-size: 10px;
     width: 23px;
     line-height: 23px;
@@ -510,12 +694,14 @@ body{
     border-radius: 4px;
     cursor: pointer;
     float: left;
-    text-align : center;
+    text-align: center;
 }
-.zoom-button:hover{
+
+.zoom-button:hover {
     background-color: #dedede;
 }
-.zoom-percentage{
+
+.zoom-percentage {
     /* width: 30px; */
     height: 23px;
     font-size: 9px;
@@ -524,21 +710,21 @@ body{
     float: right;
     text-align: right;
 }
-.zoom-canvas-container{
+
+.zoom-canvas-container {
     margin: 4px;
     width: 288px;
     height: 130px;
     background: #fff;
 }
-#zoom-canvas{
+
+#zoom-canvas {
     width: 100%;
     height: 100%;
 }
 
-
-
 /*  layer */
-.LayerList{
+.LayerList {
     height: 199px;
     background-color: #f0f0f0;
     border: 1px solid #dedede;
@@ -548,8 +734,9 @@ body{
     padding: 5px;
     overflow: auto;
 }
-.Layer{
-  
+
+.Layer {
+
     height: 32px;
     list-style: none;
     line-height: 32px;
@@ -558,103 +745,121 @@ body{
     font-family: Verdana, sans-serif;
     font-size: 12px;
 }
-.Layer.active{
-      background: #fff;
+
+.Layer.active {
+    background: #fff;
 
 }
-.nameInput{
+
+.nameInput {
     display: none;
     float: left;
     width: 205px;
     box-sizing: border-box;
     /* margin-top: 6px; */
-      height: 29px;
-  line-height: 14px;
-  padding-left: 8px;
+    height: 29px;
+    line-height: 14px;
+    padding-left: 8px;
 }
-.LayerControl{
+
+.LayerControl {
     margin-top: 12px;
 }
-.LayerOpacityControlTrack{
+
+.LayerOpacityControlTrack {
     width: 165px;
     float: left;
 }
-.LayerOpacityControlName{
+
+.LayerOpacityControlName {
     float: left;
 
 }
-.LayerOpacityControlValue{
+
+.LayerOpacityControlValue {
     float: right;
 
 }
-.LayerOpacityControl{
+
+.LayerOpacityControl {
     height: 30px;
-    
+
 }
+
 .eyeButton {
     float: left;
 
     margin-left: 13px;
 }
-.eye-icon{
+
+.eye-icon {
 
 }
-.font-icon{
+
+.font-icon {
     font-family: tool-button;
     font-style: normal;
 }
-.eyeButton i:before{
+
+.eyeButton i:before {
     content: "\e03a";
 }
-.eyeButton.disabled i:before{
+
+.eyeButton.disabled i:before {
     content: "\e03b";
 }
-.LayerName{
+
+.LayerName {
     float: left;
 
     width: 205px;
     padding-left: 9px;
     box-sizing: border-box;
 }
-.opacityDisplay{
+
+.opacityDisplay {
     float: left;
     /* margin-left: 230px; */
     width: 32px;
     text-align: right;
 }
+
 .LayerOpacityControlTrack {
     margin-top: 5px;
 }
-.LayerAdd .font-icon:before{
+
+.LayerAdd .font-icon:before {
     content: "\e00a";
- }
-.LayerDel .font-icon:before{
+}
+
+.LayerDel .font-icon:before {
     content: "\e00b";
 }
-.LayerMergeVisible .font-icon:before{
+
+.LayerMergeVisible .font-icon:before {
     content: "\e039";
     float: left;
     width: 23px;
 }
-.LayerButton{
 
-font-size: 10px;
-border-radius: 4px;
-width: 23px;
-height: 23px;
+.LayerButton {
 
+    font-size: 10px;
+    border-radius: 4px;
+    width: 23px;
+    height: 23px;
 
-line-height: 23px;
+    line-height: 23px;
 
-margin: 0 5px 0 0;
-cursor: pointer;
-float: left;
+    margin: 0 5px 0 0;
+    cursor: pointer;
+    float: left;
 
-
-color: #050505;
-text-align: center;
+    color: #050505;
+    text-align: center;
 
 }
-.LayerButton:hover{
+
+.LayerButton:hover {
     background-color: #dedede;
 }

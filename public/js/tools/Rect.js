@@ -34,6 +34,7 @@ define(function (require) {
                 this.currentShape.setting[key] = value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
+            this.currentShape.canvasId = mc.dc.getCanvas().id;
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
         },
@@ -57,6 +58,7 @@ define(function (require) {
                 this.currentShape.setting[key] = value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
+            this.currentShape.canvasId = mc.dc.getCanvas().id;
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
         },

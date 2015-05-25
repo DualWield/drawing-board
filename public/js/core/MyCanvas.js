@@ -34,6 +34,7 @@ define(function (require) {
 
         this.tool = Tools.pencil;
 
+        this.canDraw = 1;
         this.shapes = [];
         this.undoStack = [];
         this.redoStack = [];
@@ -81,7 +82,7 @@ define(function (require) {
             this.mediator.publish('drawStart', {tool: this.tool});
         },
         continue: function (x, y) {
-            if (this.isDragging) {
+            if (this.isDragging && this.canDraw) {
                 this.tool.subTool.continue(x, y, this);
                 this.mediator.publish('drawContinue', {tool: this.tool});
             }
@@ -166,6 +167,12 @@ define(function (require) {
         clear: function () {
             var oldShapes = this.shapes;
             var newShapes = [];
+            var currentCanvas = this.dc.getCanvas();
+            _.each(this.shapes, function (shape) {
+                if(shape.canvas != currentCanvas){
+                    newShapes.push(shape);
+                }
+            });
             this.execute(new action.ClearAction(this, oldShapes, newShapes));
             this.mediator.publish('drawOnchange');
         },
@@ -265,6 +272,32 @@ define(function (require) {
             this.dc.removeAllCanvas();
             this.dc.addCanvas({name: 'background', mc: this});
             component.init(this);
+
+        },
+        addBottomBlur: function () {
+            var bottom = $('#bottom-area');
+            $('<div class="bottom-stop-touch">').insertAfter(bottom).height(bottom.height());
+            bottom.addClass('blur');
+        },
+        addTopBlur: function () {
+            var top = $('#top-area');
+            $('<div class="top-stop-touch">').insertAfter(top);
+            top.addClass('blur');
+        },
+        removeBottomBlur: function () {
+            $('#bottom-area').removeClass('blur');
+            $('.bottom-stop-touch').remove();
+
+        },
+        removeTopBlur: function () {
+            $('#top-area').removeClass('blur');
+            $('.top-stop-touch').remove();
+        },
+        removeLeftModel: function () {
+            $('.left-model').remove();
+        },
+        addLeftModel: function () {
+
 
         }
         

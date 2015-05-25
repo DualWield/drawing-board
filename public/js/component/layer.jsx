@@ -209,7 +209,7 @@ define(function (require) {
                         </div>
                         <div onClick={this.concatLayer} className="LayerMergeVisible LayerButton">
                             <i className="font-icon"></i>
-                        Visible</div>
+                        </div>
                     </div>
                 </div>
             )

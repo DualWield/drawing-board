@@ -38,7 +38,6 @@ define(function (require) {
             this.name = 'PencilBasicShape';
         },
         draw: function (canvas) {
-
             var ctx = canvas.getContext('2d');
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
@@ -46,8 +45,6 @@ define(function (require) {
             var opacity = this.setting.Opacity / 100;
             var RGBAColor = _.hexToRGBA(color, opacity);
             ctx.strokeStyle = RGBAColor;
-            ctx.strokeStyle = RGBAColor;
-
             ctx.lineWidth = this.setting.Size;
             ctx.moveTo(this.path[0].x, this.path[0].y);
             for (var i = 1, len = this.path.length; i < len; i++) {
@@ -227,10 +224,8 @@ define(function (require) {
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
-
             ctx.save();
             var opacity = this.setting.Opacity / 100;
-
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
             var color = this.setting.color;
@@ -608,7 +603,7 @@ define(function (require) {
             ctx.lineCap = ctx.lineJoin = 'round';
             ctx.beginPath();
             ctx.strokeStyle = this.setting.color;
-            ctx.lineWidth = this.Border / 3;
+            ctx.lineWidth = this.setting.Border / 3;
             /* ctx.moveTo(0, 0);
              ctx.lineTo(20,20);*/
             var width = nowPoint.x - lastPoint.x;
@@ -707,6 +702,10 @@ define(function (require) {
             this.url = arg.url;
             this.radioX = arg.radioX;
             this.radioY = arg.radioY;
+            this.rotate = arg.rotate;
+            this.originHeight = arg.originHeight;
+            this.originWidth = arg.originWidth;
+
         },
         convertToJSON: function () {
             var obj = {
@@ -716,7 +715,10 @@ define(function (require) {
                 url: this.url,
                 radioX: this.radioX,
                 radioY: this.radioY,
-                canvasId: this.canvas.id
+                rotate: this.rotate,
+                canvasId: this.canvas.id,
+                originHeight: this.originHeight,
+                originWidth: this.originWidth
 
             };
             for (var i in this.setting) {
@@ -726,21 +728,57 @@ define(function (require) {
         },
         draw: function (canvas) {
             var ctx = canvas.getContext('2d');
+            ctx.save();
             var image = document.createElement('img');
             image.src = this.url;
             ctx.scale(this.radioX, this.radioY);
-            ctx.drawImage(image, this.x/this.radioX, this.y/this.radioY);
+            var r = Math.sqrt(Math.pow(this.originWidth, 2) + Math.pow(this.originHeight, 2))/2;
+            var alpha = Math.atan(this.originHeight / this.originWidth);
+            var x = this.x - r*Math.cos(Math.PI*this.rotate/180 + alpha);
+            var y = this.y - r*Math.sin(Math.PI*this.rotate/180 + alpha);
+            ctx.translate(x/this.radioX, y/this.radioY);
+            ctx.rotate(this.rotate * Math.PI / 180);
+
+            ctx.drawImage(image, 0, 0);
             ctx.scale(1 / this.radioX, 1 / this.radioY);
+            ctx.restore()
         }
     });
 
-    var FontBasicShape = Shape.extend({
+    var FontShape = Shape.extend({
         init: function (arg) {
             this.callSuper(arg);
-            this.name = 'FontBasicShape';
+            this.name = 'FontShape';
+            this.x = arg.x;
+            this.y = arg.y;
+            this.word = arg.word;
+            this.fontSize = arg.fontSize;
+            this.fontFamily = arg.fontFamily;
+            this.height = arg.height;
         },
-        draw: function () {
+        convertToJSON: function () {
+            var obj = {
+                name: this.name,
+                x: this.x,
+                y: this.y,
+                word: this.word,
+                fontSize: this.fontSize,
+                fontFamily: this.fontFamily,
+                height: this.height
+            };
+            for (var i in this.setting) {
+                obj[i] = this.setting[i];
+            }
+            return JSON.stringify(obj);
+        },
+        draw: function (canvas) {
+            var ctx = canvas.getContext('2d');
+            ctx.save();
+            ctx.font = this.fontSize + " " + this.fontFamily;
+            ctx.textBaseline="middle";
+            ctx.fillText(this.word, this.x, this.y + this.height/2);
 
+            ctx.restore();
         }
     });
     shapes = {
@@ -762,7 +800,7 @@ define(function (require) {
         CircleBasicShape: CircleBasicShape,
         CircleSolidShape: CircleSolidShape,
         ImageShape: ImageShape,
-        FontBasicShape: FontBasicShape
+        FontShape: FontShape
     };
 
     return shapes;

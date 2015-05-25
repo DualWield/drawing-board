@@ -21,7 +21,6 @@ define(function (require) {
                     }.bind(this)
                 });
             }.bind(this));
-
         },
         componentDidUpdate: function () {
             _.each(this.props.data.tool.subTool.setting, function (num, key) {
@@ -38,25 +37,18 @@ define(function (require) {
             }.bind(this));
 
         },
-            refresh: function () {
+        refresh: function () {
             this.setState({
                 mc: window.mc
             });
         },
-        onChangeSecondSlide: function () {
-
-        },
-        onChangeThirdSlide: function () {
-
-        },
         render: function () {
-
             var nodes = _.map(this.props.data.tool.subTool.setting, function (num, key) {
                 return (
                     <div className="row-slider" key={key} ref={key}>
                         <div className="label">{key}</div>
                         <div className="track"></div>
-                        <div className="value">{num}%</div>
+                        <div className="value">{num}</div>
                     </div>
                 );
             });

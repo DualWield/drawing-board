@@ -59,7 +59,6 @@ define(function (require) {
 
         end: function (x, y, mc) {
         }
-
     });
 
     var HalfTone = function () {
@@ -76,14 +75,10 @@ define(function (require) {
                 dotWidth = this.setting.DotSize,
                 dotDistance = 5,
                 patternCtx = patternCanvas.getContext('2d');
-
             patternCanvas.width = patternCanvas.height = dotWidth + dotDistance;
-
             var color = mc.getColor();
             var opacity = this.setting.Opacity / 100;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
+            var RGBAColor = _.hexToRGBA(color, opacity);
             patternCtx.fillStyle = RGBAColor;
             patternCtx.beginPath();
             patternCtx.arc(dotWidth / 2, dotWidth / 2, dotWidth / 2, 0, Math.PI * 2, false);
