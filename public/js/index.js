@@ -7,10 +7,13 @@ requirejs.config({
         'jquery.ui': 'lib/jquery-ui',
         'Class': 'core/Class',
         'underscore': 'lib/underscore',
-        'farbtastic': 'plugin/farbtastic'
+        'farbtastic': 'plugin/farbtastic',
+        'bootstrap' : 'lib/bootstrap.min'
     },
     shim: {
-
+     /*   'bootstrap': {
+            "deps" : ['jquery']
+        }*/
     },
     jsx: {
         fileExtension: '.jsx'

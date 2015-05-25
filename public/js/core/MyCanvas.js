@@ -263,7 +263,7 @@ define(function (require) {
 
 
         },
-        saveImage: function () {
+        saveImage: function (type) {
             var zoomCanvas = $('#zoom-canvas')[0];
             window.open(zoomCanvas.toDataURL());
         },

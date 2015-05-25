@@ -731,16 +731,16 @@ define(function (require) {
             ctx.save();
             var image = document.createElement('img');
             image.src = this.url;
-            ctx.scale(this.radioX, this.radioY);
+            //ctx.scale(this.radioX, this.radioY);
             var r = Math.sqrt(Math.pow(this.originWidth, 2) + Math.pow(this.originHeight, 2))/2;
             var alpha = Math.atan(this.originHeight / this.originWidth);
             var x = this.x - r*Math.cos(Math.PI*this.rotate/180 + alpha);
             var y = this.y - r*Math.sin(Math.PI*this.rotate/180 + alpha);
-            ctx.translate(x/this.radioX, y/this.radioY);
+            ctx.translate(x, y);
             ctx.rotate(this.rotate * Math.PI / 180);
 
-            ctx.drawImage(image, 0, 0);
-            ctx.scale(1 / this.radioX, 1 / this.radioY);
+            ctx.drawImage(image, 0, 0, this.originWidth, this.originHeight);
+            //ctx.scale(1 / this.radioX, 1 / this.radioY);
             ctx.restore()
         }
     });

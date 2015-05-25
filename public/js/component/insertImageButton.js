@@ -220,7 +220,11 @@ define(function (require) {
                 .on('load', function () {
                     $(this)
                         .data('width', this.width)
-                        .data('height', this.height);
+                        .data('height', this.height)
+                        .css({
+                            width: this.width,
+                            height: this.height
+                        });
                     self.addLeftModel();
                     self.originWidth = this.width;
                     self.originHeight = this.height;
