@@ -29,7 +29,7 @@ define(function (require) {
             var model = $('<div class="left-model font">').insertAfter(left);
             var html = '\
                     <div>\
-                        <h1>Insert Font:</h1>\
+                        <h1>Insert Text:</h1>\
                         <div class="form-group">\
                             <textarea class="form-control" rows="3"></textarea>\
                         </div>\

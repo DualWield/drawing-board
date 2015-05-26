@@ -700,8 +700,6 @@ define(function (require) {
             this.x = arg.x;
             this.y = arg.y;
             this.url = arg.url;
-            this.radioX = arg.radioX;
-            this.radioY = arg.radioY;
             this.rotate = arg.rotate;
             this.originHeight = arg.originHeight;
             this.originWidth = arg.originWidth;
@@ -713,8 +711,6 @@ define(function (require) {
                 x: this.x,
                 y: this.y,
                 url: this.url,
-                radioX: this.radioX,
-                radioY: this.radioY,
                 rotate: this.rotate,
                 canvasId: this.canvas.id,
                 originHeight: this.originHeight,
@@ -731,7 +727,6 @@ define(function (require) {
             ctx.save();
             var image = document.createElement('img');
             image.src = this.url;
-            //ctx.scale(this.radioX, this.radioY);
             var r = Math.sqrt(Math.pow(this.originWidth, 2) + Math.pow(this.originHeight, 2))/2;
             var alpha = Math.atan(this.originHeight / this.originWidth);
             var x = this.x - r*Math.cos(Math.PI*this.rotate/180 + alpha);
@@ -740,7 +735,6 @@ define(function (require) {
             ctx.rotate(this.rotate * Math.PI / 180);
 
             ctx.drawImage(image, 0, 0, this.originWidth, this.originHeight);
-            //ctx.scale(1 / this.radioX, 1 / this.radioY);
             ctx.restore()
         }
     });
@@ -777,7 +771,6 @@ define(function (require) {
             ctx.font = this.fontSize + " " + this.fontFamily;
             ctx.textBaseline="middle";
             ctx.fillText(this.word, this.x, this.y + this.height/2);
-
             ctx.restore();
         }
     });

@@ -26,20 +26,31 @@ define(function (require) {
             </form>');
         },
         bindEvent: function () {
+            var self = this;
             this.element.find('.btn').on('click', function () {
                 $('#uploadImage').click();
             });
             this.element.find('#uploadImage').on('change', function () {
-                $('#uploadForm').ajaxSubmit({
-                    error: function (xhr) {
-                    },
+               /* $('#uploadForm').ajaxSubmit({
                     success: this.uploadSuccess.bind(this)
-                });
+                });*/
+                var preview = document.querySelector('img');
+                var file    = document.querySelector('#uploadImage').files[0];
+                var reader  = new FileReader();
+                reader.onloadend = function () {
+                    self.imageSrc = reader.result;
+                    self.insertImage();
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    console.log('insert image occured a error');
+                }
             }.bind(this))
         },
         uploadSuccess: function (res) {
             this.imageSrc = res;
-        
             this.insertImage();
         },
         addBottomBlur: function () {
@@ -110,11 +121,6 @@ define(function (require) {
                 max: this.image.width()*2,
                 animate: true,
                 change: function (event, data) {
-                  /*  if(this.isWidthHeightLocked){
-                        $('.height.row-slider').find('.track').slider('value', data.value /  this.originWidth * this.originHeight);
-                    }
-                    this.image.width(data.value);
-                    $('.width.row-slider').find('.value').html(data.value + 'px');*/
                     this.image.width(data.value);
                     $('.width.row-slider').find('.value').html(data.value + 'px');
                 }.bind(this),
@@ -210,8 +216,6 @@ define(function (require) {
             // 原始值记录在data上面
             var image = $('<img>')
                 .css({
-                    /*  zIndex: 100,
-                     position: 'absolute',*/
                     top: 0,
                     left: 0,
                     cursor: 'crosshair'
@@ -259,8 +263,6 @@ define(function (require) {
             var name = $('#layer-name-input').val();
             var canvas = mc.dc.addCanvas({name: name});
             require('jsx!component/layer').init(mc);
-            var radioX = this.image.width() / this.image.data('width');
-            var radioY = this.image.height() / this.image.data('height');
             var rotate = this.getRotationDegrees(this.image);
             //记录的xy为图片中心的位置
             var x = this.image.parent().offset().left - $('.draw-pic-canvas').offset().left + this.image.width()/2;
@@ -272,8 +274,6 @@ define(function (require) {
                 y: y,
                 originWidth: originWidth,
                 originHeight: originHeight,
-                radioX: radioX,
-                radioY: radioY,
                 url: this.image.attr('src'),
                 rotate: rotate
             });
