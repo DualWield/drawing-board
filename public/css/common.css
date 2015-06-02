@@ -13,6 +13,11 @@ body {
     overflow: hidden;
 }
 
+.mobileHoverFix:hover,
+.mobileHoverFix.hover {
+    background-color: #fff !important;
+}
+
 .blur {
     -ms-filter: blur(1.5px);
     -moz-filter: blur(1.5px);
@@ -50,9 +55,6 @@ body {
     cursor: move;
 }
 
-
-
-
 .clearfix {
     display: inline-block;
 }
@@ -71,19 +73,20 @@ body {
 
 /* logo */
 #top-area {
-    height: 49px;
+    /* height: 49px; */
     padding-top: 13px;
     margin-left: 24px;
 }
 
 #bottom-area {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
+    /* display: none; */
+    /* position: absolute; */
+    /* bottom: 0; */
+    /* left: 50%; */
     z-index: 999;
     background: #f5f5f5 !important;
-    width: 930px;
-    margin-left: -465px;
+    /* width: 930px; */
+    /* margin-left: -465px; */
 }
 
 .bottom-stop-touch {
@@ -109,6 +112,17 @@ body {
     padding-left: 15px;
     border: 1px solid #ccc;
     border-radius: 6px;
+}
+
+@media screen and (max-width: 600px) {
+    .left-model {
+        top: 430px;
+        left: 0;
+    }
+
+    .bottom-stop-touch {
+        display: none;
+    }
 }
 
 .top-stop-touch {
@@ -167,7 +181,7 @@ body {
 }
 
 #middle-area {
-    height: 827px;
+    height: 344px;
     padding-right: 320px;
     position: relative;
 }
@@ -184,15 +198,15 @@ body {
 }
 
 #slide-bar {
-    width: 311px;
+    /* width: 311px; */
     position: absolute;
     right: 0px;
     top: 67px;
     height: 100%;
     z-index: 999;
     background: #f5f5f5 !important;
-    margin-right: 27px;
-    padding-left: 15px;
+    margin-right: 12px;
+    /* padding-left: 15px; */
 }
 
 #slide-bar > h5 {
@@ -327,8 +341,8 @@ body {
 
 .buttons-controls {
     float: left;
-    width: 400px;
-    height: 50px;
+    /* width: 400px; */
+    /* height: 50px; */
 
     font-family: "tool-button";
 }
@@ -491,8 +505,9 @@ body {
 }
 
 .color-picker {
+    /* display: none; */
     float: left;
-    width: 280px;
+    /* width: 280px; */
     height: 102px;
 
 }
@@ -632,7 +647,7 @@ body {
 }
 
 .slide-bar-well {
-    width: 300px;
+    /* width: 300px; */
     height: 166px;
     font-family: tool-button;
 }
@@ -725,6 +740,7 @@ body {
 
 /*  layer */
 .LayerList {
+    width: 290px;
     height: 199px;
     background-color: #f0f0f0;
     border: 1px solid #dedede;
@@ -749,6 +765,8 @@ body {
 .Layer.active {
     background: #fff;
 
+    /* width: 218px; */
+    display: block;
 }
 
 .nameInput {

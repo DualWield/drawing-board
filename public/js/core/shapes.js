@@ -1,4 +1,5 @@
 define(function (require) {
+    var PencilRibbonShape;
     var shapes = {};
     var Class = require('Class');
     var Shape = Class.extend({
@@ -160,7 +161,7 @@ define(function (require) {
 
             patternCanvas.width = patternCanvas.height = dotWidth * 2;
 
-            var color = mc.getColor();
+            var color = this.setting.color;
             var opacity = this.setting.Opacity / 100;
             var RGBAColor = _.hexToRGBA(color, opacity);
             patternCtx.strokeStyle = RGBAColor;
@@ -213,7 +214,8 @@ define(function (require) {
                             y: this.path[this.path.length - 1].y + size * Math.sin(angle)
                         });
                 }
-                mc.repaintlayer();
+                mc.repaintBufferLayer();
+
             }.bind(this), 50);
         },
         addPath: function (x, y) {
@@ -402,6 +404,7 @@ define(function (require) {
             var px = Math.cos(angle) * dx - Math.sin(angle) * dy;
             var py = Math.sin(angle) * dx + Math.cos(angle) * dy;
             var color = this.setting.color;
+            var opacity = this.setting.opacity;
             var RGBAColor = _.hexToRGBA(color, opacity);
 
             ctx.strokeStyle = RGBAColor;
@@ -427,7 +430,7 @@ define(function (require) {
 
         }
     });
-    var PencilRibbonShape = Shape.extend({
+    PencilRibbonShape = Shape.extend({
         init: function (options) {
             this.tempPath = [];
             this.linePath = [];

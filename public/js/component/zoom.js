@@ -17,7 +17,8 @@ define(function (require) {
             this._bindEvent();
             this.refresh();
         },
-        tpl: '<div class="zoom-well">\
+        tpl: '\
+                    <h5>预览图</h5><div class="zoom-well">\
                     <div class="zoom-capture">\
                         <div class="zoom-indicator"></div>\
                         </div>\
@@ -65,8 +66,6 @@ define(function (require) {
                     })
                 }
             });
-            this.mc.mediator.subscribe('onChangeLayer', this.cloneToZoomCanvas.bind(this));
-            this.mc.mediator.subscribe('drawOnchange', this.cloneToZoomCanvas.bind(this));
 
         },
         zoomIn: function () {

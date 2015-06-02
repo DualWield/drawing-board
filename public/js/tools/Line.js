@@ -24,12 +24,17 @@ define(function (require) {
 
     Basic.prototype = {
         setting: {
-            Size: 50
+            Size: {
+                min: 1,
+                max: 50,
+                value: 10
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.LineBasicShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.canvasId = mc.dc.getCanvas().id;
@@ -39,7 +44,7 @@ define(function (require) {
         },
         continue: function (x, y, mc) {
             this.currentShape.path[1] = {x:x, y:y};
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
         },
         end: function (x, y, mc) {
 
@@ -51,13 +56,22 @@ define(function (require) {
     };
     Dotted.prototype = {
         setting: {
-            Size: 50,
-            LineLongness: 50
+            Size: {
+                min: 1,
+                max: 50,
+                value: 10
+            },
+            LineLongness: {
+                min: 1,
+                max: 100,
+                value: 50
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.LineDottedShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvasId = mc.dc.getCanvas().id;
             this.currentShape.canvas = mc.dc.getCanvas();
@@ -67,7 +81,8 @@ define(function (require) {
         continue: function (x, y, mc) {
             this.currentShape.path[1] = {x:x, y:y};
             this.currentShape.addDrawPath();
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
+
 
 
         },

@@ -217,9 +217,12 @@ define(function (require) {
     });
 
     function init(mc) {
-        React.render(
-            <LayersBox data={mc} />, document.getElementById('drawPlzLayers')
-        );
+        if(mc.isLayerEnable){
+            React.render(
+                <LayersBox data={mc} />, document.getElementById('drawPlzLayers')
+            );
+        }
+
     }
 
     return {

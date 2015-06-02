@@ -22,7 +22,31 @@ define(function (require) {
             y= y/mc.zoom;
             mc.end(x, y);
         });
-
+        $('#canvas-container').on('touchstart', function (e) {
+            var x = e.originalEvent.changedTouches[0].clientX - mc.$bc.offset().left + document.body.scrollLeft;
+            var y = e.originalEvent.changedTouches[0].clientY - mc.$bc.offset().top + document.body.scrollTop;
+            x = x/mc.zoom;
+            y= y/mc.zoom;
+            mc.begin(x, y);
+            return false;
+        });
+        $('#canvas-container').on('touchmove', function (e) {
+            var x = e.originalEvent.changedTouches[0].clientX - mc.$bc.offset().left + document.body.scrollLeft;
+            var y = e.originalEvent.changedTouches[0].clientY - mc.$bc.offset().top + document.body.scrollTop;
+            x = x/mc.zoom;
+            y= y/mc.zoom;
+            mc.continue(x, y);
+            return false;
+        });
+        $('#canvas-container').on('touchend', function (e) {
+            var x = e.originalEvent.changedTouches[0].clientX - mc.$bc.offset().left + document.body.scrollLeft;
+            var y = e.originalEvent.changedTouches[0].clientY - mc.$bc.offset().top + document.body.scrollTop;
+            x = x/mc.zoom;
+            y= y/mc.zoom;
+            mc.end(x, y);
+            return false;
+        });
     };
+
     return bindEvent;
 });

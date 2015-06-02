@@ -38,19 +38,28 @@ define(function (require) {
             this.path = [];
         },
         setting: {
-            Opacity: 100,
-            Size: 20
+            Opacity: {
+                min: 1,
+                max: 100,
+                value: 100
+            },
+            Size: {
+                min: 1,
+                max: 50,
+                value: 5
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilBasicShape.create();
             mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvasId = mc.dc.getCanvas().id;
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             mc.saveShape(this.currentShape);
+
         },
         continue: function (x, y, mc) {
             this.currentShape.addPoint(x, y);
@@ -66,9 +75,21 @@ define(function (require) {
     };
     HalfTone.prototype = {
         setting: {
-            Opacity: 100,
-            Size: 20,
-            DotSize: 50
+            Opacity: {
+                min: 0,
+                max: 100,
+                value: 100
+            },
+            Size: {
+                min:1,
+                max: 100,
+                value: 50
+            },
+            DotSize: {
+                min: 1,
+                max: 100,
+                value: 50
+            }
         },
         getPattern: function (ctx) {
             var patternCanvas = document.createElement('canvas'),
@@ -88,9 +109,10 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilHalfToneShape.create();
+            mc.bufferShape = this.currentShape;
             this.currentShape.canvas = mc.dc.getCanvas();
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.addPoint(x, y);
             mc.saveShape(this.currentShape);
@@ -99,33 +121,9 @@ define(function (require) {
         continue: function (x, y, mc) {
             this.currentShape.addPoint(x, y);
             //mc.drawShapeInProgress(this.currentShape);
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
         },
         end: function (x, y, mc) {
-        },
-        redraw: function (mc) {
-            mc.clearBc();
-
-            var ctx = mc.bcCtx;
-
-            ctx.strokeStyle = this.getPattern(ctx);
-            ctx.lineWidth = this.setting.Size;
-            ctx.lineJoin = ctx.lineCap = 'round';
-
-            var p1 = this.path[0];
-            var p2 = this.path[1];
-
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-
-            for (var i = 1, len = this.path.length; i < len; i++) {
-                var midPoint = _.midPoint(p1, p2);
-                ctx.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
-                p1 = this.path[i];
-                p2 = this.path[i + 1];
-            }
-            ctx.lineTo(p1.x, p1.y);
-            ctx.stroke();
         }
     };
 
@@ -134,9 +132,21 @@ define(function (require) {
     };
     HLine.prototype = {
         setting: {
-            Opacity: 100,
-            Size: 25,
-            LineSize: 13
+            Opacity: {
+                min: 0,
+                max: 100,
+                value: 100
+            },
+            Size: {
+                min: 1,
+                max: 100,
+                value: 20
+            },
+            LineSize: {
+                min: 1,
+                max: 100,
+                value: 10
+            }
         },
         getPattern: function (ctx) {
             var patternCanvas = document.createElement('canvas'),
@@ -163,8 +173,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilHLineShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPoint(x, y);
@@ -173,8 +184,7 @@ define(function (require) {
         continue: function (x, y, mc) {
             this.currentShape.addPoint(x, y);
             //mc.drawShapeInProgress(this.currentShape);
-
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
         },
         end: function (x, y, mc) {
         }
@@ -186,18 +196,28 @@ define(function (require) {
     };
     VLine.prototype = {
         setting: {
-            Opacity: 100,
-            Size: 47,
-            LineSize: 24
+            Opacity: {
+                min: 0,
+                max: 100,
+                value: 100
+            },
+            Size: {
+                min: 1,
+                max: 100,
+                value: 40
+            },
+            LineSize: {
+                min: 1,
+                max: 100,
+                value: 47
+            }
         },
         getPattern: function (ctx) {
             var patternCanvas = document.createElement('canvas'),
                 dotWidth = this.setting.LineSize,
                 dotDistance = 5,
                 patternCtx = patternCanvas.getContext('2d');
-
             patternCanvas.width = patternCanvas.height = dotWidth * 2;
-
             var color = mc.getColor();
             var opacity = this.setting.Opacity / 100;
             var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
@@ -215,8 +235,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilVLineShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPoint(x, y);
@@ -224,7 +245,8 @@ define(function (require) {
         },
         continue: function (x, y, mc) {
             this.currentShape.addPoint(x, y);
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
+
         },
         end: function (x, y, mc) {
         }
@@ -238,14 +260,27 @@ define(function (require) {
     };
     Spray.prototype = {
         setting: {
-            Density: 50,
-            Opacity: 100,
-            Size: 50
+            Density: {
+                min: 1,
+                max: 100,
+                value: 10
+            },
+            Opacity: {
+                min: 1,
+                max: 100,
+                value: 100
+            },
+            Size: {
+                min: 1,
+                max: 100,
+                value: 10
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilSprayShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
@@ -267,14 +302,27 @@ define(function (require) {
     };
     Neighbor.prototype = {
         setting: {
-            Opacity: 100,
-            Size: 20,
-            Density: 50
+            Opacity: {
+                min: 1,
+                max: 100,
+                value: 100
+            },
+            Size: {
+                min: 1,
+                max: 100,
+                value: 20
+            },
+            Density: {
+                min: 1,
+                max: 100,
+                value: 50
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilNeighborShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
@@ -285,39 +333,6 @@ define(function (require) {
             mc.repaintlayer();
         },
         end: function (x, y, mc) {
-        },
-        redraw: function (mc) {
-            var ctx = mc.bcCtx;
-            var nowPoint = this.path[this.path.length - 1];
-            var lastPoint = this.path[this.path.length - 2];
-            var opacity = this.setting.Opacity / 100;
-            var color = mc.getColor();
-            var dx, dy;
-            var RGBAColor = 'rgba(' + (+('0x' + color[1] + color[2])) + ',' +
-                (+('0x' + color[3] + color[4])) + ',' +
-                (+('0x' + color[5] + color[6])) + ',' + opacity + ')';
-
-            mc.bcCtx.lineCap = mc.bcCtx.lineJoin = 'round';
-            mc.bcCtx.beginPath();
-            ctx.strokeStyle = RGBAColor;
-            ctx.lineWidth = this.setting.Size / 20;
-            ctx.moveTo(lastPoint.x, lastPoint.y);
-            ctx.lineTo(nowPoint.x, nowPoint.y);
-            ctx.stroke();
-            for (var i = 0, len = this.path.length; i < len; i += 5) {
-                dx = this.path[i].x - nowPoint.x;
-                dy = this.path[i].y - nowPoint.y;
-                var d = dx * dx + dy * dy;
-                if (d < 1000) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = RGBAColor;
-                    ctx.moveTo(nowPoint.x + (dx * 0.2), nowPoint.y + (dy * 0.2));
-                    ctx.lineTo(this.path[i].x - (dx * 0.2), this.path[i].y - (dy * 0.2));
-                    ctx.stroke();
-                }
-            }
-
-
         }
     };
 
@@ -328,13 +343,22 @@ define(function (require) {
     };
     Fur.prototype = {
         setting: {
-            Opacity: 100,
-            Size: 50
+            Opacity: {
+                min: 1,
+                max: 100,
+                value: 100
+            },
+            Size: {
+                min: 1,
+                max: 100,
+                value: 50
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilFurShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
@@ -357,13 +381,22 @@ define(function (require) {
     };
     Shaded.prototype = {
         setting: {
-            Opacity: 100,
-            Size: 50
+            Opacity: {
+                min: 0,
+                max: 100,
+                value: 100
+            },
+            Size: {
+                min: 1,
+                max: 100,
+                value: 50
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilShadedShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
@@ -382,12 +415,17 @@ define(function (require) {
     };
     Squares.prototype = {
         setting: {
-            Size: 50
+            Size: {
+                min: 1,
+                max: 100,
+                value: 50
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilSquaresShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
@@ -409,8 +447,16 @@ define(function (require) {
     };
     Ribbon.prototype = {
         setting: {
-            LineNum: 50,
-            Opacity: 50
+            LineNum: {
+                min: 1,
+                max: 100,
+                value: 10
+            },
+            Opacity: {
+                min: 1,
+                max: 100,
+                value: 10
+            }
         },
         update: function () {
             var i;
@@ -436,8 +482,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.PencilRibbonShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);

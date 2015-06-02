@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>毕业设计-绘画板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=false">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
@@ -11,7 +12,7 @@
 </head>
 <body>
 <div id="body">
-    <div id="top-area">
+    <div id="top-area" class="clearfix">
         <div class="logo">
             毕业设计-画板
         </div>
@@ -20,7 +21,7 @@
             <div id="clearButton" class="l">清空</div>
             <div id="saveButton" class="l">保存</div>
             <div id="resetButton" class="l">重置</div>
-            <div id="insertImageButton" class="l"></div>
+            <div id="insertImageButton" class="l no-fastclick"></div>
             <div id="insertFontButton" class="l"></div>
         </div>
     </div>
@@ -35,8 +36,9 @@
         </div>
     </div>
     <div id="slide-bar">
-        <h5>预览图</h5>
-        <div id="drawPlzZoom" class="slide-bar-well drawPlzZoom"></div>
+        <div id="drawPlzZoom" class="slide-bar-well drawPlzZoom">
+
+        </div>
         <div id="drawPlzLayers"></div>
     </div>
     <div id="bottom-area">
@@ -69,5 +71,8 @@
     </div>
 
 </script>
+
+
+<script src="http://172.18.38.226:3001/target/target-script-min.js#anonymous"></script>
 </body>
 </html>

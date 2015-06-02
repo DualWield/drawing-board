@@ -1,3 +1,9 @@
+/**
+ * @file MyCanvas.js
+ * @author xuli@shnow.cn
+ * @description manage the canvas application
+ * @date 2015.02.02
+ * */
 define(function (require) {
     var bindEvent = require('core/bindEvent');
 
@@ -11,15 +17,17 @@ define(function (require) {
     var store = require('lib/store');
 
 
-    function MyCanvas() {
+    function MyCanvas(options) {
+        options = options || {};
         //从ls中取出数据备用
         this.shapesData = store.get('shapes');
         this.canvasData = store.get('canvas');
         //this.width = $(window).width() - 300;
         //this.height = $(window).height() - $('#top-area').height() - $('#bottom-area').height();
-        this.width = 1006;
-        this.height = 453;
+        this.width = options.width || 1006;
+        this.height = options.height || 453;
         this.mediator = new Mediator();
+
 
         this.$dcWrap = $('.draw-pic-canvas')
             .css({
@@ -34,6 +42,8 @@ define(function (require) {
 
         this.tool = Tools.pencil;
 
+        this.isZoomEnable = typeof options.isZoomEnable == 'undefined';
+        this.isLayerEnable = typeof options.isLayerEnable == 'undefined';
         this.canDraw = 1;
         this.shapes = [];
         this.undoStack = [];
@@ -46,17 +56,25 @@ define(function (require) {
         this.zoom = 1; //缩放
 
         this.dc = new DrawCanvas(this);
+        this.mainCanvas = document.createElement('canvas');
+        this.mainCanvas.setAttribute('width', this.width);
+        this.mainCanvas.setAttribute('height', this.height);
+        this.mainCanvasCtx = this.mainCanvas.getContext('2d');
         //新加一个背景的layer
+
         if(!this.canvasData){
             this.dc.addCanvas({name: 'background', mc: this});
         }else {
             if(this.canvasData){
                 //复原canvas
-                _.each(this.canvasData, function (canvasString) {
-                    var obj = JSON.parse(canvasString);
+                //setTimeout(function () {
+                    _.each(this.canvasData, function (canvasString) {
+                        var obj = JSON.parse(canvasString);
                         this.dc.addCanvas(obj);
-                }.bind(this));
-                this.mediator.publish('onChangeLayer');
+                    }.bind(this));
+                //}.bind(this), 0);
+
+                //this.mediator.publish('onChangeLayer');
 
             }
         }
@@ -66,7 +84,8 @@ define(function (require) {
         bindEvent(this);
         this.refreshStyle();
 
-
+        this.mediator.subscribe('onChangeLayer', this.cloneToZoomCanvas.bind(this));
+        this.mediator.subscribe('drawOnchange', this.cloneToZoomCanvas.bind(this));
         setTimeout(function () {
             this.recoverFromLS();
         }.bind(this),0)
@@ -151,13 +170,15 @@ define(function (require) {
         repaintlayer: function () {
             var canvasArr = this.dc.canvasArr;
             var i, len;
-            for(i = 0, len = canvasArr.length; i< len ; i++){
+            for (i = 0, len = canvasArr.length; i < len; i++) {
                 canvasArr[i].clear();
             }
+
             for (i = 0, len = this.shapes.length; i < len; i++) {
                 var shape = this.shapes[i];
                 shape.draw(shape.canvas.canvas[0]);
             }
+
             this.saveJsonToLS();
         },
         repaintBufferLayer: function () {
@@ -169,7 +190,7 @@ define(function (require) {
             var newShapes = [];
             var currentCanvas = this.dc.getCanvas();
             _.each(this.shapes, function (shape) {
-                if(shape.canvas != currentCanvas){
+                if (shape.canvas != currentCanvas) {
                     newShapes.push(shape);
                 }
             });
@@ -186,8 +207,10 @@ define(function (require) {
             return !!this.redoStack.length;
         },
         execute: function (action) {
+
             this.undoStack.push(action);
             action.do();
+
             this.redoStack = [];
         },
         undo: function () {
@@ -210,11 +233,16 @@ define(function (require) {
         },
         saveJsonToLS: function () {
             /*  把shapes 转化成json 存进ls里面 */
+
+
             var shapesJSONArr = [];
             _.each(this.shapes, function (shape) {
                 shapesJSONArr.push(shape.convertToJSON());
             });
+
             store.set('shapes', shapesJSONArr);
+
+
             /* 把Layer/Canvas 转化成json 存进ls里面 */
             var CanvasJSONArr = [];
             _.each(this.dc.canvasArr, function (canvas) {
@@ -226,18 +254,18 @@ define(function (require) {
             //鉴于可能会有图片从ls中加载进来，这里进行预加载操作
             var shapesArr = this.shapesData;
             var imageArr = [];
-            if(shapesArr && shapesArr.length !== 0){
+            if (shapesArr && shapesArr.length !== 0) {
                 _.each(shapesArr, function (shapeString) {
                     var obj = JSON.parse(shapeString);
-                    if(obj.name == 'ImageShape'){
+                    if (obj.name == 'ImageShape') {
                         imageArr.push(obj.url);
                     }
                 });
             }
-            function nextTip(){
+            function nextTip() {
                 this.shapes = [];
 
-                if(this.shapesData){
+                if (this.shapesData) {
                     _.each(this.shapesData, function (shapeString) {
                         var obj = JSON.parse(shapeString);
                         var shape = require('core/shapes')[obj.name].create(obj);
@@ -255,17 +283,26 @@ define(function (require) {
                 }
                 //this.repaintlayer();
             }
-            if(imageArr.length == 0){
+
+            if (imageArr.length == 0) {
                 nextTip.apply(this);
-            }else{
+            } else {
                 _.preloadimages(imageArr).done(nextTip.bind(this));
             }
 
 
         },
         saveImage: function (type) {
-            var zoomCanvas = $('#zoom-canvas')[0];
-            window.open(zoomCanvas.toDataURL());
+            var zoomCanvas = this.mainCanvas;
+            var a = $("<a>")
+                .attr("href", zoomCanvas.toDataURL())
+                .attr("download", "img.png")
+                .appendTo("body");
+            a[0].click();
+            a.remove();
+            /*      var zoomCanvas = $('#zoom-canvas')[0];
+
+             window.open(zoomCanvas.toDataURL());*/
         },
         reset: function () {
             this.shapes = [];
@@ -296,14 +333,25 @@ define(function (require) {
         removeLeftModel: function () {
             $('.left-model').remove();
         },
-        addLeftModel: function () {
-
-
+        cloneToZoomCanvas: function () {
+            var ctx = this.isZoomEnable ? $('#zoom-canvas')[0].getContext('2d') : this.mainCanvasCtx;
+            ctx.clearRect(0, 0, this.width, this.height);
+            var orderArr = this.dc.getOrderArr(this.dc.canvasArr);
+            var i = orderArr.length;
+            while(i--){
+                if(orderArr[i].visibility){
+                    ctx.globalAlpha = orderArr[i].opacity;
+                    ctx.drawImage(orderArr[i].canvas[0], 0, 0);
+                }
+            }
+            if(this.isZoomEnable){
+                require('jsx!component/layer').init(this);
+            }
+            require('jsx!component/undoRedoButtons').init(this);
+            this.repaintlayer();
+            this.bc.width = this.bc.width;
         }
-        
-
     };
-
 
     return MyCanvas;
 });

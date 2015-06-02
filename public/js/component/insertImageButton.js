@@ -17,7 +17,7 @@ define(function (require) {
         render: function () {
             this.element = $('#' + this.id);
             this.element.html('' +
-            '<div class="btn btn-default">插入图片</div><form id="uploadForm" \
+            '<a class="btn btn-default no-fastclick">插入图片</a><form id="uploadForm" \
             enctype="multipart/form-data"\
             action="/api/photos"\
             method="post"\
@@ -34,6 +34,7 @@ define(function (require) {
                /* $('#uploadForm').ajaxSubmit({
                     success: this.uploadSuccess.bind(this)
                 });*/
+                
                 var preview = document.querySelector('img');
                 var file    = document.querySelector('#uploadImage').files[0];
                 var reader  = new FileReader();
@@ -60,7 +61,10 @@ define(function (require) {
         },
         addTopBlur: function () {
             var top = $('#top-area');
-            $('<div class="top-stop-touch">').insertAfter(top);
+            $('<div class="top-stop-touch">').insertAfter(top).css({
+                width: top.width(),
+                height: top.outerHeight()
+            });
             top.addClass('blur');
         },
         removeBottomBlur: function () {

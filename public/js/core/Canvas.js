@@ -69,9 +69,7 @@ define(function (reuquire) {
                 visibility: this.visibility
             };
             return JSON.stringify(obj);
-
         }
-
     });
     return Canvas;
 });

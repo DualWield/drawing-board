@@ -26,12 +26,17 @@ define(function (require) {
     };
     Basic.prototype = {
         setting: {
-            Border: 50
+            Border: {
+                min: 1,
+                max: 100,
+                value: 50
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.RectBasicShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.canvasId = mc.dc.getCanvas().id;
@@ -40,7 +45,7 @@ define(function (require) {
         },
         continue: function (x, y, mc) {
             this.currentShape.path[1] = {x:x, y:y};
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
         },
         end: function (x, y, mc) {
         }
@@ -54,8 +59,9 @@ define(function (require) {
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.RectSolidShape.create();
+            mc.bufferShape = this.currentShape;
             _.each(this.setting, function (value, key) {
-                this.currentShape.setting[key] = value;
+                this.currentShape.setting[key] = value.value;
             }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.canvasId = mc.dc.getCanvas().id;
@@ -64,7 +70,7 @@ define(function (require) {
         },
         continue: function (x, y, mc) {
             this.currentShape.path[1] = {x:x, y:y};
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
         },
         end: function (x, y, mc) {
         }

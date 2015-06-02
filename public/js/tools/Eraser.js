@@ -24,10 +24,18 @@ define(function (require) {
     };
     Basic.prototype = {
         setting: {
-            Size: 20
+            Size: {
+                min: 1,
+                max: 100,
+                value: 20
+            }
         },
         begin: function (x, y, mc) {
             this.currentShape = shapes.EraserShape.create();
+            mc.bufferShape = this.currentShape;
+            _.each(this.setting, function (value, key) {
+                this.currentShape.setting[key] = value.value;
+            }.bind(this));
             this.currentShape.canvas = mc.dc.getCanvas();
             this.currentShape.addPath(x, y);
             this.currentShape.createDrawPath();

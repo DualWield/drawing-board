@@ -56,10 +56,10 @@ define(function (require) {
             }.bind(this));
             return (
                 <div>
-                    <div className="mainTool">
+                    <div className="mainTool clearfix">
                         {mainToolNodes}
                     </div>
-                    <div className="subTool">
+                    <div className="subTool clearfix">
                     {subToolNodes}
                     </div>
                 </div>

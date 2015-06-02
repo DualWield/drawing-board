@@ -30,7 +30,9 @@ define(function (require) {
     AddShapeAction.prototype = {
         do: function () {
             mc.shapes.push(this.shape);
-            mc.repaintlayer();
+            mc.repaintBufferLayer();
+            //mc.repaintlayer();
+
         },
         undo: function () {
             mc.shapes.pop();
