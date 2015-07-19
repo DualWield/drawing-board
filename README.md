@@ -8,10 +8,9 @@
 - 历史
 - 笔刷选择
 - 插入图片
-
-
-# Get Started
+- 插入文字
+- 放大缩小
 
 # Demo
 
-http://draw-board.herokuapp.com/
+http://drawboard.sinaapp.com/
